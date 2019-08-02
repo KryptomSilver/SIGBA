@@ -1,0 +1,98 @@
+		* {
+		    margin: 0px;
+		    padding: 0px;
+		}
+
+		#header {
+		    width: 100%;
+		    font-family: Arial, Helvetica, sans-serif;
+		    height: 38px;
+		    background-color: rgb(185, 125, 14);
+		}
+
+		/*Menu*/
+		ul,
+		ol {
+		    list-style: none;
+		}
+
+		.nav>li {
+		    float: left;
+		}
+
+		.nav li a {
+		    background-color: rgb(185, 125, 14);
+		    color: #fff;
+		    text-decoration: none;
+		    padding: 10px 20px;
+		    display: block;
+		}
+
+		.nav li a:hover {
+		    background-color: #303130;
+		}
+
+		.nav li ul {
+		    display: none;
+		    position: absolute;
+		    width: 180px;
+		}
+
+		.nav li:hover>ul {
+		    display: block;
+		}
+
+		.nav li ul li {
+		    position: relative;
+		}
+
+		.nav li ul li ul {
+		    right: -180px;
+		    top: 0px;
+		}
+
+		/*error de aliniacion*/
+		/*.nav li ul li ul .err{
+		    right: -34px;
+		    top: 0px;
+        }*/
+		/*Titulo*/
+		.titulo {
+		    text-align: center
+		}
+
+		/*Logo titulo*/
+		.logo {
+		    padding-right: 10px;
+		}
+
+		/*Formulario*/
+		.formulario {
+		    height: 100%;
+		    padding: 50px 50px;
+		    text-align: center;
+		    /*background-color: #303130;*/
+		}
+		div.formulario {
+		    margin-right: 100px;
+            margin-left: 100px;
+            border: 1px solid black;
+            border-radius: 4px;
+		}
+		.controls {
+            border-radius: 4px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            width: 50%;
+            height: 20px;
+        }
+        .controls:hover{
+            
+            background-color: #fff;
+            border-color: #80bdff;
+            outline: 0;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+        .controls-label{
+            padding: 12px 12px;
+        }
