@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <form action="">
+        <label for="inp-curp">CURP:</label>
+        <input type="text" id="inp-curp" name="curp" required
+            pattern="^([A-Z]{4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM](AS|BC|BS|CC|CL|CM|CS|CH|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[A-Z]{3}[0-9A-Z]\d)$" />
+        <button type="submit">Probar</button>
+    </form>
+    <form action="">
+        <label for="inp-curp">RFC:</label>
+        <input type="text" id="inp-curp" name="curp" required
+            pattern="^([A-Z]{4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])([1-9A-NP-Z]{2})([0-9]|A)$" />
+        <button type="submit">Probar</button>
+    </form>
+</body>
+
+</html>
