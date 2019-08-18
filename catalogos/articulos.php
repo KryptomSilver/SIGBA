@@ -24,30 +24,43 @@
     <br>
     <main>
         <section>
-            <div class="formulario">
-                <h1 class="titulo">Articulos</h1>
+            <div  class="formulario articulos">
+                <h1 class="titulo">Artículos</h1>
                 <form action="" method="post">
                     <div class="row">
-                        <div class="col-12">
-
+                        <div class="col-3"></div>
+                        <div class="col-6">
                             <label class="controls-label">Nombre:</label>
                             <input class="controls" type="text">
-
                         </div>
+                        <div class="col-3"></div>
                     </div>
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col-3"></div>
+                        <div class="col-6">
                             <label class="controls-label">Unidad de Medida:</label>
                             <input type="text" class="controls">
                         </div>
+                        <div class="col-3"></div>
                     </div>
-                    <li>
-                        <button type="submit">Registrar</button>
-                    </li>
+                    <div class="row">
+                        <div class="col-4"></div>
+                        <div class="col-3">
+                        <button type="submit">Cancelar</button>
+                        </div>
+                        <div class="col-2"></div>
+                        <div class="col-3">
+                        <button type="submit">Guardar</button>
+                        </div>
+                        
+                    </div>
                 </form>
             </div>
         </section>
     </main>
+    <?php
+    require('footer.html');
+    ?>
 </body>
 
 </html>

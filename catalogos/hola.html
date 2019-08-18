@@ -6,6 +6,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <script>
+        document.addEventListener("DOMContentLoaded", function (e) {
+            var botonInnnerText = document.getElementById('btn-inner-text');
+            var botonTextNodes = document.getElementById('btn-text-nodes');
+            var botonInnerHTML = document.getElementById('btn-inner-html');
+            var myArticule = document.getElementById('my-articules');
+            botonInnnerText.addEventListener('click', function (e) {
+                alert(myArticule.innerText);
+            });
+            botonTextNodes.addEventListener('click', function (e) {
+                var text = "";
+                for (var node of myArticule.childNodes) {
+                    if (node.nodeType == Node.TEXT_NODE) {
+                        text += node.textContent;
+                    }
+                }
+                alert(text);
+            });
+            botonInnerHTML.addEventListener('click', function (e) {
+                alert(myArticule.innerHTML);
+            });
+            var botonAddParagraph = document.getElementById('btn-add-paragraph');
+            botonAddParagraph.addEventListener('click', function(e){
+                var content = prompt("Contenido del parrafo");
+                var p = document.createElement('p');
+                p.innerText = content;
+                myArticule.appendChild(p);
+            })
+        });
+    </script>
 </head>
 
 <body>
@@ -21,6 +51,22 @@
             pattern="^([A-Z]{4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])([1-9A-NP-Z]{2})([0-9]|A)$" />
         <button type="submit">Probar</button>
     </form>
+    <article id="my-articules">
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni earum pariatur temporibus commodi saepe
+            consectetur sequi architecto. Sit commodi illo facere eius adipisci, aut voluptate doloribus porro iusto,
+            sapiente rem!</p>
+        mdislkm
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque provident et deserunt optio officiis impedit
+            aperiam quibusdam numquam quas magni? Sequi harum atque quas suscipit hic voluptatibus. Officia, porro
+            libero?</p>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque provident et deserunt optio officiis impedit
+            aperiam quibusdam numquam quas magni? Sequi harum atque quas suscipit hic voluptatibus. Officia, porro
+            libero?</p>
+    </article>
+    <button id="btn-inner-text">Obtener innerText</button>
+    <button id="btn-text-nodes">Obtener nodos texto</button>
+    <button id="btn-inner-html">Obtener innnerHTML</button>
+    <button id="btn-add-paragraph">Agregar parrafo</button>
 </body>
 
 </html>

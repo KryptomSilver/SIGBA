@@ -28,12 +28,22 @@
             <div class="formulario">
                 <h1 class="titulo">Proyectos</h1>
                 <form action="" method="post">
-                <div class="row">
+                    <div class="row">
                         <div class="col-6">
-                            <label class="controls-label">Razon social:</label>
-                            <input class="controls control" type="text">
+                            <label class="controls-label">Recibo:</label>
                         </div>
-                        <div class="col-6">
+                        <div class="col-3"><label class="controls-label-radio" for="si">Si</label><input
+                                class="controls-radio" type="radio" name="recibo" id="si"></div>
+                        <div class="col-3"><label class="controls-label-radio" for="no">No</label><input
+                                class="controls-radio" type="radio" name="recibo" id="no"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-8">
+                            <label class="controls-label">Razon social:</label>
+                            <input class="controls " type="text">
+                        </div>
+
+                        <div class="col-4">
                             <label class="controls-label">RFC:</label>
                             <input type="text" class="controls">
                         </div>
@@ -41,29 +51,31 @@
                     <div class="row">
                         <div class="col-6">
                             <label class="controls-label">Calle:</label>
-                            <input type="text" class="controls control">
+                            <input type="text" class="controls">
                         </div>
-                        <div class="col-6">
+                        <div class="col-3">
                             <label class="controls-label">Num Int:</label>
+                            <input type="text" class="controls ">
+                        </div>
+                        <div class="col-3">
+                            <label class="controls-label">Num Ext:</label>
                             <input type="text" class="controls">
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-6">
-                            <label class="controls-label">Num Ext:</label>
-                            <input type="text" class="controls control">
-                        </div>
-                        <div class="col-6">
+
+                        <div class="col-9">
                             <label class="controls-label">Colonia:</label>
                             <input type="text" class="controls">
                         </div>
+                        <div class="col-3">
+                            <label class="controls-label">Codigo Postal:</label>
+                            <input type="text" class="controls ">
+                        </div>
                     </div>
                     <div class="row">
-                        <div class="col-6">
-                            <label class="controls-label">Codigo Postal:</label>
-                            <input type="text" class="controls control">
-                        </div>
-                        <div class="col-6">
+
+                        <div class="col-12">
                             <label class="controls-label">Nombre de contacto:</label>
                             <input type="text" class="controls">
                         </div>
@@ -71,7 +83,7 @@
                     <div class="row">
                         <div class="col-6">
                             <label class="controls-label">Telefono:</label>
-                            <input type="text" class="controls control">
+                            <input type="text" class="controls">
                         </div>
                         <div class="col-6">
                             <label class="controls-label">Celular:</label>
@@ -85,17 +97,23 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-6">
-                            <button class="centrado"type="submit">Cancelar</button>
+                        <div class="col-4"></div>
+                        <div class="col-3">
+                            <button type="submit">Cancelar</button>
                         </div>
-                        <div class="col-6">
-                            <button  class="centrado"type="submit">Registrar</button>
+                        <div class="col-2"></div>
+                        <div class="col-3">
+                            <button type="submit">Guardar</button>
                         </div>
+
                     </div>
                 </form>
             </div>
         </section>
     </main>
+    <?php
+    require('footer.html');
+    ?>
 </body>
 
 </html>
