@@ -6,9 +6,11 @@
     <link rel="shortcut icon" href="../img/logo.webp" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../Frameworks/datatables.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="../Frameworks/datatables.css">
     <link rel="stylesheet" href="../Frameworks/css/normalize.css">
     <link rel="stylesheet" href="../Frameworks/css/estilo.css">
-    <link rel="shortcut icon" href="img/logo.webp" type="image/x-icon">
+
     <title>SIGBA</title>
 </head>
 
@@ -17,6 +19,7 @@
     <div>
         <h1 class="titulo"><span><img src="../img/logo.webp" class="logo"></span>BANCO DE ALIMENTOS DE COLIMA</h1>
     </div>
+
     <?php
     require('header.html');
     ?>
@@ -24,88 +27,43 @@
     <br>
     <main>
         <section>
-            <div class="formulario">
+            <div class="formulario articulos">
+                <br>
                 <h1 class="titulo">Proveedores</h1>
                 <form action="" method="post">
                     <div class="row">
-                        <div class="col-12">
-                            <select name="" id="" hidden>
-                                <option value="">Provedore</option>
-                                <option value="">Donadore</option>
-                                <option value="">Proyecto</option>
-                                <option value="">Banco de Alimentos</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-8">
-                            <label class="controls-label">Razon social:</label>
-                            <input class="controls " type="text">
-                        </div>
-
-                        <div class="col-4">
-                            <label class="controls-label">RFC:</label>
-                            <input type="text" class="controls">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-6">
-                            <label class="controls-label">Calle:</label>
-                            <input type="text" class="controls">
-                        </div>
+                        <div class="col-9"></div>
                         <div class="col-3">
-                            <label class="controls-label">Num Int:</label>
-                            <input type="text" class="controls ">
-                        </div>
-                        <div class="col-3">
-                            <label class="controls-label">Num Ext:</label>
-                            <input type="text" class="controls">
+                            <button type="button" class="btn btn-lg btn-primary" data-href="" data-toggle="modal"
+                                data-target="#exampleModal">Agregar</button>
                         </div>
                     </div>
-                    <div class="row">
-
-                        <div class="col-9">
-                            <label class="controls-label">Colonia:</label>
-                            <input type="text" class="controls">
-                        </div>
-                        <div class="col-3">
-                            <label class="controls-label">Codigo Postal:</label>
-                            <input type="text" class="controls ">
-                        </div>
-                    </div>
-                    <div class="row">
-
-                        <div class="col-12">
-                            <label class="controls-label">Nombre de contacto:</label>
-                            <input type="text" class="controls">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-6">
-                            <label class="controls-label">Telefono:</label>
-                            <input type="text" class="controls">
-                        </div>
-                        <div class="col-6">
-                            <label class="controls-label">Celular:</label>
-                            <input type="text" class="controls">
-                        </div>
-                    </div>
+                    <br>
                     <div class="row">
                         <div class="col-12">
-                            <label class="controls-label">Correo:</label>
-                            <input type="text" class="controls">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-4"></div>
-                        <div class="col-3">
-                            <button type="submit">Cancelar</button>
-                        </div>
-                        <div class="col-2"></div>
-                        <div class="col-3">
-                            <button type="submit">Guardar</button>
-                        </div>
+                            <table id="example" class="table table-striped table-bordered" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>RFC</th>
+                                        <th>Razón social</th>
+                                        <th>Nombre de contacto</th>
 
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>RFC</th>
+                                        <th>Razón social</th>
+                                        <th>Nombre de contacto</th>
+
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -114,6 +72,37 @@
     <?php
     require('footer.html');
     ?>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ingrece el RFC</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="proveedoresadd.php" method="get">
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">RFC:</label>
+                            <input type="text" name="rfc" class="form-control" id="recipient-name">
+                        </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Buscar</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </body>
+<script>
+    $(document).ready(function () {
+        $('#example').DataTable();
+    });
+</script>
 
 </html>
