@@ -27,7 +27,7 @@
     <main>
         <section>
             <div class="formulario articulos">
-                <br>
+                
                 <h1 class="titulo">Banco de alimentos</h1>
                 <form action="" method="post">
                     <div class="row">

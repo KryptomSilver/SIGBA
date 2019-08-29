@@ -23,12 +23,12 @@
     <?php
     require('header.html');
     ?>
-    <br>
+   
     <br>
     <main>
         <section>
             <div class="formulario articulos">
-                <br>
+               
                 <h1 class="titulo">Proveedores</h1>
                 <form action="" method="post">
                     <div class="row">

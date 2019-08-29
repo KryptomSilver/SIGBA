@@ -31,7 +31,7 @@
     <main>
         <section>
             <div class="formulario articulos">
-                <br>
+                
                 <h1 class="titulo">Artículos</h1>
                 <form action="" method="post">
                 <div class="row">
@@ -64,7 +64,7 @@
                                         <td><?php echo $row['id'];?></td>
                                         <td><?php echo $row['nombre'];?></td>
                                         <td><?php echo$row['unidad_Medida'];?></td>
-                                        <td><a href="#" data-href="artuiculosupdate.php?id=<?php echo $row['id']; ?>"
+                                        <td><a href="#" data-href="procesos/articulodelete.php?id=<?php echo $row['id']; ?>"
                                                 data-toggle="modal" data-target="#confirm-delete"><img
                                                     src="../img/eliminar.ico" width="30" height="30"
                                                     class="d-inline-block align-top" alt=""></a>
