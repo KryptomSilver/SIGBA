@@ -11,7 +11,7 @@
  Target Server Version : 100138
  File Encoding         : 65001
 
- Date: 02/09/2019 10:05:17
+ Date: 02/09/2019 11:08:22
 */
 
 SET NAMES utf8mb4;
@@ -46,7 +46,7 @@ CREATE TABLE `banco_alimentos`  (
   `celular` varchar(10) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `correo` varchar(30) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for colaboradores
@@ -87,7 +87,7 @@ CREATE TABLE `donadores`  (
   `correo` varchar(30) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `recibo` varchar(50) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for proveedores
@@ -107,7 +107,7 @@ CREATE TABLE `proveedores`  (
   `celular` varchar(10) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `correo` varchar(30) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for proyectos
@@ -128,7 +128,7 @@ CREATE TABLE `proyectos`  (
   `correo` varchar(30) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `recibo` varchar(50) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Procedure structure for sp_AgregarArticulo
@@ -293,14 +293,14 @@ delimiter ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `sp_EditarBanco`;
 delimiter ;;
-CREATE PROCEDURE `sp_EditarBanco`(in `pid` INT(11),IN `prazon_Social` varchar(50), IN `prfc` varchar(13), IN `pcalle` varchar(25), IN `pnum_Interior` varchar(5), IN `pnum_Exterior` varchar(5), IN `pcolonia` varchar(50), IN `pcodPostal` decimal(10), IN `pnombre_Contacto` VARCHAR(50), IN `ptelefono` VARCHAR(10), IN `pcelular` VARCHAR(10), IN `pcorreo` VARCHAR(30))
+CREATE PROCEDURE `sp_EditarBanco`(IN `prazon_Social` varchar(50), IN `prfc` varchar(13), IN `pcalle` varchar(25), IN `pnum_Interior` varchar(5), IN `pnum_Exterior` varchar(5), IN `pcolonia` varchar(50), IN `pcodPostal` decimal(10), IN `pnombre_Contacto` VARCHAR(50), IN `ptelefono` VARCHAR(10), IN `pcelular` VARCHAR(10), IN `pcorreo` VARCHAR(30))
 BEGIN
 	#Routine body goes here...
 	
 	
 	
 	update  banco_alimentos set razon_Social = UPPER(prazon_Social), rfc = UPPER(prfc), calle = UPPER(pcalle), num_Interior = UPPER(pnum_Interior), num_Exterior = UPPER(pnum_Exterior), colonia = UPPER(pcolonia), codPostal = UPPER(pcodPostal), nombre_Contacto = UPPER(pnombre_Contacto), telefono = UPPER(ptelefono), celular = UPPER(pcelular), correo = UPPER(pcorreo)
-	where id =  pid;
+	where rfc =  prfc;
 	
 	select 'Banco Actualizado' AS msg;
 	
@@ -313,14 +313,14 @@ delimiter ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `sp_EditarDonador`;
 delimiter ;;
-CREATE PROCEDURE `sp_EditarDonador`(in `pid` INT(11),IN `prazon_Social` varchar(50), IN `prfc` varchar(13), IN `pcalle` varchar(25), IN `pnum_Interior` varchar(5), IN `pnum_Exterior` varchar(5), IN `pcolonia` varchar(50), IN `pcodPostal` decimal(10), IN `pnombre_Contacto` VARCHAR(50), IN `ptelefono` VARCHAR(10), IN `pcelular` VARCHAR(10), IN `pcorreo` VARCHAR(30), IN `precibo`  VARCHAR(50))
+CREATE PROCEDURE `sp_EditarDonador`(IN `prazon_Social` varchar(50), IN `prfc` varchar(13), IN `pcalle` varchar(25), IN `pnum_Interior` varchar(5), IN `pnum_Exterior` varchar(5), IN `pcolonia` varchar(50), IN `pcodPostal` decimal(10), IN `pnombre_Contacto` VARCHAR(50), IN `ptelefono` VARCHAR(10), IN `pcelular` VARCHAR(10), IN `pcorreo` VARCHAR(30), IN `precibo`  VARCHAR(50))
 BEGIN
 	#Routine body goes here...
 	
 	
 	
 	update  donadores set razon_Social = UPPER(prazon_Social), rfc = UPPER(prfc), calle = UPPER(pcalle), num_Interior = UPPER(pnum_Interior), num_Exterior = UPPER(pnum_Exterior), colonia = UPPER(pcolonia), codPostal = UPPER(pcodPostal), nombre_Contacto = UPPER(pnombre_Contacto), telefono = UPPER(ptelefono), celular = UPPER(pcelular), correo = UPPER(pcorreo) ,recibo = UPPER(precibo)
-	where id =  pid;
+	where rfc =  prfc;
 	
 	select 'Donador Actualizado' AS msg;
 	
@@ -333,14 +333,14 @@ delimiter ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `sp_EditarProveedor`;
 delimiter ;;
-CREATE PROCEDURE `sp_EditarProveedor`(in `pid` INT(11),IN `prazon_Social` varchar(50), IN `prfc` varchar(13), IN `pcalle` varchar(25), IN `pnum_Interior` varchar(5), IN `pnum_Exterior` varchar(5), IN `pcolonia` varchar(50), IN `pcodPostal` decimal(10), IN `pnombre_Contacto` VARCHAR(50), IN `ptelefono` VARCHAR(10), IN `pcelular` VARCHAR(10), IN `pcorreo` VARCHAR(30))
+CREATE PROCEDURE `sp_EditarProveedor`(IN `prazon_Social` varchar(50), IN `prfc` varchar(13), IN `pcalle` varchar(25), IN `pnum_Interior` varchar(5), IN `pnum_Exterior` varchar(5), IN `pcolonia` varchar(50), IN `pcodPostal` decimal(10), IN `pnombre_Contacto` VARCHAR(50), IN `ptelefono` VARCHAR(10), IN `pcelular` VARCHAR(10), IN `pcorreo` VARCHAR(30))
 BEGIN
 	#Routine body goes here...
 	
 	
 	
 	update  proveedores set razon_Social = UPPER(prazon_Social), rfc = UPPER(prfc), calle = UPPER(pcalle), num_Interior = UPPER(pnum_Interior), num_Exterior = UPPER(pnum_Exterior), colonia = UPPER(pcolonia), codPostal = UPPER(pcodPostal), nombre_Contacto = UPPER(pnombre_Contacto), telefono = UPPER(ptelefono), celular = UPPER(pcelular), correo = UPPER(pcorreo)
-	where id =  pid;
+	where rfc =  rfc;
 	
 	select 'Proveedor Actualizado' AS msg;
 	
@@ -353,14 +353,14 @@ delimiter ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `sp_EditarProyecto`;
 delimiter ;;
-CREATE PROCEDURE `sp_EditarProyecto`(in `pid` INT(11),IN `prazon_Social` varchar(50), IN `prfc` varchar(13), IN `pcalle` varchar(25), IN `pnum_Interior` varchar(5), IN `pnum_Exterior` varchar(5), IN `pcolonia` varchar(50), IN `pcodPostal` decimal(10), IN `pnombre_Contacto` VARCHAR(50), IN `ptelefono` VARCHAR(10), IN `pcelular` VARCHAR(10), IN `pcorreo` VARCHAR(30), IN `precibo`  VARCHAR(50))
+CREATE PROCEDURE `sp_EditarProyecto`(IN `prazon_Social` varchar(50), IN `prfc` varchar(13), IN `pcalle` varchar(25), IN `pnum_Interior` varchar(5), IN `pnum_Exterior` varchar(5), IN `pcolonia` varchar(50), IN `pcodPostal` decimal(10), IN `pnombre_Contacto` VARCHAR(50), IN `ptelefono` VARCHAR(10), IN `pcelular` VARCHAR(10), IN `pcorreo` VARCHAR(30), IN `precibo`  VARCHAR(50))
 BEGIN
 	#Routine body goes here...
 	
 	
 	
 	update  proyectos set razon_Social = UPPER(prazon_Social), rfc = UPPER(prfc), calle = UPPER(pcalle), num_Interior = UPPER(pnum_Interior), num_Exterior = UPPER(pnum_Exterior), colonia = UPPER(pcolonia), codPostal = UPPER(pcodPostal), nombre_Contacto = UPPER(pnombre_Contacto), telefono = UPPER(ptelefono), celular = UPPER(pcelular), correo = UPPER(pcorreo) ,recibo = UPPER(precibo)
-	where id =  pid;
+	where rfc =  prfc;
 	
 	select 'Proyecto Actualizado' AS msg;
 	
@@ -494,6 +494,40 @@ END
 delimiter ;
 
 -- ----------------------------
+-- Procedure structure for sp_RFCBanco
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `sp_RFCBanco`;
+delimiter ;;
+CREATE PROCEDURE `sp_RFCBanco`(IN prfc VARCHAR(50))
+BEGIN
+	IF (SELECT count(1)FROM banco_alimentos
+	WHERE RFC	LIKE prfc) = 0 THEN
+	select 'NO' as msg;
+	else 
+	select 'SI' as msg;
+	END IF;
+END
+;;
+delimiter ;
+
+-- ----------------------------
+-- Procedure structure for sp_RFCDonador
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `sp_RFCDonador`;
+delimiter ;;
+CREATE PROCEDURE `sp_RFCDonador`(IN prfc VARCHAR(50))
+BEGIN
+	IF (SELECT count(1)FROM donadores
+	WHERE RFC	LIKE prfc) = 0 THEN
+	select 'NO' as msg;
+	else 
+	select 'SI' as msg;
+	END IF;
+END
+;;
+delimiter ;
+
+-- ----------------------------
 -- Procedure structure for sp_RFCProveedor
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `sp_RFCProveedor`;
@@ -502,11 +536,26 @@ CREATE PROCEDURE `sp_RFCProveedor`(IN prfc VARCHAR(50))
 BEGIN
 	IF (SELECT count(1)FROM proveedores
 	WHERE RFC	LIKE prfc) = 0 THEN
-	select prfc AS msg;
-	select 'No existe' as msg;
+	select 'NO' as msg;
 	else 
-	select * from proveedores where RFC like prfc;
-	select 'Proveedore existente' as msg;
+	select 'SI' as msg;
+	END IF;
+END
+;;
+delimiter ;
+
+-- ----------------------------
+-- Procedure structure for sp_RFCProyecto
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `sp_RFCProyecto`;
+delimiter ;;
+CREATE PROCEDURE `sp_RFCProyecto`(IN prfc VARCHAR(50))
+BEGIN
+	IF (SELECT count(1)FROM proyectos
+	WHERE RFC	LIKE prfc) = 0 THEN
+	select 'NO' as msg;
+	else 
+	select 'SI' as msg;
 	END IF;
 END
 ;;
