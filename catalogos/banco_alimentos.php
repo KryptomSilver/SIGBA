@@ -69,7 +69,7 @@
                                                     src="../img/eliminar.ico" width="30" height="30"
                                                     class="d-inline-block align-top" alt=""></a>
                                             <a href="#"
-                                                data-href="banco_alimentosupdate.php?id=<?php echo $row['id']; ?>"
+                                                data-href="banco_alimentosupdate.php?rfc=<?php echo $row['rfc']; ?>"
                                                 data-toggle="modal" data-target="#confirm-editar"><img
                                                     src="../img/editar.ico" width="30" height="30"
                                                     class="d-inline-block align-top" alt=""></a>
@@ -107,7 +107,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="banco_alimentosadd.php" method="get">
+                    <form action="procesos/searchbanco.php" method="post">
                         <div class="form-group">
                             <label for="recipient-name" class="col-form-label">RFC:</label>
                             <input type="text" name="rfc" class="form-control" id="recipient-name">

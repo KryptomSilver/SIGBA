@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="es">
 <?php 
-$id = $_GET['id'];
+$rfc = $_GET['rfc'];
 require('procesos/conexion.php');
-$sql = " SELECT  * from donadores WHERE id = $id ";
+$sql = " SELECT  * from donadores WHERE rfc = '$rfc' ";
 $resultado = mysqli_query($conn, $sql);
 $rows = mysqli_fetch_array($resultado);
 $recibo=$rows['recibo'];
@@ -34,7 +34,6 @@ $recibo=$rows['recibo'];
             <div class="formulario">
                 <h1 class="titulo">Donadores</h1>
                 <form action="procesos/donadorupdate.php" method="post">
-                <input value="<?php echo $id;?>" class="form-control" name="id" type="text" hidden required>
                 <div class="row">
                         <div class="col-6">
                             <label class="controls-label">Recibo:</label>

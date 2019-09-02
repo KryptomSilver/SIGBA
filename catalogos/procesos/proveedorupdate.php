@@ -1,5 +1,5 @@
 <?php 
-$id = $_POST['id'];
+
 $razon = $_POST['razon'];
 $rfc = $_POST['rfc'];
 $calle = $_POST['calle'];
@@ -12,7 +12,7 @@ $telefono = $_POST['telefono'];
 $celular = $_POST['celular'];
 $correo = $_POST['correo'];
 require('conexion.php');
-$sql = "CALL sp_EditarProveedor('".$id."','".$razon."', '".$rfc."', '".$calle."', '".$numint."', '".$numext."', '".$colonia."', '".$codpostal."', '".$contacto."', '".$telefono."', '".$celular."', '".$correo."');";
+$sql = "CALL sp_EditarProveedor('".$razon."', '".$rfc."', '".$calle."', '".$numint."', '".$numext."', '".$colonia."', '".$codpostal."', '".$contacto."', '".$telefono."', '".$celular."', '".$correo."');";
 
 $resultado = mysqli_query($conn,$sql);
     $row = mysqli_fetch_array($resultado);

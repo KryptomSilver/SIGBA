@@ -11,9 +11,8 @@ $telefono = $_POST['telefono'];
 $celular = $_POST['celular'];
 $correo = $_POST['correo'];
 $recibo = $_POST['recibo'];
-$id = $_POST['id'];
 require('conexion.php');
-$sql = "CALL sp_EditarDonador('".$id."','".$razon."', '".$rfc."', '".$calle."', '".$numint."', '".$numext."', '".$colonia."', '".$codpostal."', '".$contacto."', '".$telefono."', '".$celular."', '".$correo."','".$recibo."');";
+$sql = "CALL sp_EditarDonador('".$razon."', '".$rfc."', '".$calle."', '".$numint."', '".$numext."', '".$colonia."', '".$codpostal."', '".$contacto."', '".$telefono."', '".$celular."', '".$correo."','".$recibo."');";
 
 $resultado = mysqli_query($conn,$sql);
 $row = mysqli_fetch_array($resultado);

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="es">
 <?php 
-$id = $_GET['id'];
+$rfc = $_GET['rfc'];
 require('procesos/conexion.php');
-$sql = " SELECT  * from proveedores WHERE id = $id ";
+$sql = " SELECT  * from proveedores WHERE rfc = '$rfc' ";
 $resultado = mysqli_query($conn, $sql);
 $rows = mysqli_fetch_array($resultado);
 ?>
@@ -32,8 +32,7 @@ $rows = mysqli_fetch_array($resultado);
         <section>
             <div class="formulario z">
                 <h1 class="titulo">Proveedores</h1>
-                <form action="procesos/proveedorupdate.php" method="post">
-                <input value="<?php echo $id;?>" class="form-control" name="id" type="text" hidden required>                    
+                <form action="procesos/proveedorupdate.php" method="post">                    
                     <div class="row">
                         <div class="col-8">
                             <div class="form-group">
