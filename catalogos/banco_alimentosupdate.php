@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="es">
-
+<?php 
+$id = $_GET['id'];
+require('procesos/conexion.php');
+$sql = " SELECT  * from banco_alimentos WHERE id = $id ";
+$resultado = mysqli_query($conn, $sql);
+$rows = mysqli_fetch_array($resultado);
+?>
 <head>
     <meta charset="UTF-8">
     <link rel="shortcut icon" href="../img/logo.webp" type="image/x-icon">
@@ -26,20 +32,20 @@
         <section>
             <div class="formulario z">
                 <h1 class="titulo">Banco de Alimentos</h1>
-                <form action="procesos/banco_alimentoadd.php" method="post">
-                    
+                <form action="procesos/banco_alimentoupdate.php" method="post">
+                <input value="<?php echo $id;?>" class="form-control" name="id" type="text" hidden required>                    
                     <div class="row">
                         <div class="col-8">
                             <div class="form-group">
                                 <label class="">Razon social:</label>
-                                <input class="form-control" name="razon" type="text"required>
+                                <input class="form-control" value="<?php echo $rows['razon_Social'];?>" name="razon" type="text"required>
                             </div>
                         </div>
 
                         <div class="col-4">
                             <div class="form-group">
                                 <label class="">RFC:</label>
-                                <input type="text" name="rfc" class="form-control"required>
+                                <input type="text" name="rfc"value="<?php echo $rows['rfc'];?>"class="form-control"required>
                             </div>
                         </div>
                     </div>
@@ -47,19 +53,19 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label class="">Calle:</label>
-                                <input type="text" name="calle" class="form-control"required>
+                                <input type="text" name="calle" value="<?php echo $rows['calle'];?>" class="form-control"required>
                             </div>
                         </div>
                         <div class="col-3">
                             <div class="form-group">
                                 <label class="">Num Int:</label>
-                                <input type="text" name="numint" class="form-control "required>
+                                <input type="text" name="numint" value="<?php echo $rows['num_Interior'];?>" class="form-control "required>
                             </div>
                         </div>
                         <div class="col-3">
                             <div class="form-group">
                                 <label class="">Num Ext:</label>
-                                <input type="text" name="numext" class="form-control"required>
+                                <input type="text" name="numext" value="<?php echo $rows['num_Exterior'];?>" class="form-control"required>
                             </div>
                         </div>
                     </div>
@@ -68,13 +74,13 @@
                         <div class="col-9">
                             <div class="form-group">
                                 <label class="">Colonia:</label>
-                                <input type="text" name="colonia"class="form-control"required>
+                                <input type="text" value="<?php echo $rows['colonia'];?>" name="colonia"class="form-control"required>
                             </div>
                         </div>
                         <div class="col-3">
                             <div class="form-group">
                                 <label class="">Codigo Postal:</label>
-                                <input type="text" name="codpostal" class="form-control "required>
+                                <input type="text" name="codpostal" value="<?php echo $rows['codPostal'];?>"  class="form-control "required>
                             </div>
                         </div>
                     </div>
@@ -83,7 +89,7 @@
                         <div class="col-12">
                             <div class="form-group">
                                 <label class="">Nombre de contacto:</label>
-                                <input type="text" name="contacto" class="form-control"required>
+                                <input type="text" name="contacto" value="<?php echo $rows['nombre_Contacto'];?>" class="form-control"required>
                             </div>
                         </div>
                     </div>
@@ -91,13 +97,13 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label class="">Telefono:</label>
-                                <input type="text" name="telefono" class="form-control"required>
+                                <input type="text" name="telefono" value="<?php echo $rows['telefono'];?>" class="form-control"required>
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-group">
                                 <label class="">Celular:</label>
-                                <input type="text" name="celular" class="form-control"required>
+                                <input type="text" name="celular" value="<?php echo $rows['celular'];?>"class="form-control"required>
                             </div>
                         </div>
                     </div>
@@ -105,7 +111,7 @@
                         <div class="col-12">
                             <div class="form-group">
                                 <label class="">Correo:</label>
-                                <input type="text" name="correo" class="form-control"required>
+                                <input type="text" name="correo" value="<?php echo $rows['correo'];?>" class="form-control"required>
                             </div>
                         </div>
                     </div>
@@ -127,6 +133,9 @@
     <?php
     require('footer.html');
     ?>
+    
 </body>
+
+
 
 </html>

@@ -32,7 +32,7 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label class="">Nombre:</label>
-                                <input name="nombre" class="form-control" type="text" require>
+                                <input name="nombre" class="form-control" type="text" required>
                             </div>
                         </div>
                         <div class="col-3"></div>
@@ -42,7 +42,7 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label class="">Unidad de Medida:</label>
-                                <input name="medida" type="text" class="form-control" require>
+                                <input name="medida" type="text" class="form-control" required>
                             </div>
                         </div>
                         <div class="col-3"></div>

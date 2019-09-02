@@ -27,7 +27,7 @@
     <main>
         <section>
             <div class="formulario articulos">
-                
+
                 <h1 class="titulo">Banco de alimentos</h1>
                 <form action="" method="post">
                     <div class="row">
@@ -43,22 +43,47 @@
                             <table id="example" class="table table-striped table-bordered" style="width:100%">
                                 <thead>
                                     <tr>
+                                        <th hidden>ID</th>
                                         <th>RFC</th>
                                         <th>Razón social</th>
                                         <th>Nombre de contacto</th>
-
+                                        <th>Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-
-
+                                    <?php
+                                    include('procesos/conexion.php');
+                                    $sql = "select * from banco_alimentos";
+                                    
+                                    $result = mysqli_query($conn, $sql);
+                                    while($row = mysqli_fetch_array($result)) {
+                                    ?>
+                                    <tr>
+                                        <td hidden><?php echo $row['id'];?></td>
+                                        <td><?php echo $row['rfc'];?></td>
+                                        <td><?php echo$row['razon_Social'];?></td>
+                                        <td><?php echo$row['nombre_Contacto'];?></td>
+                                        <td><a href="#"
+                                                data-href="procesos/banco_alimentodelete.php?id=<?php echo $row['id']; ?>"
+                                                data-toggle="modal" data-target="#confirm-delete"><img
+                                                    src="../img/eliminar.ico" width="30" height="30"
+                                                    class="d-inline-block align-top" alt=""></a>
+                                            <a href="#"
+                                                data-href="banco_alimentosupdate.php?id=<?php echo $row['id']; ?>"
+                                                data-toggle="modal" data-target="#confirm-editar"><img
+                                                    src="../img/editar.ico" width="30" height="30"
+                                                    class="d-inline-block align-top" alt=""></a>
+                                        </td>
+                                    </tr>
+                                    <?php } ?>
                                 </tbody>
                                 <tfoot>
                                     <tr>
+                                        <th hidden>ID</th>
                                         <th>RFC</th>
                                         <th>Razón social</th>
                                         <th>Nombre de contacto</th>
-
+                                        <th>Acciones</th>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -96,7 +121,67 @@
             </div>
         </div>
     </div>
+
+    <!--modal eliminar-->
+    <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Eliminar Registro</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+                </div>
+
+                <div class="modal-body">
+                    ¿Desea eliminar este registro?
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-danger btn-ok">Eliminar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- modal editar-->
+    <div class="modal fade" id="confirm-editar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Editar Registro</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+                </div>
+
+                <div class="modal-body">
+                    ¿Desea editar este registro?
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-success btn-ok">Editar</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
+
+<script>
+    $('#confirm-delete').on('show.bs.modal', function (e) {
+        $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+
+        $('.debug-url').html('Delete URL: <strong>' + $(this).find('.btn-ok').attr('href') + '</strong>');
+    });
+</script>
+<script>
+    $('#confirm-editar').on('show.bs.modal', function (e) {
+        $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+
+        $('.debug-url').html('Delete URL: <strong>' + $(this).find('.btn-ok').attr('href') + '</strong>');
+    });
+</script>
 <script>
     $(document).ready(function () {
         $('#example').DataTable();

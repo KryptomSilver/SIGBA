@@ -26,29 +26,20 @@
         <section>
             <div class="formulario z">
                 <h1 class="titulo">Proveedores</h1>
-                <form action="" method="post">
-                    <div class="row">
-                        <div class="col-12">
-                            <select name="" id="" hidden>
-                                <option value="">Provedores</option>
-                                <option value="">Donadores</option>
-                                <option value="">Proyecto</option>
-                                <option value="">Banco de Alimentos</option>
-                            </select>
-                        </div>
-                    </div>
+                <form action="procesos/proveedoradd.php" method="post">
+                    
                     <div class="row">
                         <div class="col-8">
                             <div class="form-group">
-                                <label class="z">Razon social:</label>
-                                <input class="form-control z" type="text">
+                                <label class="">Razon social:</label>
+                                <input class="form-control" name="razon" type="text"required>
                             </div>
                         </div>
 
                         <div class="col-4">
                             <div class="form-group">
                                 <label class="">RFC:</label>
-                                <input type="text" class="form-control">
+                                <input type="text" name="rfc" class="form-control"required>
                             </div>
                         </div>
                     </div>
@@ -56,19 +47,19 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label class="">Calle:</label>
-                                <input type="text" class="form-control">
+                                <input type="text" name="calle" class="form-control"required>
                             </div>
                         </div>
                         <div class="col-3">
                             <div class="form-group">
                                 <label class="">Num Int:</label>
-                                <input type="text" class="form-control ">
+                                <input type="text" name="numint" class="form-control "required>
                             </div>
                         </div>
                         <div class="col-3">
                             <div class="form-group">
                                 <label class="">Num Ext:</label>
-                                <input type="text" class="form-control">
+                                <input type="text" name="numext" class="form-control"required>
                             </div>
                         </div>
                     </div>
@@ -77,13 +68,13 @@
                         <div class="col-9">
                             <div class="form-group">
                                 <label class="">Colonia:</label>
-                                <input type="text" class="form-control">
+                                <input type="text" name="colonia"class="form-control"required>
                             </div>
                         </div>
                         <div class="col-3">
                             <div class="form-group">
                                 <label class="">Codigo Postal:</label>
-                                <input type="text" class="form-control ">
+                                <input type="text" name="codpostal" class="form-control "required>
                             </div>
                         </div>
                     </div>
@@ -92,7 +83,7 @@
                         <div class="col-12">
                             <div class="form-group">
                                 <label class="">Nombre de contacto:</label>
-                                <input type="text" class="form-control">
+                                <input type="text" name="contacto" class="form-control"required>
                             </div>
                         </div>
                     </div>
@@ -100,13 +91,13 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label class="">Telefono:</label>
-                                <input type="text" class="form-control">
+                                <input type="text" name="telefono" class="form-control"required>
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-group">
                                 <label class="">Celular:</label>
-                                <input type="text" class="form-control">
+                                <input type="text" name="celular" class="form-control"required>
                             </div>
                         </div>
                     </div>
@@ -114,7 +105,7 @@
                         <div class="col-12">
                             <div class="form-group">
                                 <label class="">Correo:</label>
-                                <input type="text" class="form-control">
+                                <input type="text" name="correo" class="form-control"required>
                             </div>
                         </div>
                     </div>

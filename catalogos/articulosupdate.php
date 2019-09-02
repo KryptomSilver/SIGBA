@@ -7,6 +7,7 @@ $sql = " SELECT  * from articulo WHERE id = $id ";
 $resultado = mysqli_query($conn, $sql);
 $rows = mysqli_fetch_array($resultado);
 ?>
+
 <head>
     <meta charset="UTF-8">
     <link rel="shortcut icon" href="../img/logo.webp" type="image/x-icon">
@@ -23,7 +24,6 @@ $rows = mysqli_fetch_array($resultado);
     <div>
         <h1 class="titulo"><span><img src="../img/logo.webp" class="logo"></span>BANCO DE ALIMENTOS DE COLIMA</h1>
     </div>
-
     <?php
     require('header.html');
     ?>
@@ -33,13 +33,14 @@ $rows = mysqli_fetch_array($resultado);
             <div class="formulario articulos">
                 <h1 class="titulo">Artículos</h1>
                 <form action="procesos/articuloupdate.php" method="post">
-                <input value="<?php echo $id;?>" class="form-control" name = "id" type="text" hidden require>
+                    <input value="<?php echo $id;?>" class="form-control" name="id" type="text" hidden required>
                     <div class="row">
                         <div class="col-3"></div>
                         <div class="col-6">
                             <div class="form-group">
                                 <label class="">Nombre:</label>
-                                <input value="<?php echo $rows['nombre'];?>" name = "nombre"class="form-control" type="text" require>
+                                <input value="<?php echo $rows['nombre'];?>" name="nombre" class="form-control"
+                                    type="text" required>
                             </div>
                         </div>
                         <div class="col-3"></div>
@@ -49,7 +50,8 @@ $rows = mysqli_fetch_array($resultado);
                         <div class="col-6">
                             <div class="form-group">
                                 <label class="">Unidad de Medida:</label>
-                                <input value="<?php echo $rows['unidad_Medida'];?>" name = "medida"type="text" class="form-control" require>
+                                <input value="<?php echo $rows['unidad_Medida'];?>" name="medida" type="text"
+                                    class="form-control" required>
                             </div>
                         </div>
                         <div class="col-3"></div>
@@ -57,17 +59,16 @@ $rows = mysqli_fetch_array($resultado);
                     <div class="row">
                         <div class="col-4"></div>
                         <div class="col-3">
-                        <div class="form-group">
-                            <button class="btn btn-lg btn-primary" type="reset">Cancelar</button>
-                        </div>
+                            <div class="form-group">
+                                <button class="btn btn-lg btn-primary" type="reset">Cancelar</button>
+                            </div>
                         </div>
                         <div class="col-2"></div>
                         <div class="col-3">
-                        <div class="form-group">
-                            <button class="btn btn-lg btn-primary" type="submit">Guardar</button>
+                            <div class="form-group">
+                                <button class="btn btn-lg btn-primary" type="submit">Guardar</button>
+                            </div>
                         </div>
-                        </div>
-
                     </div>
                 </form>
             </div>
