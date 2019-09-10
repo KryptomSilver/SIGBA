@@ -57,14 +57,14 @@ $rows = mysqli_fetch_array($resultado);
                         </div>
                         <div class="col-3">
                             <div class="form-group">
-                                <label class="">Num Int:</label>
-                                <input type="text" name="numint" value="<?php echo $rows['num_Interior'];?>" class="form-control "required>
+                                <label class="">Num Ext:</label>
+                                <input type="text" name="numint" value="<?php echo $rows['num_Exterior'];?>" class="form-control "required>
                             </div>
                         </div>
                         <div class="col-3">
                             <div class="form-group">
-                                <label class="">Num Ext:</label>
-                                <input type="text" name="numext" value="<?php echo $rows['num_Exterior'];?>" class="form-control"required>
+                                <label class="">Num Int:</label>
+                                <input type="text" name="numext" value="<?php echo $rows['num_Interior'];?>" class="form-control"required>
                             </div>
                         </div>
                     </div>
