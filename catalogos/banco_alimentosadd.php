@@ -41,7 +41,7 @@ $rfc = $_GET['rfc'];
                         <div class="col-4">
                             <div class="form-group">
                                 <label class="">RFC:</label>
-                                <input type="text" value="<?php echo $rfc; ?>"name="rfc" class="form-control"required>
+                                <input type="text" value="<?php echo $rfc; ?>"name="rfc" title="Sirve" pattern="^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1]))([A-Z\d]{3})?$" class="form-control"required>
                             </div>
                         </div>
                     </div>
@@ -55,21 +55,15 @@ $rfc = $_GET['rfc'];
                         <div class="col-3">
                             <div class="form-group">
                                 <label class="">Num Ext:</label>
-<<<<<<< HEAD
                                 <input type="text" name="numext" class="form-control"required>
-=======
-                                <input type="text" name="numext" class="form-control "required>
->>>>>>> ce77a6aea32e885b74218fb79178e4bd27339228
+
                             </div>
                         </div>
                         <div class="col-3">
                             <div class="form-group">
                                 <label class="">Num Int:</label>
-<<<<<<< HEAD
                                 <input type="text" name="numint" class="form-control "required>
-=======
-                                <input type="text" name="numint" class="form-control"required>
->>>>>>> ce77a6aea32e885b74218fb79178e4bd27339228
+
                             </div>
                         </div>
                     </div>
