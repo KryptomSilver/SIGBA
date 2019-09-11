@@ -26,7 +26,7 @@
         <section>
             <div class="formulario articulos">
                 <h1 class="titulo">Artículos</h1>
-                <form action="procesos/articuloadd.php" method="post">
+                <form action="procesos/articuloproceso.php?i=1" method="post">
                     <div class="row">
                         <div class="col-3"></div>
                         <div class="col-6">

@@ -32,7 +32,7 @@ $rows = mysqli_fetch_array($resultado);
         <section>
             <div class="formulario articulos">
                 <h1 class="titulo">Artículos</h1>
-                <form action="procesos/articuloupdate.php" method="post">
+                <form action="procesos/articuloproceso.php?i=3" method="post">
                     <input value="<?php echo $id;?>" class="form-control" name="id" type="text" hidden required>
                     <div class="row">
                         <div class="col-3"></div>

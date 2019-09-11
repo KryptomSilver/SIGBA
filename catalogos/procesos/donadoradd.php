@@ -18,7 +18,7 @@ $resultado = mysqli_query($conn,$sql);
     $row = mysqli_fetch_array($resultado);
     echo "<script>
                 alert('".$row['msg']."');
-                window.location='../donadoresadd.php'
+                window.location='../donadores.php'
     </script>";
 
 mysqli_close($conn);

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="es">
 <?php 
-$rfc = $_GET['rfc'];
+$idpersona = $_GET['idpersona'];
 require('procesos/conexion.php');
-$sql = " SELECT  * from proveedores WHERE rfc = '$rfc' ";
+$sql = " SELECT  * from persona WHERE idpersona = '$idpersona' ";
 $resultado = mysqli_query($conn, $sql);
 $rows = mysqli_fetch_array($resultado);
 ?>

@@ -11,7 +11,9 @@
     <link rel="shortcut icon" href="img/logo.webp" type="image/x-icon">
     <title>SIGBA</title>
 </head>
-
+<?php 
+$rfc = $_GET['rfc'];
+?>
 
 <body>
     <div>
@@ -26,7 +28,7 @@
         <section>
             <div class="formulario z">
                 <h1 class="titulo">Donadores</h1>
-                <form action="procesos/donadoradd.php" method="post">
+                <form action="procesos/donadorproceso.php?i=1" method="post">
                     <div class="row">
                         <div class="col-6">
                             <label class="controls-label">Recibo:</label>
@@ -58,7 +60,7 @@
                         <div class="col-4">
                             <div class="form-group">
                                 <label class="">RFC:</label>
-                                <input type="text" name="rfc" class="form-control" required>
+                                <input type="text" value="<?php echo $rfc;?>"name="rfc" class="form-control" required>
                             </div>
                         </div>
                     </div>
@@ -72,13 +74,21 @@
                         <div class="col-3">
                             <div class="form-group">
                                 <label class="">Num Ext:</label>
+<<<<<<< HEAD
+                                <input type="text" name="numext" class="form-control" required>
+=======
                                 <input type="text" name="numext" class="form-control " required>
+>>>>>>> ce77a6aea32e885b74218fb79178e4bd27339228
                             </div>
                         </div>
                         <div class="col-3">
                             <div class="form-group">
                                 <label class="">Num Int:</label>
+<<<<<<< HEAD
+                                <input type="text" name="numint" class="form-control " required>
+=======
                                 <input type="text" name="numint" class="form-control" required>
+>>>>>>> ce77a6aea32e885b74218fb79178e4bd27339228
                             </div>
                         </div>
                     </div>

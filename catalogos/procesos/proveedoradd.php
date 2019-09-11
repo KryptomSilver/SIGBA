@@ -17,7 +17,7 @@ $resultado = mysqli_query($conn,$sql);
     $row = mysqli_fetch_array($resultado);
     echo "<script>
                 alert('".$row['msg']."');
-                window.location='../proveedoresadd.php'
+                window.location='../proveedores.php'
     </script>";
 
 mysqli_close($conn);

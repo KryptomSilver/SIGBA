@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="es">
 <?php 
-$rfc = $_GET['rfc'];
+$idpersona = $_GET['idpersona'];
 require('procesos/conexion.php');
-$sql = " SELECT  * from banco_alimentos WHERE rfc = '$rfc' ";
+$sql = " SELECT  * from persona WHERE idpersona = '$idpersona' ";
 $resultado = mysqli_query($conn, $sql);
 $rows = mysqli_fetch_array($resultado);
 ?>
@@ -58,13 +58,21 @@ $rows = mysqli_fetch_array($resultado);
                         <div class="col-3">
                             <div class="form-group">
                                 <label class="">Num Ext:</label>
+<<<<<<< HEAD
+                                <input type="text" name="numext" value="<?php echo $rows['num_Exterior'];?>" class="form-control"required>
+=======
                                 <input type="text" name="numint" value="<?php echo $rows['num_Exterior'];?>" class="form-control "required>
+>>>>>>> ce77a6aea32e885b74218fb79178e4bd27339228
                             </div>
                         </div>
                         <div class="col-3">
                             <div class="form-group">
                                 <label class="">Num Int:</label>
+<<<<<<< HEAD
+                                <input type="text" name="numint" value="<?php echo $rows['num_Interior'];?>" class="form-control "required>
+=======
                                 <input type="text" name="numext" value="<?php echo $rows['num_Interior'];?>" class="form-control"required>
+>>>>>>> ce77a6aea32e885b74218fb79178e4bd27339228
                             </div>
                         </div>
                     </div>

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="es">
 <?php 
-$rfc = $_GET['rfc'];
+$idpersona = $_GET['idpersona'];
 require('procesos/conexion.php');
-$sql = " SELECT  * from proyectos WHERE rfc = '$rfc' ";
+$sql = " SELECT  * from idpersona WHERE idpersona = '$idpersona' ";
 $resultado = mysqli_query($conn, $sql);
 $rows = mysqli_fetch_array($resultado);
 $recibo=$rows['recibo'];
@@ -33,27 +33,7 @@ $recibo=$rows['recibo'];
         <section>
             <div class="formulario">
                 <h1 class="titulo">Proyectos</h1>
-                <form action="procesos/proyectoupdate.php" method="post">
-                <div class="row">
-                        <div class="col-6">
-                            <label class="controls-label">Recibo:</label>
-                        </div>
-                        <div class="col-3">
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" value="SI" name="recibo" <?php if($recibo=='SI') print "checked=true"?> type="radio" id="inlineCheckbox1"
-                                    required>
-                                <label class="form-check-label" for="inlineCheckbox1">SI</label>
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" value="NO" name="recibo" <?php if($recibo=='NO') print "checked=true"?> type="radio" id="inlineCheckbox2"
-                                    required>
-                                <label class="form-check-label" for="inlineCheckbox2">NO</label>
-                            </div>
-                        </div>
-                    </div>
-                                    
+                <form action="procesos/proyectoupdate.php" method="post">                           
                     <div class="row">
                         <div class="col-8">
                             <div class="form-group">
@@ -79,13 +59,21 @@ $recibo=$rows['recibo'];
                         <div class="col-3">
                             <div class="form-group">
                                 <label class="">Num Ext:</label>
+<<<<<<< HEAD
+                                <input type="text" name="numext" value="<?php echo $rows['num_Exterior'];?>" class="form-control"required>
+=======
                                 <input type="text" name="numext" value="<?php echo $rows['num_Exterior'];?>" class="form-control "required>
+>>>>>>> ce77a6aea32e885b74218fb79178e4bd27339228
                             </div>
                         </div>
                         <div class="col-3">
                             <div class="form-group">
                                 <label class="">Num Int:</label>
+<<<<<<< HEAD
+                                <input type="text" name="numint" value="<?php echo $rows['num_Interior'];?>" class="form-control "required>
+=======
                                 <input type="text" name="numint" value="<?php echo $rows['num_Interior'];?>" class="form-control"required>
+>>>>>>> ce77a6aea32e885b74218fb79178e4bd27339228
                             </div>
                         </div>
                     </div>

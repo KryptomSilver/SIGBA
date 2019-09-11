@@ -27,7 +27,7 @@
     <br>
     <main>
         <section>
-            <div class="formulario articulos">
+            
                 
                 <h1 class="titulo">Proyectos</h1>
                 <form action="" method="post">
@@ -40,13 +40,18 @@
                     </div>
                     <br>
                     <div class="row">
-                        <div class="col-12">
+                    <div class="col-1"></div>
+                        <div class="col-10">
                             <table id="example" class="table table-striped table-bordered" style="width:100%">
                                 <thead>
                                     <tr>
-                                    <th hidden>ID</th>
-                                        <th>Razon Social</th>
-                                        <th>RFC</th>
+                                    
+                                    <th>RFC</th>
+                                        <th>Razón social</th>
+                                        <th>Nombre de contacto</th>
+                                        <th>Telefono</th>
+                                        <th>Celular</th>
+                                        <th>Colonia</th>
                                         <th>Acciones</th>
                                     </tr>
                                     </tr>
@@ -54,21 +59,26 @@
                                 <tbody>
                                 <?php
                                     include('procesos/conexion.php');
-                                    $sql = "select * from proyectos";
+                                    $sql = "select p.idpersona,p.razon_Social,p.rfc,p.calle,p.num_Interior,p.num_Exterior,p.colonia,p.codPostal,p.nombre_Contacto,p.telefono,p.celular,p.correo from persona_tipo pa
+                                    INNER JOIN persona p on pa.idpersona = p.idpersona
+                                    where idtipo = 4";
                                     
                                     $result = mysqli_query($conn, $sql);
                                     while($row = mysqli_fetch_array($result)) {
                                     ?>
                                     <tr>
-                                        <td hidden><?php echo $row['id'];?></td>
-                                        <td><?php echo $row['razon_Social'];?></td>
+                                        
                                         <td><?php echo$row['rfc'];?></td>
-                                        <td><a href="#" data-href="procesos/proyectodelete.php?id=<?php echo $row['id']; ?>"
+                                        <td><?php echo $row['razon_Social'];?></td>
+                                        <td><?php echo$row['nombre_Contacto'];?></td>
+                                        <td><?php echo$row['telefono'];?></td>
+                                        <td><?php echo$row['celular'];?></td>
+                                        <td><?php echo$row['colonia'];?></td>
+                                        <td><a href="#" data-href="procesos/proyectoproceso.php?id=<?php echo $row['idpersona']; ?>&i=2"
                                                 data-toggle="modal" data-target="#confirm-delete"><img
                                                     src="../img/eliminar.ico" width="30" height="30"
                                                     class="d-inline-block align-top" alt=""></a>
-                                            <a href="#" data-href="proyectosupdate.php?rfc=<?php echo $row['rfc']; ?>"
-                                                data-toggle="modal" data-target="#confirm-editar"><img
+                                            <a href="proyectosupdate.php?idpersona=<?php echo $row['idpersona']; ?>"><img
                                                     src="../img/editar.ico" width="30" height="30"
                                                     class="d-inline-block align-top" alt=""></a>
                                         </td>
@@ -77,18 +87,23 @@
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                    <th hidden>ID</th>
-                                    <th>Razon Social</th>
-                                        <th>RFC</th>
+                                    
+                                    <th>RFC</th>
+                                        <th>Razón social</th>
+                                        <th>Nombre de contacto</th>
+                                        <th>Telefono</th>
+                                        <th>Celular</th>
+                                        <th>Colonia</th>
                                         <th>Acciones</th>
                                     </tr>
                                     </tr>
                                 </tfoot>
                             </table>
                         </div>
+                        <div class="col-1"></div>
                     </div>
                 </form>
-            </div>
+          
         </section>
     </main>
     <?php
@@ -142,38 +157,11 @@
     </div>
 </div>
 <!-- modal editar-->
-<div class="modal fade" id="confirm-editar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel">Editar Registro</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 
-            </div>
-
-            <div class="modal-body">
-                ¿Desea editar este registro?
-            </div>
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-success btn-ok">Editar</a>
-            </div>
-        </div>
-    </div>
-</div>
 </body>
 
 <script>
 $('#confirm-delete').on('show.bs.modal', function (e) {
-    $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
-
-    $('.debug-url').html('Delete URL: <strong>' + $(this).find('.btn-ok').attr('href') + '</strong>');
-});
-</script>
-<script>
-$('#confirm-editar').on('show.bs.modal', function (e) {
     $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
 
     $('.debug-url').html('Delete URL: <strong>' + $(this).find('.btn-ok').attr('href') + '</strong>');
