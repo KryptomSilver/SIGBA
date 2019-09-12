@@ -11,7 +11,7 @@
  Target Server Version : 100138
  File Encoding         : 65001
 
- Date: 11/09/2019 11:24:30
+ Date: 12/09/2019 14:58:19
 */
 
 SET NAMES utf8mb4;
@@ -48,7 +48,7 @@ CREATE TABLE `persona`  (
   `recibo` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `tipoPer` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`idpersona`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 30 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for persona_tipo
@@ -71,6 +71,21 @@ CREATE TABLE `tipo_persona`  (
   `tipo` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   INDEX `idtipo`(`idtipo`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Procedure structure for sp_Actualizar
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `sp_Actualizar`;
+delimiter ;;
+CREATE PROCEDURE `sp_Actualizar`(IN `pid` INT(11),IN `prazon_Social` varchar(50), IN `prfc` varchar(13), IN `pcalle` varchar(25), IN `pnum_Interior` int(11), IN `pnum_Exterior` int(11), IN `pcolonia` varchar(50), IN `pcodPostal` int(11), IN `pnombre_Contacto` VARCHAR(50), IN `ptelefono` int(11), IN `pcelular` VARCHAR(10), IN `pcorreo` VARCHAR(30),in `precibo` VARCHAR(50))
+BEGIN
+
+UPDATE persona set razon_Social = UPPER(prazon_Social), rfc = UPPER(prfc) ,calle = UPPER(pcalle),num_Interior = UPPER(pnum_Interior),num_Exterior =  UPPER(pnum_Exterior),colonia = UPPER(pcolonia),codPostal = UPPER(pcodPostal),nombre_Contacto = UPPER(pnombre_Contacto),telefono = UPPER(ptelefono),celular = UPPER(pcelular),correo = UPPER(pcorreo),recibo =UPPER(precibo) WHERE idpersona =  pid;
+
+select "REGISTRO ACTUALIZADO" as msg;
+END
+;;
+delimiter ;
 
 -- ----------------------------
 -- Procedure structure for sp_AgregarArticulo
