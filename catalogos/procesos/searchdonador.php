@@ -1,5 +1,5 @@
 <?php 
-$rfc = $_POST['rfc'];
+$idpersona = $_POST['idpersona'];
 require('conexion.php');
 $sql = "CALL sp_RFC('".$rfc."')";
 
@@ -8,11 +8,11 @@ $row = mysqli_fetch_array($resultado);
 
 if ($row['msg'] == 'SI') {
     echo "<script>
-    window.location='../donadoresupdate.php?rfc=$rfc'
+    window.location='../donadoresupdate.php?idpersona=$idpersona'
     </script>";
 } else {
     echo "<script>
-    window.location='../donadoresadd.php?rfc=$rfc'
+    window.location='../donadoresadd.php?idpersona=$idpersona'
     </script>";
 }
 mysqli_close($conn);
