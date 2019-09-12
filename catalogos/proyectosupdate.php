@@ -3,10 +3,10 @@
 <?php 
 $idpersona = $_GET['idpersona'];
 require('procesos/conexion.php');
-$sql = " SELECT  * from idpersona WHERE idpersona = '$idpersona' ";
+$sql = " SELECT  * from persona WHERE idpersona = '$idpersona' ";
 $resultado = mysqli_query($conn, $sql);
 $rows = mysqli_fetch_array($resultado);
-$recibo=$rows['recibo'];
+$recibo = $rows['recibo'];
 ?>
 <head>
     <meta charset="UTF-8">
@@ -33,7 +33,8 @@ $recibo=$rows['recibo'];
         <section>
             <div class="formulario">
                 <h1 class="titulo">Proyectos</h1>
-                <form action="procesos/proyectoupdate.php" method="post">                           
+                <form action="procesos/proyectoproceso.php?i=3" method="post"> 
+                <input type="hidden" name="id" value="<?php echo $idpersona;?>">                          
                     <div class="row">
                         <div class="col-8">
                             <div class="form-group">
@@ -45,7 +46,7 @@ $recibo=$rows['recibo'];
                         <div class="col-4">
                             <div class="form-group">
                                 <label class="">RFC:</label>
-                                <input type="text" name="rfc"value="<?php echo $rows['rfc'];?>"class="form-control"required>
+                                <input type="text"  pattern = "^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1]))([A-Z\d]{3})?$" title = "Introduzca un RFC valido" name="rfc"value="<?php echo $rows['rfc'];?>"class="form-control"required>
                             </div>
                         </div>
                     </div>

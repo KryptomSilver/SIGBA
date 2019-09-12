@@ -41,7 +41,7 @@ $rfc = $_GET['rfc'];
                         <div class="col-4">
                             <div class="form-group">
                                 <label class="">RFC:</label>
-                                <input type="text" value="<?php echo $rfc; ?>"name="rfc" title="Sirve" pattern="^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1]))([A-Z\d]{3})?$" class="form-control"required>
+                                <input type="text" value="<?php echo $rfc; ?>"name="rfc" pattern = "^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1]))([A-Z\d]{3})?$" title = "introduzca un RFC valido" class="form-control"required>
                             </div>
                         </div>
                     </div>

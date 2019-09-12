@@ -32,7 +32,8 @@ $rows = mysqli_fetch_array($resultado);
         <section>
             <div class="formulario z">
                 <h1 class="titulo">Proveedores</h1>
-                <form action="procesos/proveedorupdate.php" method="post">                    
+                <form action="procesos/proveedorproceso.php?i=3" method="post">   
+                <input type="hidden" name="id" value="<?php echo $idpersona;?>">                 
                     <div class="row">
                         <div class="col-8">
                             <div class="form-group">
@@ -44,7 +45,7 @@ $rows = mysqli_fetch_array($resultado);
                         <div class="col-4">
                             <div class="form-group">
                                 <label class="">RFC:</label>
-                                <input type="text" name="rfc"value="<?php echo $rows['rfc'];?>"class="form-control"required>
+                                <input type="text" pattern = "^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1]))([A-Z\d]{3})?$" title = "Introduzca un RFC valido" name="rfc"value="<?php echo $rows['rfc'];?>"class="form-control"required>
                             </div>
                         </div>
                     </div>

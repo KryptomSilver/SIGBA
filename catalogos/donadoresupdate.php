@@ -33,7 +33,8 @@ $recibo=$rows['recibo'];
         <section>
             <div class="formulario">
                 <h1 class="titulo">Donadores</h1>
-                <form action="procesos/donadorupdate.php" method="post">
+                <form action="procesos/donadorproceso.php?i=3" method="post">
+                <input type="hidden" name="id" value="<?php echo $idpersona;?>">
                 <div class="row">
                         <div class="col-6">
                             <label class="controls-label">Recibo:</label>
@@ -65,7 +66,7 @@ $recibo=$rows['recibo'];
                         <div class="col-4">
                             <div class="form-group">
                                 <label class="">RFC:</label>
-                                <input type="text" name="rfc"value="<?php echo $rows['rfc'];?>"class="form-control"required>
+                                <input type="text" pattern = "^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1]))([A-Z\d]{3})?$" title = "introduzca un RFC valido" name="rfc"value="<?php echo $rows['rfc'];?>"class="form-control"required>
                             </div>
                         </div>
                     </div>

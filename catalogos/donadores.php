@@ -122,7 +122,7 @@
                 <form action="procesos/searchdonador.php" method="post">
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">RFC:</label>
-                        <input type="text" name="rfc" class="form-control" id="recipient-name">
+                        <input type="text" name="rfc" pattern = "^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1]))([A-Z\d]{3})?$" title = "introduzca un RFC valido" class="form-control" id="recipient-name" required>
                     </div>
             </div>
             <div class="modal-footer">
