@@ -60,7 +60,7 @@ $rows = mysqli_fetch_array($resultado);
                         <div class="col-4"></div>
                         <div class="col-3">
                             <div class="form-group">
-                                <button class="btn btn-lg btn-primary" type="reset">Cancelar</button>
+                            <a href="javascript:history.back(-1);" class="btn btn-lg btn-primary" title="Ir la página anterior">Cancelar</a>
                             </div>
                         </div>
                         <div class="col-2"></div>

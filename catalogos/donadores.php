@@ -78,8 +78,11 @@
                                                 data-toggle="modal" data-target="#confirm-delete"><img
                                                     src="../img/eliminar.ico" width="30" height="30"
                                                     class="d-inline-block align-top" alt=""></a>
-                                            <a href="donadoresupdate.php?idpersona=<?php echo $row['idpersona']; ?>"><img
+                                            <a href="donadoresupdate.php?rfc=<?php echo $row['rfc']; ?>"><img
                                                     src="../img/editar.ico" width="30" height="30"
+                                                    class="d-inline-block align-top" alt=""></a>
+                                                    <a href="procesos/seeall.php?idpersona=<?php echo $row['idpersona']; ?>&i=3"><img
+                                                    src="../img/see.svg" width="30" height="30"
                                                     class="d-inline-block align-top" alt=""></a>
                                         </td>
                                     </tr>
@@ -122,7 +125,7 @@
                 <form action="procesos/searchdonador.php" method="post">
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">RFC:</label>
-                        <input type="text" name="idpersona" pattern = "^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1]))([A-Z\d]{3})?$" title = "introduzca un RFC valido" class="form-control" id="recipient-name" required>
+                        <input type="text" name="rfc" pattern = "^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1]))([A-Z\d]{3})?$" title = "introduzca un RFC valido" class="form-control" id="recipient-name" required>
                     </div>
             </div>
             <div class="modal-footer">

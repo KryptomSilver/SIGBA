@@ -11,7 +11,7 @@
  Target Server Version : 100138
  File Encoding         : 65001
 
- Date: 12/09/2019 14:58:19
+ Date: 18/09/2019 01:09:45
 */
 
 SET NAMES utf8mb4;
@@ -26,7 +26,7 @@ CREATE TABLE `articulo`  (
   `nombre` varchar(60) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `unidad_Medida` varchar(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for persona
@@ -48,7 +48,7 @@ CREATE TABLE `persona`  (
   `recibo` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `tipoPer` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`idpersona`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for persona_tipo
@@ -121,8 +121,7 @@ CREATE PROCEDURE `sp_EditarArticulo`(IN `pid` INT(11),IN `pnombre` varchar(60),I
 BEGIN
 	#Routine body goes here...
 	
-	IF (SELECT count(1)FROM articulo
-	WHERE nombre	LIKE pnombre) = 0 THEN
+	
 	
 	UPDATE  articulo SET nombre = UPPER(pnombre), unidad_Medida = UPPER(pu_Medida)
 	WHERE id = pid;
@@ -130,9 +129,6 @@ BEGIN
 	#SELECT LAST_INSERT_ID() INTO id_Articulo;
 	#SET id_Articulo = 0;
 	select 'Articulo Actualizado' AS msg;
-	else 
-	select 'Articulo Existente' AS msg;
-	end if;
 	end
 ;;
 delimiter ;

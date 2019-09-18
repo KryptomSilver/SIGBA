@@ -72,6 +72,9 @@
                                         <a href="articulosupdate.php?id=<?php echo $row['id']; ?>"><img
                                                 src="../img/editar.ico" width="30" height="30"
                                                 class="d-inline-block align-top" alt=""></a>
+                                                <a href="procesos/seeall.php?idarticulo=<?php echo $row['id']; ?>&i=1"><img
+                                                src="../img/see.svg" width="30" height="30"
+                                                class="d-inline-block align-top" alt=""></a>
                                     </td>
                                 </tr>
                                 <?php } ?>

@@ -33,7 +33,7 @@ $rows = mysqli_fetch_array($resultado);
             <div class="formulario z">
                 <h1 class="titulo">Banco de Alimentos</h1>
                 <form action="procesos/banco_alimentoproceso.php?i=3" method="post"> 
-                <input  value="<?php echo $idpersona;?>" name="id" type="text"required hidden>              
+                <input  value="<?php echo $rows['idpersona'];?>" name="id" type="text"required hidden>              
                     <div class="row">
                         <div class="col-8">
                             <div class="form-group">
@@ -65,7 +65,7 @@ $rows = mysqli_fetch_array($resultado);
                         <div class="col-3">
                             <div class="form-group">
                                 <label class="">Num Int:</label>
-                                <input type="text" name="numint" value="<?php echo $rows['num_Interior'];?>" class="form-control "required>
+                                <input type="text" name="numint" value="<?php echo $rows['num_Interior'];?>" class="form-control ">
 
                             </div>
                         </div>
@@ -81,7 +81,7 @@ $rows = mysqli_fetch_array($resultado);
                         <div class="col-3">
                             <div class="form-group">
                                 <label class="">Codigo Postal:</label>
-                                <input type="text" name="codpostal" value="<?php echo $rows['codPostal'];?>"  class="form-control "required>
+                                <input type="text" name="codpostal"pattern="[0-9]{5}" title="Introduzca un codigo postal valido" value="<?php echo $rows['codPostal'];?>"  class="form-control "required>
                             </div>
                         </div>
                     </div>
@@ -104,7 +104,7 @@ $rows = mysqli_fetch_array($resultado);
                         <div class="col-6">
                             <div class="form-group">
                                 <label class="">Celular:</label>
-                                <input type="text" name="celular" value="<?php echo $rows['celular'];?>"class="form-control"required>
+                                <input type="text" name="celular"pattern="[0-9]{10}" title="Introduzca un celular valido" value="<?php echo $rows['celular'];?>"class="form-control"required>
                             </div>
                         </div>
                     </div>
@@ -112,14 +112,14 @@ $rows = mysqli_fetch_array($resultado);
                         <div class="col-12">
                             <div class="form-group">
                                 <label class="">Correo:</label>
-                                <input type="text" name="correo" value="<?php echo $rows['correo'];?>" class="form-control"required>
+                                <input type="email" name="correo" value="<?php echo $rows['correo'];?>" class="form-control"required>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-4"></div>
                         <div class="col-3">
-                            <button class="btn btn-lg btn-primary"type="submit">Cancelar</button>
+                        <a href="javascript:history.back(-1);" class="btn btn-lg btn-primary" title="Ir la página anterior">Cancelar</a>
                         </div>
                         <div class="col-2"></div>
                         <div class="col-3">

@@ -78,8 +78,11 @@
                                                 data-toggle="modal" data-target="#confirm-delete"><img
                                                     src="../img/eliminar.ico" width="30" height="30"
                                                     class="d-inline-block align-top" alt=""></a>
-                                            <a href="proyectosupdate.php?idpersona=<?php echo $row['idpersona']; ?>"><img
+                                            <a href="proyectosupdate.php?rfc=<?php echo $row['rfc']; ?>"><img
                                                     src="../img/editar.ico" width="30" height="30"
+                                                    class="d-inline-block align-top" alt=""></a>
+                                                    <a href="procesos/seeall.php?idpersona=<?php echo $row['idpersona']; ?>&i=5"><img
+                                                    src="../img/see.svg" width="30" height="30"
                                                     class="d-inline-block align-top" alt=""></a>
                                         </td>
                                     </tr>
