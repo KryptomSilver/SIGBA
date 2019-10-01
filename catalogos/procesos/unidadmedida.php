@@ -25,13 +25,23 @@
     <main>
         <section>
             <div class="formulario articulos">
-                <h1 class="titulo">Artículos</h1>
-                <form action="procesos/articuloproceso.php?i=1" method="post">
+                <h1 class="titulo">Unidad de Medida</h1>
+                <form action="#" method="post">
                     <div class="row">
                         <div class="col-3"></div>
                         <div class="col-6">
                             <div class="form-group">
-                                <label class="">Nombre:</label>
+                                <label class="">Clave:</label>
+                                <input name="nombre" class="form-control" type="text" required>
+                            </div>
+                        </div>
+                        <div class="col-3"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-3"></div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="">Unidad de medida:</label>
                                 <input name="nombre" class="form-control" type="text" required>
                             </div>
                         </div>
