@@ -23,7 +23,7 @@
     <?php
     require('header.html');
     ?>
-    
+
     <br>
     <main>
         <section>
@@ -31,18 +31,24 @@
             <hr>
             <div class="container">
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-4">
                         <div class="form-group">
-                            <label for="">Donador</label>
-                            <select class="form-control"name="" id="">
-                                <option value="" default>Donador 1</option>
+                            <label for="">Proveedor</label>
+                            <select class="form-control" name="" id="">
+                                <option value="" default>Proveedor 1</option>
                             </select>
                         </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="">No de Factura</label>
+                            <input type="text" name="" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-4">
                         <div class="form-group">
                             <label for="">Fecha</label>
-                            <input type="date" name="" class="form-control" id="">
+                            <input type="date" name="" class="form-control">
                         </div>
                     </div>
                 </div>
@@ -51,7 +57,7 @@
                         <div class="col-3">
                             <div class="form-group">
                                 <label for="">Producto</label>
-                                <select class="form-control"name="" id="">
+                                <select class="form-control" name="" id="">
                                     <option value="" default>producto 1</option>
                                 </select>
                             </div>
@@ -71,7 +77,7 @@
                         <div class="col-3">
                             <div class="form-group">
                                 <label for="">Caducidad</label>
-                                <input type="date"class="form-control" name="" id="">
+                                <input type="date" class="form-control" name="" id="">
                             </div>
                         </div>
                     </div>
@@ -89,7 +95,7 @@
                             </div>
                         </div>
                         <div class="col-4">
-                            <button id="boton"class="btn btn-lg btn-primary" type="">Agregar</button>                        
+                            <button id="boton" class="btn btn-md btn-primary" type="">Agregar</button>
                         </div>
                     </div>
                 </div><br><br>
@@ -105,7 +111,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <?php
+                        <?php
                         //include('procesos/conexion.php');
                         //$sql = "";
                         
@@ -113,29 +119,29 @@
                         //while($row = mysqli_fetch_array($result)) {
                         ?>
                         <tr>
-                            
+
                             <td>Producto 1</td>
                             <td>11</td>
                             <td>$12</td>
                             <td>$412</td>
                             <td>15/08/2019</td>
-                            <td><a href="#" data-href="procesos/proyectoproceso.php?id=<?php echo $row['idpersona']; ?>&i=2"
-                                    data-toggle="modal" data-target="#confirm-delete"><img
-                                        src="../img/eliminar.ico" width="30" height="30"
-                                        class="d-inline-block align-top" alt=""></a>
+                            <td><a href="#"
+                                    data-href="procesos/proyectoproceso.php?id=<?php echo $row['idpersona']; ?>&i=2"
+                                    data-toggle="modal" data-target="#confirm-delete"><img src="../img/eliminar.ico"
+                                        width="30" height="30" class="d-inline-block align-top" alt=""></a>
                                 <a href="proyectosupdate.php?rfc=<?php echo $row['rfc']; ?>"><img
-                                        src="../img/editar.ico" width="30" height="30"
-                                        class="d-inline-block align-top" alt=""></a>
-                                        <a href="procesos/seeall.php?idpersona=<?php echo $row['idpersona']; ?>&i=5"><img
-                                        src="../img/see.svg" width="30" height="30"
-                                        class="d-inline-block align-top" alt=""></a>
+                                        src="../img/editar.ico" width="30" height="30" class="d-inline-block align-top"
+                                        alt=""></a>
+                                <a href="procesos/seeall.php?idpersona=<?php echo $row['idpersona']; ?>&i=5"><img
+                                        src="../img/see.svg" width="30" height="30" class="d-inline-block align-top"
+                                        alt=""></a>
                             </td>
                         </tr>
                     </tbody>
                     <tfoot>
                         <tr>
-                        
-                        <th>Producto</th>
+
+                            <th>Producto</th>
                             <th>Cantidad</th>
                             <th>Precio de C</th>
                             <th>Precio de V</th>
@@ -145,19 +151,50 @@
                         </tr>
                     </tfoot>
                 </table>
-            </div>
-            <form action="" method="post">
+                <br><br>
                 <div class="row">
-                        
-            </form> 
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="">Forma de Pago</label>
+                            <select class="form-control"name="" id="">
+                                <option value="">Efectivo</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label for="">Importe</label>
+                            <input type="numeric" placeholder="$"class="form-control">
+                        </div>  
+                    </div>
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label for="">Abono</label>
+                            <input type="numeric"placeholder="$" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label for="">Saldo</label>
+                            <input type="numeric" placeholder="$"class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6"></div>
+                    <div class="col-3">
+                        <button id="boton" class="btn btn-md btn-primary" type="">Cancelar</button>
+                    </div>
+                    <div class="col-3">
+                        <button id="boton" class="btn btn-md btn-primary" type="">Guardar</button>
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
     <?php
     require('footer.html');
-    ?> 
-</div>
-
-
+    ?>
 </body>
 
 </html>
