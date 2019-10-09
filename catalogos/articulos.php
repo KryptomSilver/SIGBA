@@ -49,7 +49,6 @@
                                 <tr>
                                     <th hidden>ID</th>
                                     <th>Nombre</th>
-                                    <th>Unidad de medida</th>
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
@@ -64,7 +63,6 @@
                                 <tr>
                                     <td hidden><?php echo $row['id'];?></td>
                                     <td><?php echo $row['nombre'];?></td>
-                                    <td><?php echo$row['unidad_Medida'];?></td>
                                     <td><a href="#" data-href="procesos/articuloproceso.php?id=<?php echo $row['id']; ?>&i=2"
                                             data-toggle="modal" data-target="#confirm-delete"><img
                                                 src="../img/eliminar.ico" width="30" height="30"
@@ -83,7 +81,6 @@
                                 <tr>
                                     <th hidden>ID</th>
                                     <th>Nombre</th>
-                                    <th>Unidad de medida</th>
                                     <th>Acciones</th>
                                 </tr>
                             </tfoot>

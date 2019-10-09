@@ -124,3 +124,11 @@
 			margin-right: 200px;
 			margin-left: 200px; 
 		}
+		.circular{
+			border: 1px solid #303130;
+			border-radius: 5px;
+			padding: 30px;
+		}
+		#boton{
+			margin: 22px 40px 0px 120px; 
+		}
