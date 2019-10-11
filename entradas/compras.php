@@ -27,7 +27,7 @@
     <br>
     <main>
         <section>
-            <h1 class="titulo">Donaciones</h1>
+            <h1 class="titulo">Compras</h1>
             <hr>
             <div class="container">
                 <div class="row">
