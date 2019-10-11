@@ -27,6 +27,7 @@
     <br>
     <main>
         <section>
+            <div class="container">
             <h1 class="titulo">Proveedores</h1>
                 <form action="" method="post">
                     <div class="row">
@@ -104,6 +105,7 @@
                     </div>
                     
                 </form>
+                </div> 
         </section>
     </main>
     <?php

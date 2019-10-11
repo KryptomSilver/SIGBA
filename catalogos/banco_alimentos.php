@@ -26,6 +26,7 @@
     <br>
     <main>
         <section>
+            <div class="container">
             <h1 class="titulo">Banco de alimentos</h1>
                 <form action="" method="post">
                     <div class="row">

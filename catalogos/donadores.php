@@ -27,8 +27,7 @@
     <br>
     <main>
         <section>
-          
-                
+            <div class="container">               
                 <h1 class="titulo">Donadores</h1>
                 <form action="" method="post">
                     <div class="row">
@@ -106,7 +105,7 @@
                         <div class="col-1"></div>
                     </div>
                 </form>
-            
+            </div>
         </section>
     </main>
     <?php
