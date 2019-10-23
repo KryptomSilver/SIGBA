@@ -26,13 +26,17 @@
         <section>
             <div class="formulario articulos">
                 <h1 class="titulo">Artículos</h1>
-                <form action="procesos/articuloproceso.php?i=1" method="post">
+                    <div class="row">
+                        <div class="col-12">
+                            <input type="text">
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-3"></div>
                         <div class="col-6">
                             <div class="form-group">
                                 <label class="">Nombre:</label>
-                                <input name="nombre" class="form-control" type="text" required>
+                                <input name="nombre" id="nombre"class="form-control" type="text" required>
                             </div>
                         </div>
                         <div class="col-3"></div>
@@ -40,15 +44,17 @@
                     <div class="row">
                         <div class="col-4"></div>
                         <div class="col-3">
-                        <div class="form-group">
-                        <a href="javascript:history.back(-1);" class="btn btn-lg btn-primary" title="Ir la página anterior">Cancelar</a>
+                            <div class="form-group">
+                                <a href="javascript:history.back(-1);" class="btn btn-lg btn-primary"
+                                    title="Ir la página anterior">Cancelar</a>
+                            </div>
                         </div>
-                        </div>
+                        <p id="resultado"></p>
                         <div class="col-2"></div>
                         <div class="col-3">
-                        <div class="form-group">
-                            <button class="btn btn-lg btn-primary" type="submit">Guardar</button>
-                        </div>
+                            <div class="form-group">
+                                <button class="btn btn-lg btn-primary" type="submit" onclick="ajax_post();">Guardar</button>
+                            </div>
                         </div>
 
                     </div>
@@ -59,6 +65,30 @@
     <?php
     require('footer.html');
     ?>
+    
+    <script type="text/javascript">
+        var resultado = document.getElementById("resultado");
+
+        function ajax_post() {
+            var xmlhttp;
+            if (window.XMLHttpRequest) {
+                xmlhttp = new XMLHttpRequest();
+            } else {
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            var nombre = document.getElementById("nombre").value;
+            var infoss = "nombre="+nombre;
+            xmlhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var mensaje = xmlhttp.responseText;
+                    resultado.innerHTML = mensaje;
+                }
+            };
+            xmlhttp.open("POST", "proceso.php", true);
+            xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded")
+            xmlhttp.send(infoss);
+        }
+    </script>
 </body>
 
 </html>

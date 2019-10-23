@@ -3,7 +3,6 @@ $(document).ready(function () {
   var altura = $('.menu').offset().top;
 
   listar();
-  form();
 
   $(window).on('scroll', function () {
     if ($(window).scrollTop() > altura) {
@@ -36,10 +35,7 @@ $(document).ready(function () {
 
     });
   });
-
-
-
-
+  //ajax actualizar 
   $('#form').submit(e => {
     e.preventDefault();
     const postData = {
@@ -49,6 +45,7 @@ $(document).ready(function () {
     const url = 'procesos/ajax_editar_articulo.php';
     console.log(postData, url);
     $.post(url, postData, (response) => {
+      $('#form').trigger('reset');
       if (response == 'Articulo Actualizado') {
         $('#editar').modal('hide');
         alert_success(response);
@@ -63,22 +60,23 @@ $(document).ready(function () {
     var id = $('#formdelete #iddelete').val();
     console.log(id);
     const postData = {
-      id: $('#formdelete #iddelete').val()
+      id: $('#iddelete').val()
     };
     const url = 'procesos/ajax_eliminar_articulo.php';
     console.log(postData, url);
     $.post(url, postData, (response) => {
-      listar();
-      console.log(response);
+      if (response == 'Articulo Eliminado') {
+        listar();
+        $('#delete').modal('hide');
+        alert_success(response);
+      } else {
+        alert_warning(response);
+      }
     });
   });
-  
+
 
 });
-
-var limpiar = function () {
-  $("#formdelete #iddelete").val("");
-}
 
 var alert_success = function (msg) {
   var respuesta = msg
@@ -112,7 +110,7 @@ var listar = function () {
         "data": "nombre"
       },
       {
-        "defaultContent": "<button type='button' class='eliminar'data-toggle='modal' data-target='#delete'><img src='../img/eliminar.ico' width='30' height='30'class='d-inline-block align-top'></button><a href='#' data-toggle='modal'class='editar'data-target='#editar' ><img src='../img/editar.ico' width='30' height='30'class=d-inline-block align-top'></a>"
+        "defaultContent": "<a  class='eliminar'data-toggle='modal' data-target='#delete'><img src='../img/eliminar.ico' width='30' height='30'class='d-inline-block align-top'></a><a  data-toggle='modal'class='editar'data-target='#editar' ><img src='../img/editar.ico' width='30' height='30'class=d-inline-block align-top'></a>"
       }
     ],
     "language": {
@@ -147,17 +145,18 @@ var listar = function () {
   edit_data("#articulos tbody", table);
   delete_data("#articulos tbody", table);
 }
-var edit_data = function(tbody, table) {
-  $(tbody).on("click", "button.editar", function() {
+var edit_data = function (tbody, table) {
+  $(tbody).off("click", "a.editar");
+  $(tbody).on("click", "a.editar", function () {
     var data = table.row($(this).parents("tr")).data();
     var idarticulo = $("#form #id").val(data.id);
     var nombre = $("#form #name").val(data.nombre);
   });
 }
 var delete_data = function (tbody, table) {
-  $(tbody).on("click", "button.eliminar", function () {
+  $(tbody).off('click', 'a.eliminar');
+  $(tbody).on("click", "a.eliminar", function () {
     var data = table.row($(this).parents("tr")).data();
-    console.log(data);
     var idarticulo = $("#formdelete #iddelete").val(data.id);
   });
 }
