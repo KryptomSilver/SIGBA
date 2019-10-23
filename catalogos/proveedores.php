@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="../Frameworks/datatables.css">
     <link rel="stylesheet" href="../Frameworks/css/normalize.css">
     <link rel="stylesheet" href="../Frameworks/css/estilo.css">
+    
 
     <title>SIGBA</title>
 </head>

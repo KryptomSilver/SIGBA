@@ -62,13 +62,22 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="col-1">
+                        <div class="form-group">
+                        <a id="add"href="#"><img id="add"src="../img/add.png" width="30" height="30" class="d-inline-block align-top"
+                                        alt=""></a>
+
+                        </div>
+                        </div>
                         <div class="col-3">
                             <div class="form-group">
                                 <label for="">Unidad de medida</label>
-                                <input type="text" class="form-control" value="Litros">
+                                <select class="form-control"name="" id="">
+                                <option value="">Litros</option>
+                                </select>
                             </div>
                         </div>
-                        <div class="col-3">
+                        <div class="col-2">
                             <div class="form-group">
                                 <label for="">Cantidad</label>
                                 <input type="numeric" class="form-control">
@@ -157,14 +166,14 @@
                         <div class="form-group">
                             <label for="">Forma de Pago</label>
                             <select class="form-control"name="" id="">
-                                <option value="">Efectivo</option>
+                                <option value="">De contado</option>
                             </select>
                         </div>
                     </div>
                     <div class="col-2">
                         <div class="form-group">
                             <label for="">Importe</label>
-                            <input type="numeric" placeholder="$"class="form-control">
+                            <input type="numeric" placeholder="$100"class="form-control" disabled>
                         </div>  
                     </div>
                     <div class="col-2">
@@ -196,5 +205,9 @@
     require('footer.html');
     ?>
 </body>
-
+<script>
+    $(document).ready(function () {
+        $('#example').DataTable();
+    });
+</script>
 </html>

@@ -39,6 +39,11 @@
                     <div class="col-2">
                         <input type="text" class="form-control" placeholder="" disabled>
                     </div>
+                    <div class="col-2"></div>
+                    <label class=" col-form-label">Proveedor:</label>
+                    <div class="col-4">
+                    <input type="text" class="form-control" placeholder="" disabled>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-3"></div>

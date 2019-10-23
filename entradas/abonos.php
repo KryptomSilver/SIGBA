@@ -8,13 +8,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="../Frameworks/datatables.js" type="text/javascript"></script>
     <link rel="stylesheet" href="../Frameworks/css/normalize.css">
-
     <link rel="stylesheet" href="../Frameworks/datatables.css">
-
     <link rel="stylesheet" href="../Frameworks/css/estilo.css">
-
-
-
     <title>SIGBA</title>
 </head>
 
@@ -27,13 +22,24 @@
     <?php
     require('header.html');
     ?>
-    <br>
     <main>
         <h1 class="titulo">Abonos</h1>
         <hr>
         <div class="container">
             <form action="" method="post">
-                <br>
+                <div class="row">
+                    <div class="col-1">
+                    
+                    </div>
+                    <div class="col-3">
+                    <select class="form-control"name="" id="">
+                        <option value="">Proveedor 1</option>
+                    </select>
+                    </div>
+                    <div class="col-6"></div>
+                    <div class="col-3"></div>
+                </div>
+                <br>                
                 <div class="row">
                     <div class="col-1"></div>
                     <div class="col-10">

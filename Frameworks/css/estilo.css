@@ -12,7 +12,6 @@
 			width: 100%;
 			font-family: Arial, Helvetica, sans-serif;
 			height: 44px;
-
 			background-color: #007bff;
 		}
 
@@ -93,7 +92,8 @@
 		/*Formulario*/
 		.formulario {
 			height: 100%;
-			padding: 20px 100px 20px 100px;
+			padding: 0px 100px 20px 100px;
+			margin-top: 5px;
 
 			/*background-color: #303130;*/
 		}
@@ -131,4 +131,13 @@
 		}
 		#boton{
 			margin: 22px 40px 0px 120px; 
+		}
+		.menu-pegajoso {
+			position:fixed;
+			z-index:1000;
+			top:0;
+			width:100%;
+		}
+		#add{
+			margin-top: 32px;
 		}

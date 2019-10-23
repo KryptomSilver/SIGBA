@@ -8,13 +8,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="../Frameworks/datatables.js" type="text/javascript"></script>
     <link rel="stylesheet" href="../Frameworks/css/normalize.css">
-
     <link rel="stylesheet" href="../Frameworks/datatables.css">
-
     <link rel="stylesheet" href="../Frameworks/css/estilo.css">
-
-
-
     <title>SIGBA</title>
 </head>
 
@@ -39,10 +34,14 @@
                     <div class="col-2">
                         <input type="text" class="form-control" placeholder="" disabled>
                     </div>
+                    <div class="col-2"></div>
+                    <label class=" col-form-label">Proveedor:</label>
+                    <div class="col-4">
+                    <input type="text" class="form-control" placeholder="" disabled>
+                    </div>
                 </div>
-                <br><br>
                 <div class="row">
-                    <div class="col-1"></div>
+                    <div class="col-2"></div>
                     <div class="col-4">
                         <label class="titulo">Importe:</label>
                         <div class="row">
@@ -51,7 +50,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-2"></div>
+                    <div class="col-1"></div>
                     <div class="col-4">
                         <label class="titulo">Saldo:</label>
                         <div class="row">
@@ -62,9 +61,9 @@
                     </div>
                     <div class="col-1"></div>
                 </div>
-                <br><br><br>
+                <br>
                 <div class="row">
-                    <div class="col-1"></div>
+                    <div class="col-2"></div>
                     <div class="col-4">
                         <label class="titulo">Abono:</label>
                         <div class="row">
@@ -73,12 +72,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-2"></div>
+                    <div class="col-1"></div>
                     <div class="col-4">
                         <label class="titulo">Fecha:</label>
                         <div class="row">
                             <div class="col-12">
-                                <input class="form-control" type="date" >
+                                <input class="form-control" type="date">
                             </div>
                         </div>
                     </div>
@@ -88,7 +87,7 @@
                 <div class="row">
                     <div class="col-11"></div>
                     <div class="col-1">
-                    <a href="javascript:history.back(-1);" class="btn btn-lg btn-primary" >Cerrar</a>
+                        <a href="javascript:history.back(-1);" class="btn btn-lg btn-primary">Cerrar</a>
                     </div>
                 </div>
             </form>

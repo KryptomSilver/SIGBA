@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="../Frameworks/css/normalize.css">
     <link rel="stylesheet" href="../Frameworks/css/estilo.css">
     <link rel="shortcut icon" href="img/logo.webp" type="image/x-icon">
+    <script   src="../Frameworks/jQuery/jquery.js"></script>
+
     <title>SIGBA</title>
 </head>
 <?php 
@@ -22,8 +24,6 @@ $rfc = $_GET['rfc'];
     <?php
     require('header.html');
     ?>
-   
-    <br>
     <main>
         <section>
             <div class="formulario z">
@@ -52,29 +52,20 @@ $rfc = $_GET['rfc'];
                                 <input type="text" name="calle" class="form-control"required>
                             </div>
                         </div>
-                        <div class="col-3">
+                        <div class="col-2">
                             <div class="form-group">
                                 <label class="">Num Ext:</label>
                                 <input type="text" name="numext" class="form-control">
 
                             </div>
                         </div>
-                        <div class="col-3">
+                        <div class="col-2">
                             <div class="form-group">
                                 <label class="">Num Int:</label>
                                 <input type="text" name="numint" class="form-control ">
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-
-                        <div class="col-9">
-                            <div class="form-group">
-                                <label class="">Colonia:</label>
-                                <input type="text" name="colonia"class="form-control"required>
-                            </div>
-                        </div>
-                        <div class="col-3">
+                        <div class="col-2">
                             <div class="form-group">
                                 <label class="">Codigo Postal:</label>
                                 <input type="text" pattern="[0-9]{5}" title="Introduzca un codigo postal valido"name="codpostal" class="form-control "required>
@@ -83,7 +74,13 @@ $rfc = $_GET['rfc'];
                     </div>
                     <div class="row">
 
-                        <div class="col-12">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="">Colonia:</label>
+                                <input type="text" name="colonia"class="form-control"required>
+                            </div>
+                        </div>
+                        <div class="col-6">
                             <div class="form-group">
                                 <label class="">Nombre de contacto:</label>
                                 <input type="text" name="contacto" class="form-control"required>
@@ -91,21 +88,19 @@ $rfc = $_GET['rfc'];
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-4">
                             <div class="form-group">
                                 <label class="">Telefono:</label>
                                 <input type="text" name="telefono" class="form-control"required>
                             </div>
                         </div>
-                        <div class="col-6">
+                        <div class="col-4">
                             <div class="form-group">
                                 <label class="">Celular:</label>
                                 <input type="text" name="celular" pattern="[0-9]{10}" title="Introduzca un celular valido"class="form-control"required>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
+                        <div class="col-4">
                             <div class="form-group">
                                 <label class="">Correo:</label>
                                 <input type="email" name="correo" class="form-control"required>

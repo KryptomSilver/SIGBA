@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../Frameworks/css/normalize.css">
     <link rel="stylesheet" href="../Frameworks/css/estilo.css">
     <link rel="shortcut icon" href="img/logo.webp" type="image/x-icon">
+    <script   src="../Frameworks/jQuery/jquery.js"></script>
     <title>SIGBA</title>
 </head>
 <?php

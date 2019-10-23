@@ -24,7 +24,6 @@
     require('header.html');
     ?>
     
-    <br>
     <main>
         <section>
             <h1 class="titulo">Donaciones</h1>
@@ -48,21 +47,30 @@
                 </div>
                 <div class="circular">
                     <div class="row">
-                        <div class="col-3">
+                    <div class="col-3">
                             <div class="form-group">
                                 <label for="">Producto</label>
-                                <select class="form-control"name="" id="">
+                                <select class="form-control" name="" id="">
                                     <option value="" default>producto 1</option>
                                 </select>
                             </div>
                         </div>
+                        <div class="col-1">
+                        <div class="form-group">
+                        <a id="add"href="#"><img id="add"src="../img/add.png" width="30" height="30" class="d-inline-block align-top"
+                                        alt=""></a>
+
+                        </div>
+                        </div>
                         <div class="col-3">
                             <div class="form-group">
                                 <label for="">Unidad de medida</label>
-                                <input type="text" class="form-control" value="Litros">
+                                <select class="form-control"name="" id="">
+                                <option value="">Litros</option>
+                                </select>
                             </div>
                         </div>
-                        <div class="col-3">
+                        <div class="col-2">
                             <div class="form-group">
                                 <label for="">Cantidad</label>
                                 <input type="numeric" class="form-control">
@@ -71,7 +79,7 @@
                         <div class="col-3">
                             <div class="form-group">
                                 <label for="">Caducidad</label>
-                                <input type="date"class="form-control" name="" id="">
+                                <input type="date" class="form-control" name="" id="">
                             </div>
                         </div>
                     </div>
@@ -156,6 +164,11 @@
     require('footer.html');
     ?> 
 </div>
+<script>
+    $(document).ready(function () {
+        $('#example').DataTable();
+    });
+</script>
 
 
 </body>
