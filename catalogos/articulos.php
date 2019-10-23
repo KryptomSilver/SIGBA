@@ -37,7 +37,7 @@
                         <div class="col-5">
                             <label for="">Nombre</label>
                             <input type="text" id="idarticulo" hidden>
-                            <input style="width:100%;" id="nombre" class="form-control" type="text">
+                            <input style="width:100%;" id="nombre" class="form-control" type="text"required>
                         </div>
                         <div class="col-4">
                             <div class="form-group">

@@ -49,8 +49,10 @@ $(document).ready(function () {
       if (response == 'Articulo Actualizado') {
         $('#editar').modal('hide');
         alert_success(response);
+        listar();
       } else {
         alert_warning(response);
+        listar();
       }
 
     });
