@@ -10,7 +10,8 @@
     <link rel="stylesheet" href="../Frameworks/css/normalize.css">
     <link rel="stylesheet" href="../Frameworks/datatables.css">
     <link rel="stylesheet" href="../Frameworks/css/estilo.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <script src="../Frameworks/js/alert.js"></script>
+    <script  src="../Frameworks/js/articulos.js"></script>
     <title>SIGBA</title>
 </head>
 

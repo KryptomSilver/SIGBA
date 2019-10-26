@@ -1,0 +1,93 @@
+//menu pegajoso scroll
+$(document).ready(function () {
+    var altura = $('.menu').offset().top;
+
+    $(window).on('scroll', function () {
+        if ($(window).scrollTop() > altura) {
+            $('.menu').addClass('menu-pegajoso');
+        } else {
+            $('.menu').removeClass('menu-pegajoso');
+        }
+    });
+
+    // AJAX PROVEEDORES AGREGAR
+    $('#proveedores_add').submit(e => {
+        e.preventDefault();
+        const postData = {
+            razon: $('#razon').val(),
+            rfc: $('#rfc').val(),
+            calle: $('#calle').val(),
+            numext: $('#numext').val(),
+            numint: $('#numint').val(),
+            codpostal: $('#codpostal').val(),
+            colonia: $('#colonia').val(),
+            contacto: $('#contacto').val(),
+            telefono: $('#telefono').val(),
+            celular: $('#celular').val(),
+            correo: $('#correo').val()
+        };
+        const url = 'procesos/proveedor/proveedor_add.php';
+        console.log(postData, url);
+        $.post(url, postData, (response) => {
+            console.log(response);
+            if (response == 'PROVEEDOR REGISTRADO') {
+                $('#proveedores_add').trigger('reset');
+                alert_success(response);
+            } else {
+                alert_warning(response);
+            }
+        });
+    });
+    $('#proveedores_update').submit(e => {
+        e.preventDefault();
+        const postData = {
+            razon: $('#razon').val(),
+            rfc: $('#rfc').val(),
+            calle: $('#calle').val(),
+            numext: $('#numext').val(),
+            numint: $('#numint').val(),
+            codpostal: $('#codpostal').val(),
+            colonia: $('#colonia').val(),
+            contacto: $('#contacto').val(),
+            telefono: $('#telefono').val(),
+            celular: $('#celular').val(),
+            correo: $('#correo').val(),
+            idpersona: $('#id').val()
+        };
+        const url = 'procesos/proveedor/proveedor_update.php';
+        console.log(postData, url);
+        $.post(url, postData, (response) => {
+            console.log(response);
+            if (response == 'PROVEEDOR ACTUALIZADO') {
+                //$('#proveedores_add').trigger('reset');
+                alert_success(response);
+            } else {
+                alert_warning(response);
+            }
+        });
+    });
+
+});
+// alerta 
+var alert_success = function (msg) {
+    var respuesta = msg
+    Swal.fire({
+        type: 'success',
+        title: respuesta,
+        showConfirmButton: false,
+        timer: 800
+    })
+}
+
+
+
+//alerta
+var alert_warning = function (msg) {
+    var respuesta = msg
+    Swal.fire({
+        type: 'warning',
+        title: respuesta,
+        showConfirmButton: false,
+        timer: 800
+    })
+}

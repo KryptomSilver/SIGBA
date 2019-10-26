@@ -14,7 +14,7 @@ $(document).ready(function () {
 
 
 
-  // ajax 
+  // ajax ARTICULOS AGREGAR
   $('#formulario').submit(e => {
     e.preventDefault();
     const postData = {
@@ -35,7 +35,7 @@ $(document).ready(function () {
 
     });
   });
-  //ajax actualizar 
+  // ajax ARTICULOS ACTUALIZAR
   $('#form').submit(e => {
     e.preventDefault();
     const postData = {
@@ -57,6 +57,7 @@ $(document).ready(function () {
 
     });
   });
+  // ajax ARTICULOS ELIMINAR
   $('#formdelete').submit(e => {
     e.preventDefault();
     var id = $('#formdelete #iddelete').val();
@@ -76,9 +77,10 @@ $(document).ready(function () {
       }
     });
   });
-
+  // AJAX PROVEEDORES AGREGAR
 
 });
+
 
 var alert_success = function (msg) {
   var respuesta = msg
