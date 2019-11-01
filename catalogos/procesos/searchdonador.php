@@ -18,7 +18,3 @@ if ($row['msg'] == 'SI') {
 mysqli_close($conn);
 
 ?>
-
-
-
-?>

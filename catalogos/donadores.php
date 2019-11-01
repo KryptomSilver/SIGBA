@@ -10,26 +10,26 @@
     <link rel="stylesheet" href="../Frameworks/datatables.css">
     <link rel="stylesheet" href="../Frameworks/css/normalize.css">
     <link rel="stylesheet" href="../Frameworks/css/estilo.css">
+    <script src="../Frameworks/js/alert.js" type="text/javascript"></script>
+    <script src="../Frameworks/js/donadores/donadores.js" type="text/javascript"></script>
 
     <title>SIGBA</title>
 </head>
 
 
 <body>
-    <div>
+<div>
         <h1 class="titulo"><span><img src="../img/logo.webp" class="logo"></span>BANCO DE ALIMENTOS DE COLIMA</h1>
     </div>
 
     <?php
     require('header.html');
     ?>
-    
-    <br>
     <main>
         <section>
-            <div class="container">               
+            <div class="container">
                 <h1 class="titulo">Donadores</h1>
-                <form action="" method="post">
+                <input type="hidden" name="" id="idpersona">
                     <div class="row">
                         <div class="col-9"></div>
                         <div class="col-3">
@@ -37,143 +37,98 @@
                                 data-target="#exampleModal">Agregar</button>
                         </div>
                     </div>
-                    <br>
+                    <br>             
                     <div class="row">
-                    <div class="col-1"></div>
-                        <div class="col-10">
-                            <table id="example" class="table table-striped table-bordered" style="width:100%">
+                        <div class="col-12">
+                            <table id="donadores" class="table table-striped table-bordered" style="width:100%">
                                 <thead>
                                     <tr>
-    
-                                    <th>RFC</th>
+                                        <th>ID</th>
+                                        <th>RFC</th>
                                         <th>Razón social</th>
                                         <th>Nombre de contacto</th>
                                         <th>Telefono</th>
                                         <th>Celular</th>
                                         <th>Colonia</th>
                                         <th>Acciones</th>
-                                    </tr>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                <?php
-                                    include('procesos/conexion.php');
-                                    $sql = "select p.idpersona,p.razon_Social,p.rfc,p.calle,p.num_Interior,p.num_Exterior,p.colonia,p.codPostal,p.nombre_Contacto,p.telefono,p.celular,p.correo from persona_tipo pa
-                                    INNER JOIN persona p on pa.idpersona = p.idpersona
-                                    where idtipo = 2";
-                                    
-                                    $result = mysqli_query($conn, $sql);
-                                    while($row = mysqli_fetch_array($result)) {
-                                    ?>
-                                    <tr>
-                                        
-                                        <td><?php echo$row['rfc'];?></td>
-                                        <td><?php echo $row['razon_Social'];?></td>
-                                        <td><?php echo$row['nombre_Contacto'];?></td>
-                                        <td><?php echo$row['telefono'];?></td>
-                                        <td><?php echo$row['celular'];?></td>
-                                        <td><?php echo$row['colonia'];?></td>
-                                        <td><a href="#" data-href="procesos/donadorproceso.php?id=<?php echo $row['idpersona']; ?>&i=2"
-                                                data-toggle="modal" data-target="#confirm-delete"><img
-                                                    src="../img/eliminar.ico" width="30" height="30"
-                                                    class="d-inline-block align-top" alt=""></a>
-                                            <a href="donadoresupdate.php?rfc=<?php echo $row['rfc']; ?>"><img
-                                                    src="../img/editar.ico" width="30" height="30"
-                                                    class="d-inline-block align-top" alt=""></a>
-                                                    <a href="procesos/seeall.php?idpersona=<?php echo $row['idpersona']; ?>&i=3"><img
-                                                    src="../img/see.svg" width="30" height="30"
-                                                    class="d-inline-block align-top" alt=""></a>
-                                        </td>
-                                    </tr>
-                                    <?php } ?>
-                                </tbody>
+
                                 <tfoot>
                                     <tr>
-                                    
-                                    <th>RFC</th>
+                                        <th>ID</th>
+                                        <th>RFC</th>
                                         <th>Razón social</th>
                                         <th>Nombre de contacto</th>
                                         <th>Telefono</th>
                                         <th>Celular</th>
                                         <th>Colonia</th>
                                         <th>Acciones</th>
-                                    </tr>
                                     </tr>
                                 </tfoot>
                             </table>
                         </div>
-                        <div class="col-1"></div>
                     </div>
-                </form>
             </div>
         </section>
-    </main>
+    </main>    
     <?php
     require('footer.html');
-    ?> <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ingrece el RFC</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+    ?>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ingrece el RFC</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="procesos/searchdonador.php" method="post">
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">RFC:</label>
+                            <input type="text" name="rfc"
+                                pattern="^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1]))([A-Z\d]{3})?$"
+                                title="introduzca un RFC valido" class="form-control" id="recipient-name" required>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Buscar</button>
+                </div>
+                </form>
             </div>
-            <div class="modal-body">
-                <form action="procesos/searchdonador.php" method="post">
-                    <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">RFC:</label>
-                        <input type="text" name="rfc" pattern = "^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1]))([A-Z\d]{3})?$" title = "introduzca un RFC valido" class="form-control" id="recipient-name" required>
+        </div>
+    </div>
+  
+    <!--modal eliminar-->
+    <form id="formdelete" method="post">
+        <input type="hidden" id="iddelete">
+        <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">Eliminar Registro</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
                     </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="submit" class="btn btn-primary">Buscar</button>
-            </div>
-            </form>
-        </div>
-    </div>
-</div>
 
-<!--modal eliminar-->
-<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel">Eliminar Registro</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <div class="modal-body">
+                        ¿Desea eliminar este registro?
+                    </div>
 
-            </div>
-
-            <div class="modal-body">
-                ¿Desea eliminar este registro?
-            </div>
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-danger btn-ok">Eliminar</a>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-danger btn-ok">Eliminar</button>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-<!-- modal editar-->
+    </form>
 
 </body>
-
-<script>
-$('#confirm-delete').on('show.bs.modal', function (e) {
-    $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
-
-    $('.debug-url').html('Delete URL: <strong>' + $(this).find('.btn-ok').attr('href') + '</strong>');
-});
-</script>
-
-<script>
-$(document).ready(function () {
-    $('#example').DataTable();
-});
-</script>
 
 </html>
