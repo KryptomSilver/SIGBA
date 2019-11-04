@@ -10,8 +10,8 @@ $(document).ready(function () {
         }
     });
 
-    // AJAX PROVEEDORES AGREGAR
-    $('#proveedores_add').submit(e => {
+    // AJAX 
+    $('#bancos_add').submit(e => {
         e.preventDefault();
         const postData = {
             razon: $('#razon').val(),
@@ -26,19 +26,19 @@ $(document).ready(function () {
             celular: $('#celular').val(),
             correo: $('#correo').val()
         };
-        const url = 'procesos/proveedor/proveedor_add.php';
+        const url = 'procesos/banco_alimentos/banco_alimentos_add.php';
         console.log(postData, url);
         $.post(url, postData, (response) => {
             console.log(response);
-            if (response == 'PROVEEDOR REGISTRADO') {
-                $('#proveedores_add').trigger('reset');
+            if (response == 'BANCO DE ALIMENTOS REGISTRADO') {
+                window.location.href='banco_alimentos.php';
                 alert_success(response);
             } else {
                 alert_warning(response);
             }
         });
     });
-    $('#proveedores_update').submit(e => {
+    $('#bancos_update').submit(e => {
         e.preventDefault();
         const postData = {
             razon: $('#razon').val(),
@@ -54,12 +54,12 @@ $(document).ready(function () {
             correo: $('#correo').val(),
             idpersona: $('#id').val()
         };
-        const url = 'procesos/proveedor/proveedor_update.php';
+        const url = 'procesos/banco_alimentos/banco_alimentos_update.php';
         console.log(postData, url);
         $.post(url, postData, (response) => {
             console.log(response);
-            if (response == 'PROVEEDOR ACTUALIZADO') {
-                //$('#proveedores_add').trigger('reset');
+            if (response == 'REGISTRO ACTUALIZADO') {
+                window.location.href='banco_alimentos.php';
                 alert_success(response);
             } else {
                 alert_warning(response);
@@ -75,7 +75,7 @@ var alert_success = function (msg) {
         type: 'success',
         title: respuesta,
         showConfirmButton: false,
-        timer: 800
+        timer: 1000
     })
 }
 

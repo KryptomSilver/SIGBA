@@ -11,7 +11,7 @@
     <link rel="shortcut icon" href="img/logo.webp" type="image/x-icon">
     <script src="../Frameworks/jQuery/jquery.js"></script>
     <script src="../Frameworks/js/alert.js"></script>
-    <script  src="../Frameworks/js/proveedores.js"></script>
+    <script  src="../Frameworks/js/proveedores/proveedoresproceso.js"></script>
 
     <title>SIGBA</title>
 </head>
