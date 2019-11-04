@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="../Frameworks/datatables.css">
     <link rel="stylesheet" href="../Frameworks/css/estilo.css">
     <script src="../Frameworks/js/alert.js"></script>
-    <script  src="../Frameworks/js/articulos.js"></script>
+    <script  src="../Frameworks/js/articulos/articulos.js"></script>
     <title>SIGBA</title>
 </head>
 

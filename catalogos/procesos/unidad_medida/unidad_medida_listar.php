@@ -1,8 +1,8 @@
 <?php 
 
-include('conexion.php');
+include('../conexion.php');
 
-$query = "SELECT * FROM articulo";
+$query = "SELECT * FROM unidad_medida";
 $resultado = mysqli_query($conn,$query);
 
 if(!$resultado){

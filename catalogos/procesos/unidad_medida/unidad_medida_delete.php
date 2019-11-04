@@ -1,10 +1,8 @@
-<?php
+<?php 
+include('../conexion.php');
 
-include('conexion.php');
-
-$name = $_POST['name'];
 $id = $_POST['id'];
-$sql = "CALL sp_EditarArticulo('".$id."','".$name."');";
+$sql = "CALL sp_EliminarUnidad('".$id."');";
 
 $resultado = mysqli_query($conn,$sql);
 $row = mysqli_fetch_array($resultado);

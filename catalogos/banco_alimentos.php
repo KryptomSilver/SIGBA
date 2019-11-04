@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="../Frameworks/datatables.css">
     <link rel="stylesheet" href="../Frameworks/css/normalize.css">
     <link rel="stylesheet" href="../Frameworks/css/estilo.css">
+    <script src="../Frameworks/js/banco_alimentos/banco_alimentos.js" type="text/javascript"></script>
+    <script src="../Frameworks/js/alert.js" type="text/javascript"></script>
 
     <title>SIGBA</title>
 </head>
@@ -27,7 +29,7 @@
     <main>
         <section>
             <div class="container">
-            <h1 class="titulo">Banco de alimentos</h1>
+                <h1 class="titulo">Banco de alimentos</h1>
                 <form action="" method="post">
                     <div class="row">
                         <div class="col-9"></div>
@@ -38,12 +40,11 @@
                     </div>
                     <br>
                     <div class="row">
-                    <div class="col-1"></div>
-                        <div class="col-10">
-                            <table id="example" class="table table-striped table-bordered" style="width:100%">
+                        <div class="col-12">
+                            <table id="bancos" class="table table-striped table-bordered" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th hidden>ID</th>
+                                        <th>ID</th>
                                         <th>RFC</th>
                                         <th>Razón social</th>
                                         <th>Nombre de contacto</th>
@@ -53,42 +54,10 @@
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <?php
-                                    include('procesos/conexion.php');
-                                    $sql = "select p.idpersona,p.razon_Social,p.rfc,p.calle,p.num_Interior,p.num_Exterior,p.colonia,p.codPostal,p.nombre_Contacto,p.telefono,p.celular,p.correo from persona_tipo pa
-                                    INNER JOIN persona p on pa.idpersona = p.idpersona
-                                    where idtipo = 3";
-                                    
-                                    $result = mysqli_query($conn, $sql);
-                                    while($row = mysqli_fetch_array($result)) {
-                                    ?>
-                                    <tr>
-                                        <td hidden><?php echo $row['idpersona'];?></td>
-                                        <td><?php echo $row['rfc'];?></td>
-                                        <td><?php echo$row['razon_Social'];?></td>
-                                        <td><?php echo$row['nombre_Contacto'];?></td>
-                                        <td><?php echo$row['telefono'];?></td>
-                                        <td><?php echo$row['celular'];?></td>
-                                        <td><?php echo$row['colonia'];?></td>
-                                        <td><a href="#"
-                                                data-href="procesos/banco_alimentoproceso.php?id=<?php echo $row['idpersona']; ?>&i=2"
-                                                data-toggle="modal" data-target="#confirm-delete"><img
-                                                    src="../img/eliminar.ico" width="30" height="30"
-                                                    class="d-inline-block align-top" alt=""></a>
-                                            <a href="banco_alimentosupdate.php?rfc=<?php echo $row['rfc']; ?>"><img
-                                                    src="../img/editar.ico" width="30" height="30"
-                                                    class="d-inline-block align-top" alt=""></a>
-                                                    <a href="procesos/seeall.php?idpersona=<?php echo $row['idpersona']; ?>&i=4"><img
-                                                    src="../img/see.svg" width="30" height="30"
-                                                    class="d-inline-block align-top" alt=""></a>
-                                        </td>
-                                    </tr>
-                                    <?php } ?>
-                                </tbody>
+
                                 <tfoot>
                                     <tr>
-                                        <th hidden>ID</th>
+                                        <th>ID</th>
                                         <th>RFC</th>
                                         <th>Razón social</th>
                                         <th>Nombre de contacto</th>
@@ -100,8 +69,6 @@
                                 </tfoot>
                             </table>
                         </div>
-                        <div class="col-1"></div>
-                       
                     </div>
                 </form>
             </div>
@@ -124,7 +91,9 @@
                     <form action="procesos/searchbanco.php" method="post">
                         <div class="form-group">
                             <label for="recipient-name" class="col-form-label">RFC:</label>
-                            <input type="text" name="rfc" pattern = "^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1]))([A-Z\d]{3})?$" title = "introduzca un RFC valido"class="form-control" id="recipient-name" required>
+                            <input type="text" name="rfc"
+                                pattern="^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1]))([A-Z\d]{3})?$"
+                                title="introduzca un RFC valido" class="form-control" id="recipient-name" required>
                         </div>
                 </div>
                 <div class="modal-footer">
@@ -137,42 +106,31 @@
     </div>
 
     <!--modal eliminar-->
-    <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="myModalLabel">Eliminar Registro</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                </div>
+    <form id="formdelete" method="post">
+    <input type="hidden" id="iddelete">
+        <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">Eliminar Registro</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 
-                <div class="modal-body">
-                    ¿Desea eliminar este registro?
-                </div>
+                    </div>
 
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-danger btn-ok">Eliminar</a>
+                    <div class="modal-body">
+                        ¿Desea eliminar este registro?
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-danger btn-ok">Eliminar</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- modal editar-->
-    
+    </form>
+
 </body>
-
-<script>
-    $('#confirm-delete').on('show.bs.modal', function (e) {
-        $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
-
-        $('.debug-url').html('Delete URL: <strong>' + $(this).find('.btn-ok').attr('href') + '</strong>');
-    });
-</script>
-
-<script>
-    $(document).ready(function () {
-        $('#example').DataTable();
-    });
-</script>
 
 </html>

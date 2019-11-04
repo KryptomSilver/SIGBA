@@ -19,6 +19,3 @@ mysqli_close($conn);
 
 ?>
 
-
-
-?>

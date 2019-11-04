@@ -4,6 +4,7 @@ $(document).ready(function () {
 
     listar();
     $(window).on('scroll', function () {
+        console.log(altura);
         if ($(window).scrollTop() > altura) {
             $('.menu').addClass('menu-pegajoso');
         } else {

@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="../Frameworks/css/estilo.css">
     <link rel="shortcut icon" href="img/logo.webp" type="image/x-icon">
     <script   src="../Frameworks/jQuery/jquery.js"></script>
+    <script src="../Frameworks/js/alert.js"></script>
+    <script src="../Frameworks/js/donadores/donadoresproceso.js" type="text/javascript"></script>
+
     <title>SIGBA</title>
 </head>
 <?php 
@@ -23,27 +26,25 @@ $rfc = $_GET['rfc'];
     <?php
     require('header.html');
     ?>
-
-    <br>
     <main>
         <section>
             <div class="formulario z">
                 <h1 class="titulo">Donadores</h1>
-                <form action="procesos/donadorproceso.php?i=1" method="post">
+                <form id="donadores_add" method="post">
                     <div class="row">
                         <div class="col-6">
                             <label class="controls-label">Recibo:</label>
                         </div>
                         <div class="col-3">
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" value="SI"name="recibo" type="radio" id="inlineCheckbox1"
+                                <input class="form-check-input" value="SI" id="recibo" type="radio" id="inlineCheckbox1"
                                     required>
                                 <label class="form-check-label" for="inlineCheckbox1">SI</label>
                             </div>
                         </div>
                         <div class="col-3">
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" value="NO" name="recibo" type="radio" id="inlineCheckbox2"
+                                <input class="form-check-input" value="NO" id="recibo" type="radio" id="inlineCheckbox2"
                                     required>
                                 <label class="form-check-label" for="inlineCheckbox2">NO</label>
                             </div>
@@ -54,14 +55,17 @@ $rfc = $_GET['rfc'];
                         <div class="col-8">
                             <div class="form-group">
                                 <label class="">Razon social:</label>
-                                <input class="form-control" name="razon" type="text"required>
+                                <input class="form-control" id="razon" type="text"minlength="1" maxlength="50"required>
                             </div>
                         </div>
 
                         <div class="col-4">
                             <div class="form-group">
                                 <label class="">RFC:</label>
-                                <input type="text" pattern = "^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1]))([A-Z\d]{3})?$" title = "introduzca un RFC valido" value="<?php echo $rfc;?>" name="rfc" class="form-control"required>
+                                <input type="text"
+                                    pattern="^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1]))([A-Z\d]{3})?$"
+                                    title="introduzca un RFC valido" value="<?php echo $rfc;?>" id="rfc"
+                                    class="form-control" required>
                             </div>
                         </div>
                     </div>
@@ -69,26 +73,27 @@ $rfc = $_GET['rfc'];
                         <div class="col-6">
                             <div class="form-group">
                                 <label class="">Calle:</label>
-                                <input type="text" name="calle" class="form-control"required>
+                                <input type="text"minlength="1" maxlength="50" id="calle" class="form-control" required>
                             </div>
                         </div>
                         <div class="col-2">
                             <div class="form-group">
                                 <label class="">Num Ext:</label>
-                                <input type="text" name="numext" class="form-control">
+                                <input type="text" id="numext" class="form-control">
 
                             </div>
                         </div>
                         <div class="col-2">
                             <div class="form-group">
                                 <label class="">Num Int:</label>
-                                <input type="text" name="numint" class="form-control ">
+                                <input type="text" id="numint" class="form-control ">
                             </div>
                         </div>
                         <div class="col-2">
                             <div class="form-group">
                                 <label class="">Codigo Postal:</label>
-                                <input type="text" pattern="[0-9]{5}" title="Introduzca un codigo postal valido"name="codpostal" class="form-control "required>
+                                <input type="text" pattern="[0-9]{5}" title="Introduzca un codigo postal valido"
+                                    id="codpostal" class="form-control " required>
                             </div>
                         </div>
                     </div>
@@ -97,13 +102,13 @@ $rfc = $_GET['rfc'];
                         <div class="col-6">
                             <div class="form-group">
                                 <label class="">Colonia:</label>
-                                <input type="text" name="colonia"class="form-control"required>
+                                <input type="text" id="colonia" minlength="1" maxlength="50"class="form-control" required>
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-group">
                                 <label class="">Nombre de contacto:</label>
-                                <input type="text" name="contacto" class="form-control"required>
+                                <input type="text" minlength="1" maxlength="50"id="contacto" class="form-control" required>
                             </div>
                         </div>
                     </div>
@@ -111,26 +116,27 @@ $rfc = $_GET['rfc'];
                         <div class="col-4">
                             <div class="form-group">
                                 <label class="">Telefono:</label>
-                                <input type="text" name="telefono" class="form-control"required>
+                                <input type="text" id="telefono" class="form-control" required>
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="form-group">
                                 <label class="">Celular:</label>
-                                <input type="text" name="celular" pattern="[0-9]{10}" title="Introduzca un celular valido"class="form-control"required>
+                                <input type="text" id="celular" pattern="[0-9]{10}"
+                                    title="Introduzca un celular valido" class="form-control" required>
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="form-group">
                                 <label class="">Correo:</label>
-                                <input type="email" name="correo" class="form-control"required>
+                                <input type="email" id="correo" maxlength="50"class="form-control" required>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-4"></div>
                         <div class="col-3">
-                        <a href="javascript:history.back(-1);" class="btn btn-lg btn-primary" title="Ir la página anterior">Cancelar</a>
+                        <a href="donadores.php" class="btn btn-lg btn-primary" title="Ir la página anterior">Cancelar</a>
                         </div>
                         <div class="col-2"></div>
                         <div class="col-3">

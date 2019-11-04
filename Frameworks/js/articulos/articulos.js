@@ -20,7 +20,7 @@ $(document).ready(function () {
     const postData = {
       name: $('#nombre').val()
     };
-    const url = 'procesos/ajax_agregar_articulo.php';
+    const url = 'procesos/articulos/articulo_add.php';
     console.log(postData, url);
     $.post(url, postData, (response) => {
       $('#formulario').trigger('reset');
@@ -42,7 +42,7 @@ $(document).ready(function () {
       name: $('#name').val(),
       id: $('#id').val()
     };
-    const url = 'procesos/ajax_editar_articulo.php';
+    const url = 'procesos/articulos/articulo_update.php';
     console.log(postData, url);
     $.post(url, postData, (response) => {
       $('#form').trigger('reset');
@@ -65,7 +65,7 @@ $(document).ready(function () {
     const postData = {
       id: $('#iddelete').val()
     };
-    const url = 'procesos/ajax_eliminar_articulo.php';
+    const url = 'procesos/articulos/articulo_delete.php';
     console.log(postData, url);
     $.post(url, postData, (response) => {
       if (response == 'Articulo Eliminado') {
@@ -105,7 +105,7 @@ var listar = function () {
     "destroy": true,
     "ajax": {
       "method": "POST",
-      "url": "procesos/ajax_listar_articulos.php"
+      "url": "procesos/articulos/articulo_listar.php"
     },
     "columns": [{
         "data": "id"

@@ -18,6 +18,8 @@ $recibo=$rows['recibo'];
     <link rel="stylesheet" href="../Frameworks/css/estilo.css">
     <link rel="shortcut icon" href="img/logo.webp" type="image/x-icon">
     <script src="../Frameworks/jQuery/jquery.js"></script>
+    <script src="../Frameworks/js/alert.js"></script>
+    <script src="../Frameworks/js/donadores/donadoresproceso.js"></script>
 
     <title>SIGBA</title>
 </head>
@@ -30,21 +32,19 @@ $recibo=$rows['recibo'];
     <?php
     require('header.html');
     ?>
-
-    <br>
     <main>
         <section>
             <div class="formulario">
                 <h1 class="titulo">Donadores</h1>
-                <form action="procesos/donadorproceso.php?i=3" method="post">
-                    <input type="hidden" name="id" value="<?php echo $rows['idpersona'];?>">
+                <form id="donadores_update" method="post">
+                    <input type="hidden" id="id" value="<?php echo $rows['idpersona'];?>">
                     <div class="row">
                         <div class="col-6">
                             <label class="controls-label">Recibo:</label>
                         </div>
                         <div class="col-3">
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" value="SI" name="recibo"
+                                <input class="form-check-input" value="SI" id="recibo"
                                     <?php if($recibo=='SI') print "checked=true"?> type="radio" id="inlineCheckbox1"
                                     required>
                                 <label class="form-check-label" for="inlineCheckbox1">SI</label>
@@ -52,7 +52,7 @@ $recibo=$rows['recibo'];
                         </div>
                         <div class="col-3">
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" value="NO" name="recibo"
+                                <input class="form-check-input" value="NO" id="recibo"
                                     <?php if($recibo=='NO') print "checked=true"?> type="radio" id="inlineCheckbox2"
                                     required>
                                 <label class="form-check-label" for="inlineCheckbox2">NO</label>
@@ -64,7 +64,7 @@ $recibo=$rows['recibo'];
                         <div class="col-8">
                             <div class="form-group">
                                 <label class="">Razon social:</label>
-                                <input class="form-control" value="<?php echo $rows['razon_Social'];?>" name="razon"
+                                <input class="form-control" value="<?php echo $rows['razon_Social'];?>" id="razon"
                                     type="text" required>
                             </div>
                         </div>
@@ -74,7 +74,7 @@ $recibo=$rows['recibo'];
                                 <label class="">RFC:</label>
                                 <input type="text"
                                     pattern="^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1]))([A-Z\d]{3})?$"
-                                    title="Introduzca un RFC valido" name="rfc" value="<?php echo $rows['rfc'];?>"
+                                    title="Introduzca un RFC valido" id="rfc" value="<?php echo $rows['rfc'];?>"
                                     class="form-control" required>
                             </div>
                         </div>
@@ -83,14 +83,14 @@ $recibo=$rows['recibo'];
                         <div class="col-6">
                             <div class="form-group">
                                 <label class="">Calle:</label>
-                                <input type="text" name="calle" value="<?php echo $rows['calle'];?>"
+                                <input type="text" id="calle" value="<?php echo $rows['calle'];?>"
                                     class="form-control" required>
                             </div>
                         </div>
                         <div class="col-2">
                             <div class="form-group">
                                 <label class="">Num Ext:</label>
-                                <input type="text" name="numext" value="<?php echo $rows['num_Exterior'];?>"
+                                <input type="text" id="numext" value="<?php echo $rows['num_Exterior'];?>"
                                     class="form-control" required>
 
                             </div>
@@ -98,7 +98,7 @@ $recibo=$rows['recibo'];
                         <div class="col-2">
                             <div class="form-group">
                                 <label class="">Num Int:</label>
-                                <input type="text" name="numint" value="<?php echo $rows['num_Interior'];?>"
+                                <input type="text" id="numint" value="<?php echo $rows['num_Interior'];?>"
                                     class="form-control ">
 
                             </div>
@@ -107,7 +107,7 @@ $recibo=$rows['recibo'];
                         <div class="col-2">
                             <div class="form-group">
                                 <label class="">Codigo Postal:</label>
-                                <input type="text" name="codpostal" pattern="[0-9]{5}"
+                                <input type="text" id="codpostal" pattern="[0-9]{5}"
                                     title="Introduzca un codigo postal valido" value="<?php echo $rows['codPostal'];?>"
                                     class="form-control " required>
                             </div>
@@ -117,14 +117,14 @@ $recibo=$rows['recibo'];
                         <div class="col-6">
                             <div class="form-group">
                                 <label class="">Colonia:</label>
-                                <input type="text" value="<?php echo $rows['colonia'];?>" name="colonia"
+                                <input type="text" value="<?php echo $rows['colonia'];?>" id="colonia"
                                     class="form-control" required>
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-group">
                                 <label class="">Nombre de contacto:</label>
-                                <input type="text" name="contacto" value="<?php echo $rows['nombre_Contacto'];?>"
+                                <input type="text" id="contacto" value="<?php echo $rows['nombre_Contacto'];?>"
                                     class="form-control" required>
                             </div>
                         </div>
@@ -133,14 +133,14 @@ $recibo=$rows['recibo'];
                         <div class="col-4">
                             <div class="form-group">
                                 <label class="">Telefono:</label>
-                                <input type="text" name="telefono" value="<?php echo $rows['telefono'];?>"
+                                <input type="text" id="telefono" value="<?php echo $rows['telefono'];?>"
                                     class="form-control" required>
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="form-group">
                                 <label class="">Celular:</label>
-                                <input type="text" name="celular" pattern="[0-9]{10}"
+                                <input type="text" id="celular" pattern="[0-9]{10}"
                                     title="Introduzca un celular valido" value="<?php echo $rows['celular'];?>"
                                     class="form-control" required>
                             </div>
@@ -148,7 +148,7 @@ $recibo=$rows['recibo'];
                         <div class="col-4">
                             <div class="form-group">
                                 <label class="">Correo:</label>
-                                <input type="email" name="correo" value="<?php echo $rows['correo'];?>"
+                                <input type="email" id="correo" value="<?php echo $rows['correo'];?>"
                                     class="form-control" required>
                             </div>
                         </div>
@@ -156,7 +156,7 @@ $recibo=$rows['recibo'];
                     <div class="row">
                         <div class="col-4"></div>
                         <div class="col-3">
-                            <a href="javascript:history.back(-1);" class="btn btn-lg btn-primary"
+                            <a href="donadores.php" class="btn btn-lg btn-primary"
                                 title="Ir la página anterior">Cancelar</a>
                         </div>
                         <div class="col-2"></div>
@@ -166,6 +166,7 @@ $recibo=$rows['recibo'];
 
                     </div>
                 </form>
+            </div>
             </div>
         </section>
     </main>
