@@ -142,10 +142,33 @@ div.articulos {
 	width: 100%;
 }
 thead{
-	background-color: #6fb98f;
+	background-color: #004445;
 	color: white;
 }
 
 #add {
 	margin-top: 32px;
+}
+
+.btn{
+	background-color: #004445;
+	color: white;
+	border: black;
+}
+.btn:hover{
+	background-color: #008285;
+	color: white;
+	transition: .5s;
+}
+.btn:active{
+	transform: scale(.9);
+	box-shadow: gray ;
+	background-color: #008285;
+}
+.formulario-inicio{
+	height: 100%;
+	padding: 40px 40px 40px 40px;
+	margin-top: 100px;
+	border: 1px solid black;
+	border-radius: 4px;
 }

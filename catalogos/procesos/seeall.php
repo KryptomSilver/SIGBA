@@ -1,9 +1,7 @@
 <?php 
     $i = $_GET['i'];
     switch ($i):
-        
-        ?>
-<?php
+
         case 2: // PROVEEDORES
         require('conexion.php');
         $id = $_GET['idpersona'];
@@ -631,7 +629,6 @@
 
 </html>
 
-?>
 <?php mysqli_close($conn); 
         break;
         ?>
