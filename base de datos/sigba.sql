@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : Tec_Colima
+ Source Server         : transporte
  Source Server Type    : MySQL
- Source Server Version : 100138
+ Source Server Version : 100406
  Source Host           : localhost:3306
  Source Schema         : sigba
 
  Target Server Type    : MySQL
- Target Server Version : 100138
+ Target Server Version : 100406
  File Encoding         : 65001
 
- Date: 18/09/2019 01:09:45
+ Date: 11/11/2019 20:55:53
 */
 
 SET NAMES utf8mb4;
@@ -24,9 +24,32 @@ DROP TABLE IF EXISTS `articulo`;
 CREATE TABLE `articulo`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(60) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
-  `unidad_Medida` varchar(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 48 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Table structure for entradas
+-- ----------------------------
+DROP TABLE IF EXISTS `entradas`;
+CREATE TABLE `entradas`  (
+  `identrada` int(11) NOT NULL AUTO_INCREMENT,
+  `idarticulo` int(11) NULL DEFAULT NULL,
+  `idpersona` int(11) NULL DEFAULT NULL,
+  `idunidad` int(11) NULL DEFAULT NULL,
+  `precio_Compra` float(50, 0) NULL DEFAULT NULL,
+  `precio_Venta` float(50, 0) NULL DEFAULT NULL,
+  `fecha_Caducidad` date NULL DEFAULT NULL,
+  `perecedero` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `existencia` int(11) NULL DEFAULT NULL,
+  `fecha_Extincion` date NULL DEFAULT NULL,
+  PRIMARY KEY (`identrada`) USING BTREE,
+  INDEX `idarticulo`(`idarticulo`) USING BTREE,
+  INDEX `idpersona`(`idpersona`) USING BTREE,
+  INDEX `idunidad`(`idunidad`) USING BTREE,
+  CONSTRAINT `entradas_ibfk_1` FOREIGN KEY (`idarticulo`) REFERENCES `articulo` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `entradas_ibfk_2` FOREIGN KEY (`idpersona`) REFERENCES `persona` (`idpersona`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `entradas_ibfk_3` FOREIGN KEY (`idunidad`) REFERENCES `unidad_medida` (`idunidad`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for persona
@@ -48,7 +71,7 @@ CREATE TABLE `persona`  (
   `recibo` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `tipoPer` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`idpersona`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for persona_tipo
@@ -73,6 +96,17 @@ CREATE TABLE `tipo_persona`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
+-- Table structure for unidad_medida
+-- ----------------------------
+DROP TABLE IF EXISTS `unidad_medida`;
+CREATE TABLE `unidad_medida`  (
+  `idunidad` int(11) NOT NULL,
+  `Clave_articulo` int(11) NOT NULL,
+  `Unidad_medida` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`idunidad`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
 -- Procedure structure for sp_Actualizar
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `sp_Actualizar`;
@@ -92,15 +126,15 @@ delimiter ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `sp_AgregarArticulo`;
 delimiter ;;
-CREATE PROCEDURE `sp_AgregarArticulo`(IN `pnombre` varchar(60),IN `pu_Medida` varchar(20))
+CREATE PROCEDURE `sp_AgregarArticulo`(IN `pnombre` varchar(60))
 BEGIN
 	#Routine body goes here...
 	
 	IF (SELECT count(1)FROM articulo
 	WHERE nombre	LIKE pnombre) = 0 THEN
 	
-	INSERT INTO articulo (nombre, unidad_Medida)
-	VALUES (UPPER(pnombre),UPPER(pu_Medida));
+	INSERT INTO articulo (nombre)
+	VALUES (UPPER(pnombre));
 	
 	#SELECT LAST_INSERT_ID() INTO id_Articulo;
 	#SET id_Articulo = 0;
@@ -117,13 +151,13 @@ delimiter ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `sp_EditarArticulo`;
 delimiter ;;
-CREATE PROCEDURE `sp_EditarArticulo`(IN `pid` INT(11),IN `pnombre` varchar(60),IN `pu_Medida` varchar(20))
+CREATE PROCEDURE `sp_EditarArticulo`(IN `pid` INT(11), IN `pnombre` VARCHAR(60))
 BEGIN
 	#Routine body goes here...
 	
 	
 	
-	UPDATE  articulo SET nombre = UPPER(pnombre), unidad_Medida = UPPER(pu_Medida)
+	UPDATE  articulo SET nombre = UPPER(pnombre)
 	WHERE id = pid;
 	
 	#SELECT LAST_INSERT_ID() INTO id_Articulo;
@@ -191,6 +225,22 @@ END
 delimiter ;
 
 -- ----------------------------
+-- Procedure structure for sp_EliminarPersona
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `sp_EliminarPersona`;
+delimiter ;;
+CREATE PROCEDURE `sp_EliminarPersona`(IN pid INT(11))
+BEGIN
+	#Routine body goes here...
+	
+	DELETE FROM persona WHERE idpersona = pid;
+
+	SELECT  'REGISTRO ELIMINADO' AS msg;
+END
+;;
+delimiter ;
+
+-- ----------------------------
 -- Procedure structure for sp_EliminarProveedor
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `sp_EliminarProveedor`;
@@ -202,22 +252,6 @@ BEGIN
 	DELETE FROM persona WHERE idpersona = pid;
 
 	SELECT  'PROVEEDOR ELIMINADO' AS msg;
-END
-;;
-delimiter ;
-
--- ----------------------------
--- Procedure structure for sp_EliminarProyecto
--- ----------------------------
-DROP PROCEDURE IF EXISTS `sp_EliminarProyecto`;
-delimiter ;;
-CREATE PROCEDURE `sp_EliminarProyecto`(IN pid INT(11))
-BEGIN
-	#Routine body goes here...
-	
-	DELETE FROM persona WHERE idpersona = pid;
-
-	SELECT  'PROYECTO ELIMINADO' AS msg;
 END
 ;;
 delimiter ;

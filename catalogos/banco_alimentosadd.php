@@ -134,6 +134,7 @@ $rfc = $_GET['rfc'];
             </div>
         </section>
     </main>
+    
     <?php
     require('footer.html');
     ?>
