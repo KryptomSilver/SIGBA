@@ -30,7 +30,17 @@
         <section>
             <h1 class="titulo">Familias</h1>
             <hr>
+
             <div class="container">
+                <div class="row">
+                    <div class="col-10"></div>
+                    <div class="col-2">
+                        <div class="form-group">
+                            <a href="addfamiliares.php" class="btn btn-lg btn-primary"
+                                title="Ir la página anterior">Agregar</a>
+                        </div>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-1"></div>
                     <div class="col-10">
@@ -38,8 +48,8 @@
                             cellspacing="0">
                             <thead>
                                 <tr>
-                                    <th >Id</th>
-                                    <th >Jefe de Familia</th>
+                                    <th>Id</th>
+                                    <th>Jefe de Familia</th>
                                     <th>Dirección</th>
                                     <th>Integrantes</th>
                                     <th>Fecha Alta</th>
@@ -78,11 +88,11 @@
                             <thead>
                                 <tr>
                                     <th>Id</th>
-                                    <th >Nombre</th>
+                                    <th>Nombre</th>
                                     <th>Edad</th>
                                     <th>Fecha Nacimiento</th>
                                     <th>Ocupación</th>
-                                    <th >Acciones</th>
+                                    <th>Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
