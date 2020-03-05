@@ -1,0 +1,52 @@
+.sidenav {
+    height: 100%;
+    width: 148px;
+    position: fixed;
+    z-index: 1;
+    background-color: gray;
+    overflow-x: hidden;
+    padding-top: 20px;
+  }
+  
+  .sidenav a {
+    padding: 16px 8px 8px 16px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #fff;
+    display: block;
+  }
+  
+  .sidenav a:hover {
+    color: #fff;
+  }
+  .menu{
+    overflow: auto;
+    background-color: black;
+  }
+  .menu a {
+    float: left;
+    text-align: center;
+    padding: 12px;
+    color: white;
+    text-decoration: none;
+    font-size: 35px;
+  }
+  
+  /* Navbar links on mouse-over */
+  .menu a:hover {
+    background-color: #000;
+  }
+  
+  /* Current/active navbar link */
+  
+  @media screen and (max-width: 500px) {
+    .menu a {
+      float: none;
+      display: block;
+    }
+  }
+  
+  @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+  }
