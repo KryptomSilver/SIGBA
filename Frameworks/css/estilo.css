@@ -172,6 +172,10 @@ thead{
 	border: 1px solid black;
 	border-radius: 4px;
 }
+.borde{
+	border: 1px solid black;
+	border-radius: 4px;
+}
 .formulario_borde{
 	border: 1px solid black;
 	border-radius: 4px;
@@ -181,3 +185,4 @@ thead{
 #seguircheck{
 	padding-top: 12px;
 }
+
