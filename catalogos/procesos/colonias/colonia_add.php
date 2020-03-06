@@ -3,7 +3,6 @@ include('../conexion.php');
 
 $name = $_POST['name'];
 $sql = "CALL sp_AgregarColonia('".$name."');";
-
 $resultado = mysqli_query($conn,$sql);
 $row = mysqli_fetch_array($resultado);
 

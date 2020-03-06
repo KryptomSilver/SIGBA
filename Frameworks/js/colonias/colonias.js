@@ -25,7 +25,7 @@ $(document).ready(function () {
     $.post(url, postData, (response) => {
       $('#formulario').trigger('reset');
       listar();
-      if (response == 'colonia Registrado') {
+      if (response == 'Colonia Registrada') {
         alert_success(response);
         listar();
       } else {
