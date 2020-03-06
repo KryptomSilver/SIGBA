@@ -110,13 +110,13 @@ var listar = function () {
       "url": "procesos/unidad_medida/unidad_medida_listar.php"
     },
     "columns": [{
-        "data": "id"
-      },
-      {
-        "data": "nombre"
+        "data": "idunidad"
       },
       {
         "data": "clave"
+      },
+      {
+        "data": "unidad_medida"
       },
       {
         "defaultContent": "<a  class='eliminar'data-toggle='modal' data-target='#delete'><img src='../img/eliminar.ico' width='30' height='30'class='d-inline-block align-top'></a><a  data-toggle='modal'class='editar'data-target='#editar' ><img src='../img/editar.ico' width='30' height='30'class=d-inline-block align-top'></a>"

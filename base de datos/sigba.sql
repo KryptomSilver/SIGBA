@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-03-2020 a las 17:57:45
+-- Tiempo de generación: 06-03-2020 a las 04:26:25
 -- Versión del servidor: 10.4.6-MariaDB
 -- Versión de PHP: 7.3.9
 
@@ -33,18 +33,6 @@ UPDATE persona set razon_Social = UPPER(prazon_Social), rfc = UPPER(prfc) ,calle
 select "REGISTRO ACTUALIZADO" as msg;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_ActualizarUnidad` (IN `punidad` VARCHAR(60), IN `pclave` VARCHAR(60), IN `pidunidad` INT)  NO SQL
-BEGIN
-	#Routine body goes here...
-	
-	
-	
-	UPDATE  unidad_medida SET unidad_medida = UPPER(punidad), clave = UPPER(pclave)
-	WHERE idunidad = pidunidad;
-	
-	select 'Unidad Actualizada' AS msg;
-	end$$
-
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_AgregarArticulo` (IN `pnombre` VARCHAR(60))  BEGIN
 	#Routine body goes here...
 	
@@ -59,6 +47,42 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_AgregarArticulo` (IN `pnombre` V
 	select 'Articulo Registrado' AS msg;
 	else 
 	select 'Articulo Existente' AS msg;
+	END IF;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_AgregarColonia` (IN `pnombre` VARCHAR(60))  NO SQL
+BEGIN
+	#Routine body goes here...
+	
+	IF (SELECT count(1)FROM colonias
+	WHERE nombre	LIKE pnombre) = 0 THEN
+	
+	INSERT INTO colonias (nombre)
+	VALUES (UPPER(pnombre));
+	
+	#SELECT LAST_INSERT_ID() INTO id_Articulo;
+	#SET id_Articulo = 0;
+	select 'Colonia Registrada' AS msg;
+	else 
+	select 'Colonia Existente' AS msg;
+	END IF;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_AgregarMunicipio` (IN `pnombre` VARCHAR(60))  NO SQL
+BEGIN
+	#Routine body goes here...
+	
+	IF (SELECT count(1)FROM municipios
+	WHERE nombre	LIKE pnombre) = 0 THEN
+	
+	INSERT INTO municipios (nombre)
+	VALUES (UPPER(pnombre));
+	
+	#SELECT LAST_INSERT_ID() INTO id_Articulo;
+	#SET id_Articulo = 0;
+	select 'Municipio Registrado' AS msg;
+	else 
+	select 'Municipio Existente' AS msg;
 	END IF;
 END$$
 
@@ -93,6 +117,46 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_EditarArticulo` (IN `pid` INT(11
 	select 'Articulo Actualizado' AS msg;
 	end$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_EditarColonia` (IN `pid` INT, IN `pnombre` VARCHAR(60))  NO SQL
+BEGIN
+	#Routine body goes here...
+	
+	
+	
+	UPDATE  colonias SET nombre = UPPER(pnombre)
+	WHERE id = pid;
+	
+	#SELECT LAST_INSERT_ID() INTO id_Articulo;
+	#SET id_Articulo = 0;
+	select 'Colonia Actualizada' AS msg;
+	end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_EditarMunicipio` (IN `pid` INT, IN `pnombre` VARCHAR(60))  NO SQL
+BEGIN
+	#Routine body goes here...
+	
+	
+	
+	UPDATE  municipios SET nombre = UPPER(pnombre)
+	WHERE id = pid;
+	
+	#SELECT LAST_INSERT_ID() INTO id_Articulo;
+	#SET id_Articulo = 0;
+	select 'Municipio Actualizado' AS msg;
+	end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_EditarUnidad` (IN `punidad` VARCHAR(60), IN `pclave` VARCHAR(60), IN `pidunidad` INT)  NO SQL
+BEGIN
+	#Routine body goes here...
+	
+	
+	
+	UPDATE  unidad_medida SET unidad_medida = UPPER(punidad), clave = UPPER(pclave)
+	WHERE idunidad = pidunidad;
+	
+	select 'Unidad Actualizada' AS msg;
+	end$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_EliminarArticulo` (IN `pid` INT(11))  BEGIN
 	#Routine body goes here...
 	
@@ -118,12 +182,48 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_EliminarBanco` (IN `pid` INT(11)
 	SELECT  'BANCO DE ALIMENTOS ELIMINADO' AS msg;
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_EliminarColonia` (IN `pid` INT)  NO SQL
+BEGIN
+	#Routine body goes here...
+	
+	IF (SELECT count(1)FROM colonias
+	WHERE id	= pid) = 0 THEN
+	
+	
+	
+	#SELECT LAST_INSERT_ID() INTO id_Articulo;
+	#SET id_Articulo = 0;
+	select 'Colonia No Existente' AS msg;
+	else 
+	select 'Colonia Eliminada' AS msg;
+	DELETE FROM colonias WHERE id = pid;
+	END IF;
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_EliminarDonador` (IN `pid` INT(11))  BEGIN
 	#Routine body goes here...
 	
 	DELETE FROM persona WHERE idpersona = pid;
 
 	SELECT  'DONADOR ELIMINADO' AS msg;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_EliminarMunicipio` (IN `pid` INT)  NO SQL
+BEGIN
+	#Routine body goes here...
+	
+	IF (SELECT count(1)FROM municipios
+	WHERE id	= pid) = 0 THEN
+	
+	
+	
+	#SELECT LAST_INSERT_ID() INTO id_Articulo;
+	#SET id_Articulo = 0;
+	select 'Municipio No Existente' AS msg;
+	else 
+	select 'Municipio Eliminado' AS msg;
+	DELETE FROM municipios WHERE id = pid;
+	END IF;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_EliminarPersona` (IN `pid` INT(11))  BEGIN
@@ -211,6 +311,17 @@ CREATE TABLE `articulo` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `colonias`
+--
+
+CREATE TABLE `colonias` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(60) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `entradas`
 --
 
@@ -226,6 +337,17 @@ CREATE TABLE `entradas` (
   `existencia` int(11) DEFAULT NULL,
   `fecha_Extincion` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `municipios`
+--
+
+CREATE TABLE `municipios` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(60) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -302,6 +424,12 @@ ALTER TABLE `articulo`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
+-- Indices de la tabla `colonias`
+--
+ALTER TABLE `colonias`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `entradas`
 --
 ALTER TABLE `entradas`
@@ -309,6 +437,12 @@ ALTER TABLE `entradas`
   ADD KEY `idarticulo` (`idarticulo`) USING BTREE,
   ADD KEY `idpersona` (`idpersona`) USING BTREE,
   ADD KEY `idunidad` (`idunidad`) USING BTREE;
+
+--
+-- Indices de la tabla `municipios`
+--
+ALTER TABLE `municipios`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `persona`
@@ -346,10 +480,22 @@ ALTER TABLE `articulo`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
+-- AUTO_INCREMENT de la tabla `colonias`
+--
+ALTER TABLE `colonias`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT de la tabla `entradas`
 --
 ALTER TABLE `entradas`
   MODIFY `identrada` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `municipios`
+--
+ALTER TABLE `municipios`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `persona`
