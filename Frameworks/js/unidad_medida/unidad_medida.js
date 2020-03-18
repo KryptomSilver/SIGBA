@@ -26,6 +26,7 @@ $(document).ready(function () {
     $.post(url, postData, (response) => {
       $('#formulario').trigger('reset');
       listar();
+      console.log(response);
       if (response == 'Unidad Registrada') {
         alert_success(response);
         listar();
@@ -112,11 +113,12 @@ var listar = function () {
     "columns": [{
         "data": "idunidad"
       },
-      {
-        "data": "clave"
-      },
+      
       {
         "data": "unidad_medida"
+      },
+      {
+        "data": "clave"
       },
       {
         "defaultContent": "<a  class='eliminar'data-toggle='modal' data-target='#delete'><img src='../img/eliminar.ico' width='30' height='30'class='d-inline-block align-top'></a><a  data-toggle='modal'class='editar'data-target='#editar' ><img src='../img/editar.ico' width='30' height='30'class=d-inline-block align-top'></a>"
@@ -158,15 +160,15 @@ var edit_data = function (tbody, table) {
   $(tbody).off("click", "a.editar");
   $(tbody).on("click", "a.editar", function () {
     var data = table.row($(this).parents("tr")).data();
-    var idarticulo = $("#form #id").val(data.id);
+    var idarticulo = $("#form #id").val(data.idunidad);
     var clave = $("#form #clave").val(data.clave);    
-    var nombre = $("#form #name").val(data.nombre);
+    var nombre = $("#form #name").val(data.unidad_medida);
   });
 }
 var delete_data = function (tbody, table) {
-  $(tbody).off('click', 'a.eliminar');
+  $(tbody).off("click", "a.eliminar");
   $(tbody).on("click", "a.eliminar", function () {
     var data = table.row($(this).parents("tr")).data();
-    var idarticulo = $("#formdelete #iddelete").val(data.id);
+    var idunidad = $("#formdelete #iddelete").val(data.idunidad);
   });
 }

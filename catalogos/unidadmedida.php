@@ -113,7 +113,7 @@
     </form>
     <!--modal delete-->
     <form id="formdelete" method="post">
-        <input type="hidden" id="iddelete" >
+        <input type="hidden" id="iddelete">
         <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
             aria-hidden="true">
             <div class="modal-dialog">

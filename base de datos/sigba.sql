@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-03-2020 a las 04:26:25
--- Versión del servidor: 10.4.6-MariaDB
--- Versión de PHP: 7.3.9
+-- Tiempo de generación: 18-03-2020 a las 16:21:44
+-- Versión del servidor: 10.4.11-MariaDB
+-- Versión de PHP: 7.4.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -97,8 +97,8 @@ BEGIN
 	VALUES (UPPER(punidad),UPPER(pclave));
 	
 	#SELECT LAST_INSERT_ID() INTO id_Articulo;
-	#SET id_Articulo = 0;
-	select 'Unidad Registrado' AS msg;
+	#SET id_Articulo = 0
+	select 'Unidad Registrada' AS msg;
 	else 
 	select 'Unidad Existente' AS msg;
 	END IF;
@@ -240,6 +240,24 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_EliminarProveedor` (IN `pid` INT
 	DELETE FROM persona WHERE idpersona = pid;
 
 	SELECT  'PROVEEDOR ELIMINADO' AS msg;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_EliminarUnidad` (IN `pid` INT)  NO SQL
+BEGIN
+	#Routine body goes here...
+	
+	IF (SELECT count(1)FROM unidad_medida
+	WHERE idunidad	= pid) = 0 THEN
+	
+	
+	
+	#SELECT LAST_INSERT_ID() INTO id_Articulo;
+	#SET id_Articulo = 0;
+	select 'Unidad No Existente' AS msg;
+	else 
+	select 'Unidad Eliminada' AS msg;
+	DELETE FROM unidad_medida WHERE idunidad = pid;
+	END IF;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_Registro` (IN `prazon_Social` VARCHAR(50), IN `prfc` VARCHAR(13), IN `pcalle` VARCHAR(25), IN `pnum_Interior` INT(11), IN `pnum_Exterior` INT(11), IN `pcolonia` VARCHAR(50), IN `pcodPostal` INT(11), IN `pnombre_Contacto` VARCHAR(50), IN `ptelefono` INT(11), IN `pcelular` VARCHAR(10), IN `pcorreo` VARCHAR(30), IN `precibo` VARCHAR(50), IN `tipoPer` INT(11))  BEGIN
@@ -411,7 +429,9 @@ CREATE TABLE `unidad_medida` (
 --
 
 INSERT INTO `unidad_medida` (`idunidad`, `clave`, `unidad_medida`) VALUES
-(0, 'SDFG', 'DFG');
+(3, 'SDFSD', 'DF'),
+(4, 'SDFFGFRG', 'DSF'),
+(5, 'GGGGG', 'GHJGHJ');
 
 --
 -- Índices para tablas volcadas
@@ -495,13 +515,19 @@ ALTER TABLE `entradas`
 -- AUTO_INCREMENT de la tabla `municipios`
 --
 ALTER TABLE `municipios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `persona`
 --
 ALTER TABLE `persona`
   MODIFY `idpersona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT de la tabla `unidad_medida`
+--
+ALTER TABLE `unidad_medida`
+  MODIFY `idunidad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Restricciones para tablas volcadas
