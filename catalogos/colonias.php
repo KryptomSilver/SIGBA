@@ -26,8 +26,6 @@
     ?>
     <br>
 
-    <main>
-        <section>
             <h1 class="titulo">Colonias</h1>
             <hr>
             <div class="container">
@@ -66,8 +64,7 @@
                     <div class="col-1"></div>
                 </div>
             </div>
-        </section>
-    </main>
+
     <?php
     require('footer.html');
     ?>

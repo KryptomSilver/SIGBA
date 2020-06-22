@@ -27,8 +27,7 @@ $rfc = $_GET['rfc'];
     ?>
 
     <br>
-    <main>
-        <section>
+
             <div class="formulario z">
                 <h1 class="titulo">Banco de Alimentos</h1>
                 <form id="bancos_add" method="post">
@@ -132,8 +131,7 @@ $rfc = $_GET['rfc'];
                     </div>
                 </form>
             </div>
-        </section>
-    </main>
+
     
     <?php
     require('footer.html');

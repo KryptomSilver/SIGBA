@@ -26,8 +26,7 @@
     require('header.html');
     ?>
     <br>
-    <main>
-        <section>
+ 
             <div class="container">
                 <h1 class="titulo">Banco de alimentos</h1>
                 <form action="" method="post">
@@ -72,8 +71,7 @@
                     </div>
                 </form>
             </div>
-        </section>
-    </main>
+
     <?php
     require('footer.html');
     ?>

@@ -32,8 +32,7 @@ $rows = mysqli_fetch_array($resultado);
     ?>
 
     <br>
-    <main>
-        <section>
+
             <div class="formulario z">
                 <h1 class="titulo">Banco de Alimentos</h1>
                 <form id="bancos_update" method="post">
@@ -144,8 +143,7 @@ $rows = mysqli_fetch_array($resultado);
                     </div>
                 </form>
             </div>
-        </section>
-    </main>
+
     <?php
     require('footer.html');
     ?>

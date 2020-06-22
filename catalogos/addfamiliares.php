@@ -17,77 +17,157 @@
     <?php 
         require('header.html');
     ?>
-    <h1 class="titulo">Agregar Familia</h1>
-    <div class="container">
+    <div class="formulario z">
+        <h1 class="titulo">Registro de Familiares</h1>
         <div class="row">
             <div class="col-6">
                 <div class="form-group">
-                    <label for="">Dirección</label>
-                    <input class="form-control" type="text">
+                    <label class="">Nombre:</label>
+                    <input class="form-control" id="nombre" type="text" minlength="1" maxlength="50" required>
                 </div>
             </div>
             <div class="col-6">
-                <div class="form-group">
-                    <label for="">Telefono</label>
-                    <input class="form-control" type="text">
+                <div class="row">
+                    <div class="col-3">
+                        <label class="controls-label">Sexo:</label>
+                        <div class="form-check ">
+                            <input name="sexo" class="form-check-input" value="SI" id="recibo" type="radio"
+                                id="inlineCheckbox1" required>
+                            <label class="form-check-label" for="inlineCheckbox1">Hombre</label>
+                        </div>
+                        <div class="form-check ">
+                            <input name="sexo" class="form-check-input" value="NO" id="recibo" type="radio"
+                                id="inlineCheckbox2" required>
+                            <label class="form-check-label" for="inlineCheckbox2">Mujer</label>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-3">
+            <div class="col-6">
                 <div class="form-group">
-                    <label for="">Vivienda</label>
-                    <select class="form-control" name="" id="">
-                        <option value="">Vivienda 1</option>
-                    </select>
+                    <label class="">Fecha de Nacimiento:</label>
+                    <input class="form-control" id="fecha" type="date" required>
                 </div>
             </div>
             <div class="col-3">
+
                 <div class="form-group">
-                    <label for="">Vulnerabilidad</label>
-                    <select class="form-control" name="" id="">
-                        <option value="">Vulnerabilidad 1</option>
-                    </select>
+                    <label class="">Edad:</label>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class=" form-check-inline ">
+                                <input class="form-control " id="edad" type="text" disabled required>Años
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
             </div>
             <div class="col-3">
-                <div class="form-group">
-                    <label for="">Jefe familiar</label>
-                    <select name="" id="" class="form-control">
-                        <option value="">Jefe 1</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="form-group">
-                    <label for="">Personas que generan ingresos</label>
-                    <input type="number" min="1" class="form-control">
+                <div class="row">
+                    <div class="col-8">
+                        <label class="controls-label">Jefe de Familia:</label>
+                        <div class="form-check ">
+                            <input name="jefe" class="form-check-input" value="SI" id="recibo" type="radio"
+                                id="inlineCheckbox1" required>
+                            <label class="form-check-label" for="inlineCheckbox1">Si</label>
+                        </div>
+                        <div class="form-check ">
+                            <input name="jefe" class="form-check-input" value="NO" id="recibo" type="radio"
+                                id="inlineCheckbox2" required>
+                            <label class="form-check-label" for="inlineCheckbox2">No</label>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-3">
+            <div class="col-6">
                 <div class="form-group">
-                    <label for="">Ingresos mensuales fijos</label>
-                    <input class="form-control" type="text" placeholder="$">
+                    <label class="">Ocupación:</label>
+                    <select name="" class="form-control" id="ocupacion">
+                        <option value="">Ocupación 1</option>
+                    </select>
                 </div>
             </div>
-            <div class="col-3">
-                <div class="form-group">
-                    <label for="">Ingreso familiar</label>
-                    <input type="text" class="form-control" placeholder="$">
+            <div class="col-6">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label class="controls-label">Estudios:</label>
+                            <select name="" class="form-control " id="ocupacion">
+                                <option value="">Primaria</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-12 formulario_borde">
+
+                        <div class="row">
+                            <div class="col-11">
+                                <div class="form-group">
+                                    <label class="controls-label">Grado:</label>
+                                    <select name="" class="form-control mx-3" id="ocupacion">
+                                        <option value="">Grado 1</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+
+                                <div class=" form-check-inline ">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <div class="form-check">
+                                                <input name="grado" class="form-check-input" value="SI" id="recibo"
+                                                    type="radio" id="inlineCheckbox1" required>
+                                                <label class="form-check-label" for="inlineCheckbox1">Terminado</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="form-check">
+                                                <input name="grado" class="form-check-input" value="SI" id="recibo"
+                                                    type="radio" id="inlineCheckbox1" required>
+                                                <label class="form-check-label" for="inlineCheckbox1">Trunco</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="form-check">
+                                                <input name="grado" class="form-check-input" value="SI" id="recibo"
+                                                    type="radio" id="inlineCheckbox1" required>
+                                                <label class="form-check-label" for="inlineCheckbox1">Proceso</label>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <div class="form-check" id="seguircheck">
+                                    <input name="sexo" class="form-check-input" value="SI" id="recibo" type="checkbox"
+                                        id="inlineCheckbox1" required>
+                                    <label class="form-check-label" for="inlineCheckbox1">Desea seguir
+                                        estudiando</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="col-3">
+        </div>
+        <div class="row">
+            <div class="col-6">
                 <div class="form-group">
-                    <label for="">Cantidad</label>
-                    <input type="text" class="form-control" placeholder="$">
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="form-group">
-                    <label for="">Ingresos extras especiales</label>
-                    <input type="text" class="form-control" placeholder="$">
+                    <label class="">Servicios Médicos:</label>
+                    <select name="" class="form-control" id="ocupacion">
+                        <option value="">Servicio 1</option>
+                    </select>
                 </div>
             </div>
         </div>
@@ -100,6 +180,7 @@
             <div class="col-3">
                 <button class="btn btn-lg btn-primary" type="submit">Guardar</button>
             </div>
+
         </div>
     </div>
     <?php

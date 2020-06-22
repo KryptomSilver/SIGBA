@@ -36,7 +36,7 @@
                     <div class="col-10"></div>
                     <div class="col-2">
                         <div class="form-group">
-                            <a href="addfamiliares.php" class="btn btn-lg btn-primary"
+                            <a href="addfamilias.php" class="btn btn-lg btn-primary"
                                 title="Ir la página anterior">Agregar</a>
                         </div>
                     </div>
@@ -78,11 +78,20 @@
                     </div>
                     <div class="col-1"></div>
                 </div>
+                <h1 class="titulo">Familiares</h1>
                 <div class="row">
 
                     <div class="col-1"></div>
                     <div class="col-10">
-                        <h1>Familiares</h1>
+                        <div class="row">
+                            <div class="col-9">
+                            </div>
+                            <div class="col-3">
+                                <a href="addfamiliares.php" class="btn btn-md btn-primary"
+                                    title="Ir la página anterior">Agregar</a>
+                            </div>
+                        </div>
+                        <br>
                         <table id="familiares" class="table table-striped table-bordered" style="width:100%"
                             cellspacing="0">
                             <thead>

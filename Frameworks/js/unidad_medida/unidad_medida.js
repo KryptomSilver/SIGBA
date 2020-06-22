@@ -4,13 +4,13 @@ $(document).ready(function () {
 
   listar();
 
-  $(window).on('scroll', function () {
-    if ($(window).scrollTop() > altura) {
-      $('.menu').addClass('menu-pegajoso');
-    } else {
-      $('.menu').removeClass('menu-pegajoso');
-    }
-  });
+  //$(window).on('scroll', function () {
+  //  if ($(window).scrollTop() > altura) {
+ //     $('.menu').addClass('menu-pegajoso');
+  //  } else {
+  //    $('.menu').removeClass('menu-pegajoso');
+   // }
+  //});
 
 
 
