@@ -94,7 +94,7 @@
         <div class="row">
             <div class="col-4"></div>
             <div class="col-3">
-                <a href="familiaslista.php" class="btn btn-lg btn-primary" title="Ir la página anterior">Cancelar</a>
+                <a href="familias.php" class="btn btn-lg btn-primary" title="Ir la página anterior">Cancelar</a>
             </div>
             <div class="col-2"></div>
             <div class="col-3">

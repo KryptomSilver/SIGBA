@@ -36,7 +36,7 @@
                     <div class="col-10"></div>
                     <div class="col-2">
                         <div class="form-group">
-                            <a href="addfamilias.php" class="btn btn-lg btn-primary"
+                            <a href="familiasadd.php" class="btn btn-lg btn-primary"
                                 title="Ir la página anterior">Agregar</a>
                         </div>
                     </div>
@@ -63,7 +63,7 @@
                                     <td>Av Pablo Silva Garcia #302</td>
                                     <td>3</td>
                                     <td>20/8/1998</td>
-                                    <td></td>
+                                    <td><a href="familiares.php"><img src='../img/see.svg' width='30' height='30'class='d-inline-block align-top'></a></td>
                                 </tr>
                                 <tr>
                                     <td>1</td>
@@ -74,55 +74,7 @@
                                     <td></td>
                                 </tr>
                             </tbody>
-                        </table>
-                    </div>
-                    <div class="col-1"></div>
-                </div>
-                <h1 class="titulo">Familiares</h1>
-                <div class="row">
 
-                    <div class="col-1"></div>
-                    <div class="col-10">
-                        <div class="row">
-                            <div class="col-9">
-                            </div>
-                            <div class="col-3">
-                                <a href="addfamiliares.php" class="btn btn-md btn-primary"
-                                    title="Ir la página anterior">Agregar</a>
-                            </div>
-                        </div>
-                        <br>
-                        <table id="familiares" class="table table-striped table-bordered" style="width:100%"
-                            cellspacing="0">
-                            <thead>
-                                <tr>
-                                    <th>Id</th>
-                                    <th>Nombre</th>
-                                    <th>Edad</th>
-                                    <th>Fecha Nacimiento</th>
-                                    <th>Ocupación</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Abel Romero Ruiz</td>
-                                    <td>22</td>
-                                    <td>08/01/1998</td>
-                                    <td>Estudiante</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Abel Romero Ruiz</td>
-                                    <td>22</td>
-                                    <td>08/01/1998</td>
-                                    <td>Estudiante</td>
-                                    <td></td>
-                                </tr>
-
-                            </tbody>
                         </table>
                     </div>
                     <div class="col-1"></div>
