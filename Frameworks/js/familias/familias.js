@@ -102,11 +102,11 @@ var alert_warning = function (msg) {
 }
 
 var listar = function () {
-  var table = $('#').DataTable({
+  var table = $('#familias').DataTable({
     "destroy": true,
     "ajax": {
       "method": "POST",
-      "url": "procesos/articulos/articulo_listar.php"
+      "url": ""
     },
     "columns": [{
         "data": "id"

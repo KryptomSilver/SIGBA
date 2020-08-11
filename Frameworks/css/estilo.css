@@ -1,39 +1,21 @@
-
 @import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
 
-div.row{
-	margin-right: 0px;
- }
- 
- div.container-fluid{
-	padding-right: 0px;
- }
 * {
-	margin-top: 0px;
+	margin: 0px;
 	padding: 0px;
 	font-family: 'Open Sans', sans-serif;
-	margin-block-start:0px;
 }
-body{
-	margin: 0;
-}
+
 /*Globales*/
 .centrado {
 	margin-left: auto;
 	margin-right: auto;
 }
-.titulo {
-	text-align: center
+::-moz-scrollbar-thumb{
+	background-color: blue;
 }
 
 /*Menu*/
-.logo {
-	width: 70px;
-	height: 50px;
-}
-#img {
-	padding:5px 10px;
-}
 ul,
 ol {
 	list-style: none;
@@ -46,22 +28,20 @@ ol {
 #navegacion {
 	width: 100%;
 	font-family: Arial, Helvetica, sans-serif;
-	padding-top: 1px;
-	height: 61px;
+	height: 44px;
 	background-color: #004445;
 }
-
 .nave li a {
 	background-color:#004445;
 	color: #fff;
 	text-decoration: none;
-	padding: 18px 20px;
+	padding: 10px 20px;
 	display: block;
 }
 
 .nave li a:hover {
 	background-color: #2C7873;
-	transition:  .4s;
+	transition: .6s;
 }
 
 .nave li ul {
@@ -73,7 +53,7 @@ ol {
 .nave li:hover>ul {
 	display: block;
 	background-color: #2C7873;
-	transition: .4s;
+	transition: .6s;
 }
 
 .nave li ul li {
@@ -88,9 +68,15 @@ ol {
 	transition: .9s;
 }
 
+/*Titulo*/
+.titulo {
+	text-align: center
+}
 
-
-
+/*Logo titulo*/
+.logo {
+	padding-right: 10px;
+}
 
 /*footer*/
 #footer {
@@ -107,6 +93,8 @@ ol {
 	height: 100%;
 	padding: 0px 100px 20px 100px;
 	margin-top: 5px;
+
+	/*background-color: #303130;*/
 }
 
 div.formulario {
@@ -124,6 +112,7 @@ li {
 	list-style-type: none;
 }
 
+/*correcciones*/
 
 /*donadores*/
 .form {
@@ -155,12 +144,6 @@ div.articulos {
 thead{
 	background-color: #004445;
 	color: white;
-}
-th{
-	font-size: 14px;
-}
-td{
-	font-size: 12px;
 }
 
 #add {
@@ -198,5 +181,8 @@ td{
 	border-radius: 4px;
 	padding: 10px 10px;
 	box-sizing: border-box;
+}
+#seguircheck{
+	padding-top: 12px;
 }
 
