@@ -32,7 +32,6 @@
         <br>
         <div class="row">
             <div class="col-12">
-
                 <table id="familias" class="table table-striped table-bordered" style="width:100%" cellspacing="0">
                     <thead>
                         <tr>
@@ -41,10 +40,11 @@
                             <th>Dirección</th>
                             <th>Integrantes</th>
                             <th>Fecha Alta</th>
+                            <th>Fecha Alta</th>
+                            <th>Fecha Alta</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
-
                 </table>
             </div>
         </div>

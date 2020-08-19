@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="../Frameworks/jQuery/jquery.js"></script>
-    
+
     <title>Familiares</title>
 
     <style>
@@ -73,7 +73,7 @@
         require('header.html');
     ?>
     <br>
-    <h1 class="titulo">Agregar Familia</h1>
+    <h1 class="titulo">Familias</h1>
     <br>
     <form action="" id="familia">
         <div class="container">
@@ -100,23 +100,27 @@
                 <!-- datos generales-->
                 <div class="hide" id="tab1">
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col-6">
                             <div class="form-group">
-                                <label for="">Calle:</label>
-                                <input type="text" class="form-control" required>
+                                <label for="">Municipio:</label>
+                                <select name="" id="" class="form-control" required>
+                                    <option value="">1</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="">Colonia:</label>
+                                <select name="" id="" class="form-control" required>
+                                    <option value="">1</option>
+                                </select>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-8">
                             <div class="form-group">
-                                <label for="">Calles colindantes:</label>
-                                <input type="text" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="col-2">
-                            <div class="form-group">
-                                <label for="">Nº interior:</label>
+                                <label for="">Calle:</label>
                                 <input type="text" class="form-control" required>
                             </div>
                         </div>
@@ -126,6 +130,27 @@
                                 <input type="text" class="form-control" required>
                             </div>
                         </div>
+                        <div class="col-2">
+                            <div class="form-group">
+                                <label for="">Nº interior:</label>
+                                <input type="text" class="form-control" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="">Calles colindante 1:</label>
+                                <input type="text" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="">Calles colindante 1:</label>
+                                <input type="text" class="form-control" required>
+                            </div>
+                        </div>
+
                     </div>
                     <div class="row">
                         <div class="col-8">
@@ -155,7 +180,7 @@
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="">Tenencia:</label>
-                                <select name="" id="" class="form-control"required>
+                                <select name="" id="" class="form-control" required>
                                     <option value="">Propia</option>
                                     <option value="">Prestada</option>
                                     <option value="">Pagándose</option>
@@ -166,13 +191,13 @@
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="">Nº Cuartos</label>
-                                <input type="text" class="form-control"required>
+                                <input type="text" class="form-control" required>
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="">Nº Familias Habitándola</label>
-                                <input type="text" class="form-control"required>
+                                <input type="text" class="form-control" required>
                             </div>
                         </div>
                     </div>
@@ -183,19 +208,19 @@
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="">Padre:</label>
-                                <input type="text" placeholder="$" class="form-control"required>
+                                <input type="text" placeholder="$" class="form-control" required>
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="">Madre:</label>
-                                <input type="text" placeholder="$" class="form-control"required>
+                                <input type="text" placeholder="$" class="form-control" required>
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="">Hijos:</label>
-                                <input type="text" placeholder="$" class="form-control"required>
+                                <input type="text" placeholder="$" class="form-control" required>
                             </div>
                         </div>
                     </div>
@@ -203,19 +228,19 @@
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="">Becas:</label>
-                                <input type="text" placeholder="$" class="form-control"required>
+                                <input type="text" placeholder="$" class="form-control" required>
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="">Pensión:</label>
-                                <input type="text" placeholder="$" class="form-control"required>
+                                <input type="text" placeholder="$" class="form-control" required>
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="">Otros:</label>
-                                <input type="text" placeholder="$" class="form-control"required>
+                                <input type="text" placeholder="$" class="form-control" required>
                             </div>
                         </div>
                     </div>
@@ -223,19 +248,19 @@
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="">Adultos mayores:</label>
-                                <input type="text" placeholder="$" class="form-control"required>
+                                <input type="text" placeholder="$" class="form-control" required>
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="">Total semanal:</label>
-                                <input type="text" placeholder="$" class="form-control"required>
+                                <input type="text" placeholder="$" class="form-control" required>
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="">Total mensual:</label>
-                                <input type="text" placeholder="$" class="form-control"required>
+                                <input type="text" placeholder="$" class="form-control" required>
                             </div>
                         </div>
                     </div>
@@ -245,25 +270,25 @@
                         <div class="col-3">
                             <div class="form-group">
                                 <label for="">Vivienda:</label>
-                                <input type="text" placeholder="$" class="form-control"required>
+                                <input type="text" placeholder="$" class="form-control" required>
                             </div>
                         </div>
                         <div class="col-3">
                             <div class="form-group">
                                 <label for="">Alimentación:</label>
-                                <input type="text" placeholder="$" class="form-control"required>
+                                <input type="text" placeholder="$" class="form-control" required>
                             </div>
                         </div>
                         <div class="col-3">
                             <div class="form-group">
                                 <label for="">Luz:</label>
-                                <input type="text" placeholder="$" class="form-control"required>
+                                <input type="text" placeholder="$" class="form-control" required>
                             </div>
                         </div>
                         <div class="col-3">
                             <div class="form-group">
                                 <label for="">Gas:</label>
-                                <input type="text" placeholder="$" class="form-control"required>
+                                <input type="text" placeholder="$" class="form-control" required>
                             </div>
                         </div>
                     </div>
@@ -271,25 +296,25 @@
                         <div class="col-3">
                             <div class="form-group">
                                 <label for="">Agua:</label>
-                                <input type="text" placeholder="$" class="form-control"required>
+                                <input type="text" placeholder="$" class="form-control" required>
                             </div>
                         </div>
                         <div class="col-3">
                             <div class="form-group">
                                 <label for="">Alimentación medica:</label>
-                                <input type="text" placeholder="$" class="form-control"required>
+                                <input type="text" placeholder="$" class="form-control" required>
                             </div>
                         </div>
                         <div class="col-3">
                             <div class="form-group">
                                 <label for="">Teléfono:</label>
-                                <input type="text" placeholder="$" class="form-control"required>
+                                <input type="text" placeholder="$" class="form-control" required>
                             </div>
                         </div>
                         <div class="col-3">
                             <div class="form-group">
                                 <label for="">Transporte:</label>
-                                <input type="text" placeholder="$" class="form-control"required>
+                                <input type="text" placeholder="$" class="form-control" required>
                             </div>
                         </div>
                     </div>
@@ -297,19 +322,19 @@
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="">Otros gastos:</label>
-                                <input type="text" placeholder="$" class="form-control"required>
+                                <input type="text" placeholder="$" class="form-control" required>
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="">Celular:</label>
-                                <input type="text" placeholder="$" class="form-control"required>
+                                <input type="text" placeholder="$" class="form-control" required>
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="">Educación:</label>
-                                <input type="text" placeholder="$" class="form-control"required>
+                                <input type="text" placeholder="$" class="form-control" required>
                             </div>
                         </div>
                     </div>
@@ -317,13 +342,13 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="">Total semanal:</label>
-                                <input type="text" placeholder="$" class="form-control"required>
+                                <input type="text" placeholder="$" class="form-control" required>
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="">Total mensual:</label>
-                                <input type="text" placeholder="$" class="form-control"required>
+                                <input type="text" placeholder="$" class="form-control" required>
                             </div>
                         </div>
                     </div>
@@ -335,7 +360,8 @@
                         </div>
                         <div class="col-2"></div>
                         <div class="col-3">
-                            <button class="btn btn-lg btn-primary" type="submit">Guardar</button>
+                            <!--<button class="btn btn-lg btn-primary" type="submit">Guardar</button>-->
+                            <a class="btn btn-lg btn-primary" href="integrantes.php">Guardar</a>
                         </div>
                     </div>
                 </div>
