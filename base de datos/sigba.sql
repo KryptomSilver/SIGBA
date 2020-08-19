@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.1
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 18-03-2020 a las 16:21:44
--- Versión del servidor: 10.4.11-MariaDB
--- Versión de PHP: 7.4.3
+-- Host: localhost
+-- Generation Time: Aug 18, 2020 at 11:17 PM
+-- Server version: 10.4.13-MariaDB
+-- PHP Version: 7.4.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -19,12 +18,12 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `sigba`
+-- Database: `sigba`
 --
 
 DELIMITER $$
 --
--- Procedimientos
+-- Procedures
 --
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_Actualizar` (IN `pid` INT(11), IN `prazon_Social` VARCHAR(50), IN `prfc` VARCHAR(13), IN `pcalle` VARCHAR(25), IN `pnum_Interior` INT(11), IN `pnum_Exterior` INT(11), IN `pcolonia` VARCHAR(50), IN `pcodPostal` INT(11), IN `pnombre_Contacto` VARCHAR(50), IN `ptelefono` INT(11), IN `pcelular` VARCHAR(10), IN `pcorreo` VARCHAR(30), IN `precibo` VARCHAR(50))  BEGIN
 
@@ -318,7 +317,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `articulo`
+-- Table structure for table `articulo`
 --
 
 CREATE TABLE `articulo` (
@@ -326,10 +325,19 @@ CREATE TABLE `articulo` (
   `nombre` varchar(60) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
+--
+-- Dumping data for table `articulo`
+--
+
+INSERT INTO `articulo` (`id`, `nombre`) VALUES
+(49, 'ARTICULO 1'),
+(50, 'ARTICULO 2'),
+(51, 'ARTICULO 3');
+
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `colonias`
+-- Table structure for table `colonias`
 --
 
 CREATE TABLE `colonias` (
@@ -340,7 +348,7 @@ CREATE TABLE `colonias` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `entradas`
+-- Table structure for table `entradas`
 --
 
 CREATE TABLE `entradas` (
@@ -359,7 +367,7 @@ CREATE TABLE `entradas` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `municipios`
+-- Table structure for table `municipios`
 --
 
 CREATE TABLE `municipios` (
@@ -370,7 +378,7 @@ CREATE TABLE `municipios` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `persona`
+-- Table structure for table `persona`
 --
 
 CREATE TABLE `persona` (
@@ -393,7 +401,7 @@ CREATE TABLE `persona` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `persona_tipo`
+-- Table structure for table `persona_tipo`
 --
 
 CREATE TABLE `persona_tipo` (
@@ -404,7 +412,7 @@ CREATE TABLE `persona_tipo` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `tipo_persona`
+-- Table structure for table `tipo_persona`
 --
 
 CREATE TABLE `tipo_persona` (
@@ -415,7 +423,7 @@ CREATE TABLE `tipo_persona` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `unidad_medida`
+-- Table structure for table `unidad_medida`
 --
 
 CREATE TABLE `unidad_medida` (
@@ -425,7 +433,7 @@ CREATE TABLE `unidad_medida` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 --
--- Volcado de datos para la tabla `unidad_medida`
+-- Dumping data for table `unidad_medida`
 --
 
 INSERT INTO `unidad_medida` (`idunidad`, `clave`, `unidad_medida`) VALUES
@@ -434,23 +442,23 @@ INSERT INTO `unidad_medida` (`idunidad`, `clave`, `unidad_medida`) VALUES
 (5, 'GGGGG', 'GHJGHJ');
 
 --
--- Índices para tablas volcadas
+-- Indexes for dumped tables
 --
 
 --
--- Indices de la tabla `articulo`
+-- Indexes for table `articulo`
 --
 ALTER TABLE `articulo`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Indices de la tabla `colonias`
+-- Indexes for table `colonias`
 --
 ALTER TABLE `colonias`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `entradas`
+-- Indexes for table `entradas`
 --
 ALTER TABLE `entradas`
   ADD PRIMARY KEY (`identrada`) USING BTREE,
@@ -459,82 +467,82 @@ ALTER TABLE `entradas`
   ADD KEY `idunidad` (`idunidad`) USING BTREE;
 
 --
--- Indices de la tabla `municipios`
+-- Indexes for table `municipios`
 --
 ALTER TABLE `municipios`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `persona`
+-- Indexes for table `persona`
 --
 ALTER TABLE `persona`
   ADD PRIMARY KEY (`idpersona`) USING BTREE;
 
 --
--- Indices de la tabla `persona_tipo`
+-- Indexes for table `persona_tipo`
 --
 ALTER TABLE `persona_tipo`
   ADD KEY `idtipo` (`idtipo`) USING BTREE,
   ADD KEY `idpersona` (`idpersona`) USING BTREE;
 
 --
--- Indices de la tabla `tipo_persona`
+-- Indexes for table `tipo_persona`
 --
 ALTER TABLE `tipo_persona`
   ADD KEY `idtipo` (`idtipo`) USING BTREE;
 
 --
--- Indices de la tabla `unidad_medida`
+-- Indexes for table `unidad_medida`
 --
 ALTER TABLE `unidad_medida`
   ADD PRIMARY KEY (`idunidad`) USING BTREE;
 
 --
--- AUTO_INCREMENT de las tablas volcadas
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT de la tabla `articulo`
+-- AUTO_INCREMENT for table `articulo`
 --
 ALTER TABLE `articulo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
--- AUTO_INCREMENT de la tabla `colonias`
+-- AUTO_INCREMENT for table `colonias`
 --
 ALTER TABLE `colonias`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT de la tabla `entradas`
+-- AUTO_INCREMENT for table `entradas`
 --
 ALTER TABLE `entradas`
   MODIFY `identrada` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `municipios`
+-- AUTO_INCREMENT for table `municipios`
 --
 ALTER TABLE `municipios`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT de la tabla `persona`
+-- AUTO_INCREMENT for table `persona`
 --
 ALTER TABLE `persona`
   MODIFY `idpersona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT de la tabla `unidad_medida`
+-- AUTO_INCREMENT for table `unidad_medida`
 --
 ALTER TABLE `unidad_medida`
   MODIFY `idunidad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- Restricciones para tablas volcadas
+-- Constraints for dumped tables
 --
 
 --
--- Filtros para la tabla `persona_tipo`
+-- Constraints for table `persona_tipo`
 --
 ALTER TABLE `persona_tipo`
   ADD CONSTRAINT `persona_tipo_ibfk_1` FOREIGN KEY (`idpersona`) REFERENCES `persona` (`idpersona`) ON DELETE CASCADE ON UPDATE CASCADE;
