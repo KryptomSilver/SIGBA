@@ -1,106 +1,41 @@
 //menu pegajoso scroll
 $(document).ready(function () {
   var altura = $('.menu').offset().top;
-
+  console.log(altura);
   listar();
 
-  $(window).on('scroll', function () {
-    if ($(window).scrollTop() > altura) {
-      $('.menu').addClass('menu-pegajoso');
+  //$(window).on('scroll', function () {
+  //if ($(window).scrollTop() <= altura) {
+   // $('.menu').removeClass('menu-pegajoso');
+
+  // } else {
+    
+    //$('.menu').addClass('menu-pegajoso');
+  //  }
+ // });
+ $('#formdelete').submit(e => {
+  e.preventDefault();
+  var id = $('#formdelete #iddelete').val();
+  console.log(id);
+  const postData = {
+    id: $('#iddelete').val()
+  };
+  const url = 'procesos/familias/familias_delete.php';
+  console.log(postData, url);
+  $.post(url, postData, (response) => {
+    if (response == 'Familia Eliminada') {
+      listar();
+      $('#delete').modal('hide');
+      alert_success(response);
     } else {
-      $('.menu').removeClass('menu-pegajoso');
+      alert_warning(response);
     }
   });
-
-
-
-  // ajax ARTICULOS AGREGAR
-  $('#formulario').submit(e => {
-    e.preventDefault();
-    const postData = {
-      name: $('#nombre').val()
-    };
-    const url = 'procesos/articulos/articulo_add.php';
-    console.log(postData, url);
-    $.post(url, postData, (response) => {
-      $('#formulario').trigger('reset');
-      listar();
-      if (response == 'Articulo Registrado') {
-        alert_success(response);
-        listar();
-      } else {
-        alert_warning(response);
-        listar();
-      }
-
-    });
-  });
-  // ajax ARTICULOS ACTUALIZAR
-  $('#form').submit(e => {
-    e.preventDefault();
-    const postData = {
-      name: $('#name').val(),
-      id: $('#id').val()
-    };
-    const url = 'procesos/articulos/articulo_update.php';
-    console.log(postData, url);
-    $.post(url, postData, (response) => {
-      $('#form').trigger('reset');
-      if (response == 'Articulo Actualizado') {
-        $('#editar').modal('hide');
-        alert_success(response);
-        listar();
-      } else {
-        alert_warning(response);
-        listar();
-      }
-
-    });
-  });
-  // ajax ARTICULOS ELIMINAR
-  $('#formdelete').submit(e => {
-    e.preventDefault();
-    var id = $('#formdelete #iddelete').val();
-    console.log(id);
-    const postData = {
-      id: $('#iddelete').val()
-    };
-    const url = 'procesos/articulos/articulo_delete.php';
-    console.log(postData, url);
-    $.post(url, postData, (response) => {
-      if (response == 'Articulo Eliminado') {
-        listar();
-        $('#delete').modal('hide');
-        alert_success(response);
-      } else {
-        alert_warning(response);
-      }
-    });
-  });
-  // AJAX PROVEEDORES AGREGAR
-
+});
 });
 
 
-var alert_success = function (msg) {
-  var respuesta = msg
-  Swal.fire({
-    type: 'success',
-    title: respuesta,
-    showConfirmButton: false,
-    timer: 800
-  })
-}
-var alert_warning = function (msg) {
-  var respuesta = msg
-  Swal.fire({
-    type: 'warning',
-    title: respuesta,
-    showConfirmButton: false,
-    timer: 800
-  })
-}
-
+  
 var listar = function () {
   var table = $('#familias').DataTable({
     "destroy": true,
@@ -115,13 +50,13 @@ var listar = function () {
         "data": "calle"
       },
       {
-        "data": "numero"
+        "data": "telefono"
       },
       {
         "data": "colonia"
       },
       {
-        "data": "municipios"
+        "data": "municipio"
       },
       {
         "data": "integrantes"
@@ -162,21 +97,45 @@ var listar = function () {
       }
     }
   });
-  edit_data("#articulos tbody", table);
-  delete_data("#articulos tbody", table);
+  edit_data("#familias tbody", table);
+  delete_data("#familias tbody", table);
 }
 var edit_data = function (tbody, table) {
   $(tbody).off("click", "a.editar");
   $(tbody).on("click", "a.editar", function () {
     var data = table.row($(this).parents("tr")).data();
-    var idarticulo = $("#form #id").val(data.id);
-    var nombre = $("#form #name").val(data.nombre);
+    var idfamilia = data.id;
+    window.location.href = '../catalogos/familiasupdate.php?idfamilia=' + idfamilia;
   });
 }
 var delete_data = function (tbody, table) {
   $(tbody).off('click', 'a.eliminar');
   $(tbody).on("click", "a.eliminar", function () {
     var data = table.row($(this).parents("tr")).data();
+    console.log(data.id);
     var idarticulo = $("#formdelete #iddelete").val(data.id);
   });
 }
+var alert_success = function (msg) {
+  var respuesta = msg
+  Swal.fire({
+      type: 'success',
+      title: respuesta,
+      showConfirmButton: false,
+      timer: 1000
+  })
+}
+
+
+
+//alerta
+var alert_warning = function (msg) {
+  var respuesta = msg
+  Swal.fire({
+      type: 'warning',
+      title: respuesta,
+      showConfirmButton: false,
+      timer: 800
+  })
+}
+
