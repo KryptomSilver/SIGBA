@@ -1,14 +1,14 @@
 //menu pegajoso scroll
 $(document).ready(function () {
-    var altura = $('.menu').offset().top;
+    //var altura = $('.menu').offset().top;
 
-    $(window).on('scroll', function () {
-        if ($(window).scrollTop() > altura) {
-            $('.menu').addClass('menu-pegajoso');
-        } else {
-            $('.menu').removeClass('menu-pegajoso');
-        }
-    });
+   // $(window).on('scroll', function () {
+     //   if ($(window).scrollTop() > altura) {
+    //        $('.menu').addClass('menu-pegajoso');
+     //   } else {
+     //       $('.menu').removeClass('menu-pegajoso');
+    //    }
+   // });
 
     // AJAX PROVEEDORES AGREGAR
     $('#donadores_add').submit(e => {

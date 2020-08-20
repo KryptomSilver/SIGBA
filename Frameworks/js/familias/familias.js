@@ -1,7 +1,7 @@
 //menu pegajoso scroll
 $(document).ready(function () {
-  var altura = $('.menu').offset().top;
-  console.log(altura);
+  //var altura = $('.menu').offset().top;
+  //console.log(altura);
   listar();
 
   //$(window).on('scroll', function () {

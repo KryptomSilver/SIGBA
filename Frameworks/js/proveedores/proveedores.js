@@ -1,16 +1,16 @@
 //menu pegajoso scroll
 $(document).ready(function () {
-    var altura = $('.menu').offset().top;
+   // var altura = $('.menu').offset().top;
 
     listar();
-    $(window).on('scroll', function () {
-        console.log(altura);
-        if ($(window).scrollTop() > altura) {
-            $('.menu').addClass('menu-pegajoso');
-        } else {
-            $('.menu').removeClass('menu-pegajoso');
-        }
-    });
+    //$(window).on('scroll', function () {
+     //   console.log(altura);
+      //  if ($(window).scrollTop() > altura) {
+      //      $('.menu').addClass('menu-pegajoso');
+     //   } else {
+     //       $('.menu').removeClass('menu-pegajoso');
+    //    }
+   // });
     //ELIMINAR PROVEEDOR
     $('#formdelete').submit(e => {
         e.preventDefault();

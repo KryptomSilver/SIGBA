@@ -3,17 +3,17 @@ $(document).ready(function () {
     var altura = $('.menu').offset().top;
     
     listar();
-    $(window).on('scroll', function () {
-        console.log(altura);
-        if ($(window).scrollTop() > altura) {
-            $('.menu').addClass('menu-pegajoso');
-            console.log(altura);
-        } else {
-            $('.menu').removeClass('menu-pegajoso');
-            console.log(altura);
-            console.log('si');
-        }
-    });
+    //$(window).on('scroll', function () {
+     //   console.log(altura);
+      //  if ($(window).scrollTop() > altura) {
+     //       $('.menu').addClass('menu-pegajoso');
+     //       console.log(altura);
+       // } else {
+       //     $('.menu').removeClass('menu-pegajoso');
+      //      console.log(altura);
+     //       console.log('si');
+    //    }
+  //  });
     //ELIMINAR BANCO
     $('#formdelete').submit(e => {
         e.preventDefault();

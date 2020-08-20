@@ -137,10 +137,10 @@ div.articulos {
 }
 
 .menu-pegajoso {
-	position: fixed;
 	z-index: 1000;
-	top: 0;
 	width: 100%;
+	position: sticky;
+	top:0;
 }
 thead{
 	background-color: #004445;
