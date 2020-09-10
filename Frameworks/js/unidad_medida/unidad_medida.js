@@ -43,12 +43,13 @@ $(document).ready(function () {
     const postData = {
       name: $('#name').val(),
       id: $('#id').val(),
-      clave: $('#clave').val()
+      clave: $('#form #clave').val()
     };
     const url = 'procesos/unidad_medida/unidad_medida_update.php';
     console.log(postData, url);
     $.post(url, postData, (response) => {
       $('#form').trigger('reset');
+      console.log(response);
       if (response == 'Unidad Actualizada') {
         $('#editar').modal('hide');
         alert_success(response);

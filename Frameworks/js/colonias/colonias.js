@@ -1,16 +1,10 @@
 //menu pegajoso scroll
 $(document).ready(function () {
-  var altura = $('.menu').offset().top;
+
 
   listar();
 
-  $(window).on('scroll', function () {
-    if ($(window).scrollTop() > altura) {
-      $('.menu').addClass('menu-pegajoso');
-    } else {
-      $('.menu').removeClass('menu-pegajoso');
-    }
-  });
+
 
 
 
@@ -18,7 +12,8 @@ $(document).ready(function () {
   $('#formulario').submit(e => {
     e.preventDefault();
     const postData = {
-      name: $('#nombre').val()
+      name: $('#nombre').val(),
+      municipio: $('#municipio').val()
     };
     const url = 'procesos/colonias/colonia_add.php';
     console.log(postData, url);
@@ -39,8 +34,9 @@ $(document).ready(function () {
   $('#form').submit(e => {
     e.preventDefault();
     const postData = {
-      name: $('#name').val(),
-      id: $('#id').val()
+      colonia: $('#colonia').val(),
+      id: $('#id').val(),
+      municipio: $('#municipios').val()
     };
     const url = 'procesos/colonias/colonia_update.php';
     console.log(postData, url);
@@ -48,6 +44,7 @@ $(document).ready(function () {
       $('#form').trigger('reset');
       if (response == 'Colonia Actualizada') {
         $('#editar').modal('hide');
+        
         alert_success(response);
         listar();
       } else {
@@ -107,15 +104,26 @@ var listar = function () {
       "method": "POST",
       "url": "procesos/colonias/colonia_listar.php"
     },
-    "columns": [{
-        "data": "id"
+    
+    "columns": [
+      {
+        "data":"idmunicipio"
       },
       {
-        "data": "nombre"
+        "data":"id"
+      },
+      {
+        "data": "municipio"
+      },
+      {
+        "data": "colonia"
       },
       {
         "defaultContent": "<a  class='eliminar'data-toggle='modal' data-target='#delete'><img src='../img/eliminar.ico' width='30' height='30'class='d-inline-block align-top'></a><a  data-toggle='modal'class='editar'data-target='#editar' ><img src='../img/editar.ico' width='30' height='30'class=d-inline-block align-top'></a>"
       }
+    ],
+    "columnDefs": [
+      { "visible": false, "targets": 0 }
     ],
     "language": {
       "sProcessing": "Procesando...",
@@ -144,6 +152,7 @@ var listar = function () {
         "copy": "Copiar",
         "colvis": "Visibilidad"
       }
+      
     }
   });
   edit_data("#colonias tbody", table);
@@ -154,7 +163,10 @@ var edit_data = function (tbody, table) {
   $(tbody).on("click", "a.editar", function () {
     var data = table.row($(this).parents("tr")).data();
     var idcolonia = $("#form #id").val(data.id);
-    var nombre = $("#form #name").val(data.nombre);
+    var nombre = $("#form #colonia").val(data.colonia);
+    var municipio = data.idmunicipio;
+    console.log(municipio);
+    $('#form #municipios').load("procesos/cargarmunicipios.php?id="+municipio);
   });
 }
 var delete_data = function (tbody, table) {

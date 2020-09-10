@@ -20,7 +20,9 @@
     <?php
     require('header.html');
     ?>
+     <br>
     <h1 class="titulo">Familias</h1>
+    <br>
     <div class="tabla-lg">
         <div class="row">
             <div class="col-9"></div>
@@ -35,12 +37,12 @@
                     <thead>
                         <tr>
                             <th>Id</th>
-                            <th>Jefe de Familia</th>
                             <th>Dirección</th>
+                            <th>Municipio</th>
+                            <th>Colonia</th>
                             <th>Integrantes</th>
-                            <th>Fecha Alta</th>
-                            <th>Fecha Alta</th>
-                            <th>Fecha Alta</th>
+                            <th>Telefono</th>
+                            <th>Ingresos</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>

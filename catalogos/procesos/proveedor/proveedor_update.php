@@ -1,4 +1,7 @@
 <?php
+
+$proveedor = $_POST['proveedor'];
+
 $razon = $_POST['razon'];
 $rfc = $_POST['rfc'];
 $calle = $_POST['calle'];
@@ -13,7 +16,8 @@ $correo = $_POST['correo'];
 $id = $_POST['idpersona'];
 $recibo ='';
 require('../conexion.php');
-$sql = "CALL sp_Actualizar('".$id."','".$razon."', '".$rfc."', '".$calle."', '".$numint."', '".$numext."', '".$colonia."', '".$codpostal."', '".$contacto."', '".$telefono."', '".$celular."', '".$correo."','".$recibo."');";
+$sql = "CALL sp_EditarProveedor('".$id."','".$razon."', '".$rfc."', '".$calle."', '".$numint."', '".$numext."', '".$colonia."', '".$codpostal."', '".$contacto."', '".$telefono."', '".$celular."', '".$correo."','".$recibo."','".$proveedor."');";
+
 $resultado = mysqli_query($conn,$sql);
 $row = mysqli_fetch_array($resultado);
 echo $row['msg'];

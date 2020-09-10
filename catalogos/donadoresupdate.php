@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="es">
 <?php 
-$rfc = $_GET['rfc'];
+$id = $_GET['id'];
 require('procesos/conexion.php');
-$sql = " SELECT  * from persona WHERE rfc = '$rfc' ";
+$sql = " SELECT  * from personas WHERE idpersona = '$id' ";
 $resultado = mysqli_query($conn, $sql);
 $rows = mysqli_fetch_array($resultado);
 $recibo=$rows['recibo'];
@@ -25,32 +25,31 @@ $recibo=$rows['recibo'];
 
 
 <body>
- 
+
     <?php
     require('header.html');
     ?>
-    <main>
-        <section>
-            <div class="formulario">
-                <h1 class="titulo">Donadores</h1>
+<h1 class="titulo">Donadores</h1>
+<hr>
+            <div class="tabla-lg">
+                
                 <form id="donadores_update" method="post">
+                    <input type="hidden"value="1" id="donador">
                     <input type="hidden" id="id" value="<?php echo $rows['idpersona'];?>">
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-1">
                             <label class="controls-label">Recibo:</label>
                         </div>
-                        <div class="col-3">
+                        <div class="col-11">
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" value="SI" id="recibo"
-                                    <?php if($recibo=='SI') print "checked=true"?> type="radio" id="inlineCheckbox1"
+                                    <?php if($recibo=='SI') print "checked=true"?> type="radio" name="recibo"id="recibo"
                                     required>
                                 <label class="form-check-label" for="inlineCheckbox1">SI</label>
                             </div>
-                        </div>
-                        <div class="col-3">
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" value="NO" id="recibo"
-                                    <?php if($recibo=='NO') print "checked=true"?> type="radio" id="inlineCheckbox2"
+                                    <?php if($recibo=='NO') print "checked=true"?> type="radio"name="recibo" id="recibo"
                                     required>
                                 <label class="form-check-label" for="inlineCheckbox2">NO</label>
                             </div>
@@ -80,8 +79,8 @@ $recibo=$rows['recibo'];
                         <div class="col-6">
                             <div class="form-group">
                                 <label class="">Calle:</label>
-                                <input type="text" id="calle" value="<?php echo $rows['calle'];?>"
-                                    class="form-control" required>
+                                <input type="text" id="calle" value="<?php echo $rows['calle'];?>" class="form-control"
+                                    required>
                             </div>
                         </div>
                         <div class="col-2">
@@ -137,9 +136,8 @@ $recibo=$rows['recibo'];
                         <div class="col-4">
                             <div class="form-group">
                                 <label class="">Celular:</label>
-                                <input type="text" id="celular" pattern="[0-9]{10}"
-                                    title="Introduzca un celular valido" value="<?php echo $rows['celular'];?>"
-                                    class="form-control" required>
+                                <input type="text" id="celular" pattern="[0-9]{10}" title="Introduzca un celular valido"
+                                    value="<?php echo $rows['celular'];?>" class="form-control" required>
                             </div>
                         </div>
                         <div class="col-4">

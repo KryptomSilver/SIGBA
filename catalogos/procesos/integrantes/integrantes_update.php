@@ -1,6 +1,4 @@
 <?php
-$donador = $_POST['donador'];
-
 $razon = $_POST['razon'];
 $rfc = $_POST['rfc'];
 $calle = $_POST['calle'];
@@ -12,10 +10,10 @@ $contacto = $_POST['contacto'];
 $telefono = $_POST['telefono'];
 $celular = $_POST['celular'];
 $correo = $_POST['correo'];
-
-$recibo =$_POST['recibo'];
+$id = $_POST['idpersona'];
+$recibo = $_POST['recibo'];
 require('../conexion.php');
-$sql = "CALL sp_AgregarDonador('".$razon."', '".$rfc."', '".$calle."', '".$numint."', '".$numext."', '".$colonia."', '".$codpostal."', '".$contacto."', '".$telefono."', '".$celular."', '".$correo."','".$recibo."','".$donador."');";
+$sql = "CALL sp_Actualizar('".$id."','".$razon."', '".$rfc."', '".$calle."', '".$numint."', '".$numext."', '".$colonia."', '".$codpostal."', '".$contacto."', '".$telefono."', '".$celular."', '".$correo."','".$recibo."');";
 $resultado = mysqli_query($conn,$sql);
 $row = mysqli_fetch_array($resultado);
 echo $row['msg'];

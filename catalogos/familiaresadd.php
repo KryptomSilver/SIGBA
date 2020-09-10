@@ -17,8 +17,10 @@
     <?php 
         require('header.html');
     ?>
-    <div class="formulario z">
-        <h1 class="titulo">Registro de Familiares</h1>
+    <h1 class="titulo">Registro de Familiares</h1>
+    <hr>
+    <div class="tabla-lg">
+        
         <div class="row">
             <div class="col-6">
                 <div class="form-group">

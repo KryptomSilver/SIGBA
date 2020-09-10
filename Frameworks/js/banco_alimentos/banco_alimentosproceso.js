@@ -24,15 +24,18 @@ $(document).ready(function () {
             contacto: $('#contacto').val(),
             telefono: $('#telefono').val(),
             celular: $('#celular').val(),
-            correo: $('#correo').val()
+            correo: $('#correo').val(),
+            banco: $('#banco').val()
         };
         const url = 'procesos/banco_alimentos/banco_alimentos_add.php';
         console.log(postData, url);
         $.post(url, postData, (response) => {
             console.log(response);
             if (response == 'BANCO DE ALIMENTOS REGISTRADO') {
-                window.location.href='banco_alimentos.php';
                 alert_success(response);
+                setTimeout(function () {
+                    window.location.href='banco_alimentos.php';
+                }, 1000); 
             } else {
                 alert_warning(response);
             }
@@ -52,15 +55,18 @@ $(document).ready(function () {
             telefono: $('#telefono').val(),
             celular: $('#celular').val(),
             correo: $('#correo').val(),
-            idpersona: $('#id').val()
+            idpersona: $('#id').val(),
+            banco: $('#banco').val()
         };
         const url = 'procesos/banco_alimentos/banco_alimentos_update.php';
         console.log(postData, url);
         $.post(url, postData, (response) => {
             console.log(response);
-            if (response == 'REGISTRO ACTUALIZADO') {
-                window.location.href='banco_alimentos.php';
+            if (response == 'BANCO DE ALIMENTOS ACTUALIZADO') {
                 alert_success(response);
+                setTimeout(function () {
+                    window.location.href='banco_alimentos.php';
+                }, 1000); 
             } else {
                 alert_warning(response);
             }

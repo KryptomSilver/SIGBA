@@ -6,36 +6,36 @@ $(document).ready(function () {
 
   //$(window).on('scroll', function () {
   //if ($(window).scrollTop() <= altura) {
-   // $('.menu').removeClass('menu-pegajoso');
+  // $('.menu').removeClass('menu-pegajoso');
 
   // } else {
-    
-    //$('.menu').addClass('menu-pegajoso');
+
+  //$('.menu').addClass('menu-pegajoso');
   //  }
- // });
- $('#formdelete').submit(e => {
-  e.preventDefault();
-  var id = $('#formdelete #iddelete').val();
-  console.log(id);
-  const postData = {
-    id: $('#iddelete').val()
-  };
-  const url = 'procesos/familias/familias_delete.php';
-  console.log(postData, url);
-  $.post(url, postData, (response) => {
-    if (response == 'Familia Eliminada') {
-      listar();
-      $('#delete').modal('hide');
-      alert_success(response);
-    } else {
-      alert_warning(response);
-    }
+  // });
+  $('#formdelete').submit(e => {
+    e.preventDefault();
+    var id = $('#formdelete #iddelete').val();
+    console.log(id);
+    const postData = {
+      id: $('#iddelete').val()
+    };
+    const url = 'procesos/familias/familias_delete.php';
+    console.log(postData, url);
+    $.post(url, postData, (response) => {
+      if (response == 'Familia Eliminada') {
+        listar();
+        $('#delete').modal('hide');
+        alert_success(response);
+      } else {
+        alert_warning(response);
+      }
+    });
   });
 });
-});
 
 
-  
+
 var listar = function () {
   var table = $('#familias').DataTable({
     "destroy": true,
@@ -50,16 +50,16 @@ var listar = function () {
         "data": "calle"
       },
       {
-        "data": "telefono"
+        "data": "municipio"
       },
       {
         "data": "colonia"
       },
       {
-        "data": "municipio"
+        "data": "integrantes"
       },
       {
-        "data": "integrantes"
+        "data": "telefono"
       },
       {
         "data": "ingresototal"
@@ -119,10 +119,10 @@ var delete_data = function (tbody, table) {
 var alert_success = function (msg) {
   var respuesta = msg
   Swal.fire({
-      type: 'success',
-      title: respuesta,
-      showConfirmButton: false,
-      timer: 1000
+    type: 'success',
+    title: respuesta,
+    showConfirmButton: false,
+    timer: 1000
   })
 }
 
@@ -132,10 +132,9 @@ var alert_success = function (msg) {
 var alert_warning = function (msg) {
   var respuesta = msg
   Swal.fire({
-      type: 'warning',
-      title: respuesta,
-      showConfirmButton: false,
-      timer: 800
+    type: 'warning',
+    title: respuesta,
+    showConfirmButton: false,
+    timer: 800
   })
 }
-

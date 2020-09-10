@@ -2,7 +2,9 @@
 
 include('../conexion.php');
 
-$query = "SELECT * FROM colonias";
+$query = "SELECT col.id,col.nombre as colonia , mun.id as idmunicipio ,mun.nombre as municipio
+FROM colonias col
+INNER JOIN municipios mun ON col.fk_municipio = mun.id";
 $resultado = mysqli_query($conn,$query);
 
 if(!$resultado){

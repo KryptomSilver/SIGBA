@@ -3,11 +3,11 @@ $(document).ready(function () {
     //var altura = $('.menu').offset().top;
 
     //$(window).on('scroll', function () {
-     //   if ($(window).scrollTop() > altura) {
-     //       $('.menu').addClass('menu-pegajoso');
-      //  } else {
-            $('.menu').removeClass('menu-pegajoso');
-     //   }
+    //   if ($(window).scrollTop() > altura) {
+    //       $('.menu').addClass('menu-pegajoso');
+    //  } else {
+    //   $('.menu').removeClass('menu-pegajoso');
+    //   }
     //});
 
     // AJAX PROVEEDORES AGREGAR
@@ -24,15 +24,18 @@ $(document).ready(function () {
             contacto: $('#contacto').val(),
             telefono: $('#telefono').val(),
             celular: $('#celular').val(),
-            correo: $('#correo').val()
+            correo: $('#correo').val(),
+            proveedor: $('#proveedor').val()
         };
         const url = 'procesos/proveedor/proveedor_add.php';
         console.log(postData, url);
         $.post(url, postData, (response) => {
             console.log(response);
             if (response == 'PROVEEDOR REGISTRADO') {
-                window.location.href='proveedores.php';
                 alert_success(response);
+                setTimeout(function () {
+                    window.location.href='proveedores.php';
+                }, 1000); 
             } else {
                 alert_warning(response);
             }
@@ -52,15 +55,18 @@ $(document).ready(function () {
             telefono: $('#telefono').val(),
             celular: $('#celular').val(),
             correo: $('#correo').val(),
-            idpersona: $('#id').val()
+            idpersona: $('#id').val(),
+            proveedor: $('#proveedor').val()
         };
         const url = 'procesos/proveedor/proveedor_update.php';
         console.log(postData, url);
         $.post(url, postData, (response) => {
             console.log(response);
-            if (response == 'REGISTRO ACTUALIZADO') {
-                window.location.href='proveedores.php';
+            if (response == 'PROVEEDOR ACTUALIZADO') {
                 alert_success(response);
+                setTimeout(function () {
+                    window.location.href='proveedores.php';
+                }, 1000); 
             } else {
                 alert_warning(response);
             }

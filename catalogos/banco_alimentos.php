@@ -18,57 +18,44 @@
 
 
 <body>
-    
+
 
     <?php
     require('header.html');
     ?>
     <br>
- 
-            <div class="container">
-                <h1 class="titulo">Banco de alimentos</h1>
-                <form action="" method="post">
-                    <div class="row">
-                        <div class="col-9"></div>
-                        <div class="col-3">
-                            <button type="button" class="btn btn-lg btn-primary" data-href="" data-toggle="modal"
-                                data-target="#exampleModal">Agregar</button>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-12">
-                            <table id="bancos" class="table table-striped table-bordered" style="width:100%">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>RFC</th>
-                                        <th>Razón social</th>
-                                        <th>Nombre de contacto</th>
-                                        <th>Telefono</th>
-                                        <th>Celular</th>
-                                        <th>Colonia</th>
-                                        <th>Acciones</th>
-                                    </tr>
-                                </thead>
 
-                                <tfoot>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>RFC</th>
-                                        <th>Razón social</th>
-                                        <th>Nombre de contacto</th>
-                                        <th>Telefono</th>
-                                        <th>Celular</th>
-                                        <th>Colonia</th>
-                                        <th>Acciones</th>
-                                    </tr>
-                                </tfoot>
-                            </table>
-                        </div>
-                    </div>
-                </form>
+
+    <h1 class="titulo">Banco de alimentos</h1>
+
+
+    <br>
+    <div class="tabla-lg">
+        <div class="row">
+            <div class="col-9"></div>
+            <div class="col-3">
+                <button type="button" class="btn btn-lg btn-primary" data-href="" data-toggle="modal"
+                    data-target="#exampleModal">Agregar</button>
             </div>
+        </div>
+        <table id="bancos" class="table table-striped table-bordered" style="width:100%">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>RFC</th>
+                    <th>Razón social</th>
+                    <th>Nombre de contacto</th>
+                    <th>Telefono</th>
+                    <th>Celular</th>
+                    <th>Colonia</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+        </table>
+
+    </div>
+
+
 
     <?php
     require('footer.html');
@@ -103,7 +90,7 @@
 
     <!--modal eliminar-->
     <form id="formdelete" method="post">
-    <input type="hidden" id="iddelete">
+        <input type="hidden" id="iddelete">
         <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
             aria-hidden="true">
             <div class="modal-dialog">

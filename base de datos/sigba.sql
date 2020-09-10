@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Aug 18, 2020 at 11:17 PM
--- Server version: 10.4.13-MariaDB
--- PHP Version: 7.4.8
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 11-09-2020 a las 01:22:46
+-- Versión del servidor: 10.4.11-MariaDB
+-- Versión de PHP: 7.4.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -18,20 +19,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `sigba`
+-- Base de datos: `sigba`
 --
 
 DELIMITER $$
 --
--- Procedures
+-- Procedimientos
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_Actualizar` (IN `pid` INT(11), IN `prazon_Social` VARCHAR(50), IN `prfc` VARCHAR(13), IN `pcalle` VARCHAR(25), IN `pnum_Interior` INT(11), IN `pnum_Exterior` INT(11), IN `pcolonia` VARCHAR(50), IN `pcodPostal` INT(11), IN `pnombre_Contacto` VARCHAR(50), IN `ptelefono` INT(11), IN `pcelular` VARCHAR(10), IN `pcorreo` VARCHAR(30), IN `precibo` VARCHAR(50))  BEGIN
-
-UPDATE persona set razon_Social = UPPER(prazon_Social), rfc = UPPER(prfc) ,calle = UPPER(pcalle),num_Interior = UPPER(pnum_Interior),num_Exterior =  UPPER(pnum_Exterior),colonia = UPPER(pcolonia),codPostal = UPPER(pcodPostal),nombre_Contacto = UPPER(pnombre_Contacto),telefono = UPPER(ptelefono),celular = UPPER(pcelular),correo = UPPER(pcorreo),recibo =UPPER(precibo) WHERE idpersona =  pid;
-
-select "REGISTRO ACTUALIZADO" as msg;
-END$$
-
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_AgregarArticulo` (IN `pnombre` VARCHAR(60))  BEGIN
 	#Routine body goes here...
 	
@@ -49,15 +43,23 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_AgregarArticulo` (IN `pnombre` V
 	END IF;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_AgregarColonia` (IN `pnombre` VARCHAR(60))  NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_AgregarBanco` (IN `prazon_Social` VARCHAR(50), IN `prfc` VARCHAR(13), IN `pcalle` VARCHAR(25), IN `pnum_Interior` INT(11), IN `pnum_Exterior` INT(11), IN `pcolonia` VARCHAR(50), IN `pcodPostal` INT(11), IN `pnombre_Contacto` VARCHAR(50), IN `ptelefono` INT(11), IN `pcelular` VARCHAR(10), IN `pcorreo` VARCHAR(30), IN `precibo` VARCHAR(50), IN `vBANCO` TINYINT(1))  BEGIN
+	INSERT INTO personas  (razon_Social,rfc,calle,num_Interior ,num_Exterior ,colonia,codPostal ,nombre_Contacto ,telefono ,celular,correo,recibo,banco)
+VALUES (prazon_Social, prfc,pcalle,pnum_Interior,pnum_Exterior,pcolonia,pcodPostal,pnombre_Contacto,ptelefono,pcelular,pcorreo,precibo,vbanco);
+
+select "BANCO DE ALIMENTOS REGISTRADO" as msg;
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_AgregarColonia` (IN `pnombre` VARCHAR(60), IN `pmunicipio` INT)  NO SQL
 BEGIN
 	#Routine body goes here...
 	
 	IF (SELECT count(1)FROM colonias
 	WHERE nombre	LIKE pnombre) = 0 THEN
 	
-	INSERT INTO colonias (nombre)
-	VALUES (UPPER(pnombre));
+	INSERT INTO colonias (nombre,fk_municipio)
+	VALUES (UPPER(pnombre),pmunicipio);
 	
 	#SELECT LAST_INSERT_ID() INTO id_Articulo;
 	#SET id_Articulo = 0;
@@ -65,6 +67,38 @@ BEGIN
 	else 
 	select 'Colonia Existente' AS msg;
 	END IF;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_AgregarDonador` (IN `prazon_Social` VARCHAR(50), IN `prfc` VARCHAR(13), IN `pcalle` VARCHAR(25), IN `pnum_Interior` INT(11), IN `pnum_Exterior` INT(11), IN `pcolonia` VARCHAR(50), IN `pcodPostal` INT(11), IN `pnombre_Contacto` VARCHAR(50), IN `ptelefono` INT(11), IN `pcelular` VARCHAR(10), IN `pcorreo` VARCHAR(30), IN `precibo` VARCHAR(50), IN `vdonador` TINYINT(1))  BEGIN
+	
+INSERT INTO personas  (razon_Social,rfc,calle,num_Interior ,num_Exterior ,colonia,codPostal ,nombre_Contacto ,telefono ,celular,correo,recibo,donador)
+VALUES (prazon_Social, prfc,pcalle,pnum_Interior,pnum_Exterior,pcolonia,pcodPostal,pnombre_Contacto,ptelefono,pcelular,pcorreo,precibo,vdonador);
+
+select "DONADOR REGISTRADO" as msg;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_AgregarFamilia` (IN `vcalle` VARCHAR(50), IN `vtelefono` VARCHAR(50), IN `vcolonia` VARCHAR(50), IN `vmunicipio` VARCHAR(50), IN `vintegrantes` VARCHAR(50), IN `vnum_Interno` VARCHAR(50), IN `vnum_Externo` VARCHAR(50), IN `vcalle_col1` VARCHAR(50), IN `vcalle_col2` VARCHAR(50), IN `vingreso` DOUBLE, IN `vfamilias` VARCHAR(50), IN `vcuartos` VARCHAR(50), IN `vtenencia` VARCHAR(50), IN `vvivienda` DOUBLE, IN `valimentacion` DOUBLE, IN `vluz` DOUBLE, IN `vagua` DOUBLE, IN `vtelefonoe` DOUBLE, IN `vtransporte` DOUBLE, IN `vatencion_medica` DOUBLE, IN `votros_gastos` DOUBLE, IN `vcelular` DOUBLE, IN `veducacion` DOUBLE, IN `vtotal_semanal` DOUBLE, IN `vtotal_mensual` DOUBLE, IN `vgas` DOUBLE)  BEGIN
+	-- Agregar datos generales --
+	INSERT INTO familias(calle,telefono,colonia,municipio,integrantes,num_Interno,num_Externo,calle_col1,calle_col2,ingresototal)
+	VALUES (vcalle,vtelefono,vcolonia,vmunicipio,vintegrantes,vnum_Interno,vnum_Externo,vcalle_col1,vcalle_col2,vingreso);
+	SET @vid = LAST_INSERT_ID();
+	-- Agregar vivienda --
+	INSERT INTO vivienda(fk_familia,tenencia,num_Cuartos,num_Familias)
+	VALUES(@vid,vtenencia,vcuartos,vfamilias);
+	-- Agregar egresos --
+	INSERT INTO egresos(fk_familia,vivienda,alimentacion,luz,agua,telefono,transporte,atencion_medica,otros_gastos,celular,educacion,total_semanal,total_mensual,gas)
+	VALUES(@vid,vvivienda,valimentacion,vluz,vagua,vtelefonoe,vtransporte,vatencion_medica,votros_gastos,vcelular,veducacion,vtotal_semanal,vtotal_mensual,vgas);
+	-- Agregar ingresos --
+	-- INSERT INTO ingresos(fk_familia,padre,madre,hijos,becas,pension,otros,adultos_Mayores,total_Mensual,total_Semanal)
+	 -- VALUES(@vid,vpadre,vmadre,vhijos,vbecas,vpension,votros,vadultos_Mayores,vtotal_mensualI,vtotal_semanalI);
+select 'Familia Registrada' AS msg, @vid AS idval;
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_AgregarIntegrante` (IN `vid` INT(11), IN `vtitular` VARCHAR(50), IN `vnombre` VARCHAR(50), IN `vapellido1` VARCHAR(50), IN `vapellido2` VARCHAR(50), IN `vsexo` CHAR(1), IN `vfecha` DATE, IN `ventidad` VARCHAR(50), IN `vcurp` VARCHAR(50), IN `vestado_civil` VARCHAR(50), IN `vocupacion` VARCHAR(50), IN `vparentesco` VARCHAR(50), IN `vnivel_estudios` VARCHAR(50), IN `vgrado` VARCHAR(50), IN `vestado` VARCHAR(50))  BEGIN
+	INSERT INTO integrantes (fk_familia,gefe_familia,nombre,apellido1,apellido2,sexo,fecha_nac,entidad,curp,estado_civil,ocupacion,parentesco,nivel_estudios,grado,estado_estudio)
+	VALUES (vid,vtitular,vnombre,vapellido1,vapellido2,vsexo,vfecha,ventidad,vcurp,vestado_civil,vocupacion,vparentesco,vnivel_estudios,vgrado,vestado);
+	 select 'Integrante Registrado' AS msg;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_AgregarMunicipio` (IN `pnombre` VARCHAR(60))  NO SQL
@@ -83,6 +117,15 @@ BEGIN
 	else 
 	select 'Municipio Existente' AS msg;
 	END IF;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_AgregarProveedor` (IN `prazon_Social` VARCHAR(50), IN `prfc` VARCHAR(13), IN `pcalle` VARCHAR(25), IN `pnum_Interior` INT(11), IN `pnum_Exterior` INT(11), IN `pcolonia` VARCHAR(50), IN `pcodPostal` INT(11), IN `pnombre_Contacto` VARCHAR(50), IN `ptelefono` INT(11), IN `pcelular` VARCHAR(10), IN `pcorreo` VARCHAR(30), IN `precibo` VARCHAR(50), IN `vproveedor` TINYINT(1))  BEGIN
+
+
+INSERT INTO personas  (razon_Social,rfc,calle,num_Interior ,num_Exterior ,colonia,codPostal ,nombre_Contacto ,telefono ,celular,correo,recibo,proveedor)
+VALUES (prazon_Social, prfc,pcalle,pnum_Interior,pnum_Exterior,pcolonia,pcodPostal,pnombre_Contacto,ptelefono,pcelular,pcorreo,precibo,vproveedor);
+
+select "PROVEEDOR REGISTRADO" as msg;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_AgregarUnidad` (IN `punidad` VARCHAR(60), IN `pclave` VARCHAR(60))  NO SQL
@@ -116,19 +159,55 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_EditarArticulo` (IN `pid` INT(11
 	select 'Articulo Actualizado' AS msg;
 	end$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_EditarColonia` (IN `pid` INT, IN `pnombre` VARCHAR(60))  NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_EditarBanco` (IN `pid` INT(11), IN `prazon_Social` VARCHAR(50), IN `prfc` VARCHAR(13), IN `pcalle` VARCHAR(25), IN `pnum_Interior` INT(11), IN `pnum_Exterior` INT(11), IN `pcolonia` VARCHAR(50), IN `pcodPostal` INT(11), IN `pnombre_Contacto` VARCHAR(50), IN `ptelefono` INT(11), IN `pcelular` VARCHAR(10), IN `pcorreo` VARCHAR(30), IN `precibo` VARCHAR(50), IN `vbanco` TINYINT(1))  BEGIN
+	UPDATE personas set razon_Social = UPPER(prazon_Social), rfc = UPPER(prfc) ,calle = UPPER(pcalle),num_Interior = UPPER(pnum_Interior),num_Exterior =  UPPER(pnum_Exterior)
+,colonia = UPPER(pcolonia),codPostal = UPPER(pcodPostal),nombre_Contacto = UPPER(pnombre_Contacto),telefono = UPPER(ptelefono),celular = UPPER(pcelular)
+,correo = UPPER(pcorreo),recibo = UPPER(precibo),banco = vbanco WHERE idpersona =  pid;
+
+select "BANCO DE ALIMENTOS ACTUALIZADO" as msg;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_EditarColonia` (IN `pid` INT, IN `pnombre` VARCHAR(60), IN `pmunicipio` INT)  NO SQL
 BEGIN
 	#Routine body goes here...
 	
 	
 	
-	UPDATE  colonias SET nombre = UPPER(pnombre)
+	UPDATE  colonias SET nombre = UPPER(pnombre), fk_municipio = pmunicipio
 	WHERE id = pid;
 	
 	#SELECT LAST_INSERT_ID() INTO id_Articulo;
 	#SET id_Articulo = 0;
 	select 'Colonia Actualizada' AS msg;
 	end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_EditarDonador` (IN `pid` INT(11), IN `prazon_Social` VARCHAR(50), IN `prfc` VARCHAR(13), IN `pcalle` VARCHAR(25), IN `pnum_Interior` INT(11), IN `pnum_Exterior` INT(11), IN `pcolonia` VARCHAR(50), IN `pcodPostal` INT(11), IN `pnombre_Contacto` VARCHAR(50), IN `ptelefono` INT(11), IN `pcelular` VARCHAR(10), IN `pcorreo` VARCHAR(30), IN `precibo` VARCHAR(50), IN `vdonador` TINYINT(1))  BEGIN
+	UPDATE personas set razon_Social = UPPER(prazon_Social), rfc = UPPER(prfc) ,calle = UPPER(pcalle),num_Interior = UPPER(pnum_Interior),num_Exterior =  UPPER(pnum_Exterior)
+,colonia = UPPER(pcolonia),codPostal = UPPER(pcodPostal),nombre_Contacto = UPPER(pnombre_Contacto),telefono = UPPER(ptelefono),celular = UPPER(pcelular)
+,correo = UPPER(pcorreo),recibo = UPPER(precibo),donador = vdonador WHERE idpersona =  pid;
+
+select "DONADOR ACTUALIZADO" as msg;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_EditarFamilia` (IN `vid` INT(11), IN `vcalle` VARCHAR(50), IN `vtelefono` VARCHAR(50), IN `vcolonia` VARCHAR(50), IN `vmunicipio` VARCHAR(50), IN `vintegrantes` VARCHAR(50), IN `vnum_Interno` VARCHAR(50), IN `vnum_Externo` VARCHAR(50), IN `vcalle_col1` VARCHAR(50), IN `vcalle_col2` VARCHAR(50), IN `vingreso` DOUBLE, IN `vfamilias` VARCHAR(50), IN `vcuartos` VARCHAR(50), IN `vtenencia` VARCHAR(50), IN `vvivienda` DOUBLE, IN `valimentacion` DOUBLE, IN `vluz` DOUBLE, IN `vagua` DOUBLE, IN `vtelefonoe` DOUBLE, IN `vtransporte` DOUBLE, IN `vatencion_medica` DOUBLE, IN `votros_gastos` DOUBLE, IN `vcelular` DOUBLE, IN `veducacion` DOUBLE, IN `vtotal_semanal` DOUBLE, IN `vtotal_mensual` DOUBLE, IN `vgas` DOUBLE)  BEGIN
+	-- Actualizar datos generales --
+	UPDATE  familias SET calle = UPPER(vcalle),telefono=UPPER(vtelefono),colonia=UPPER(vcolonia),municipio=UPPER(vmunicipio),integrantes=UPPER(vintegrantes),
+num_Interno=UPPER(vnum_Interno),num_Externo=UPPER(vnum_Externo),calle_col1=UPPER(vcalle_col1),calle_col2=UPPER(vcalle_col2),ingresototal=UPPER(vingreso)
+	WHERE id = vid;
+	
+	-- Actualizar vivienda --
+	UPDATE vivienda SET tenencia = UPPER(vtenencia),num_Cuartos=UPPER(vcuartos),num_Familias=UPPER(vfamilias)
+	WHERE fk_familia = vid;
+	-- Actualizar egresos --
+	UPDATE  egresos SET vivienda=UPPER(vvivienda),alimentacion=UPPER(valimentacion),luz=UPPER(vluz),agua=UPPER(vagua),telefono=UPPER(vtelefonoe),
+transporte=UPPER(vtransporte),atencion_medica=UPPER(vatencion_medica),otros_gastos=UPPER(votros_gastos),celular=UPPER(vcelular),educacion=UPPER(veducacion),total_semanal=UPPER(vtotal_semanal),total_mensual=UPPER(vtotal_mensual),gas=UPPER(vgas)
+	WHERE fk_familia = vid;
+	-- Actualizar ingresos --
+	-- UPDATE ingresos SET padre=UPPER(vpadre),madre=UPPER(vmadre),hijos=UPPER(vhijos),becas=UPPER(vbecas),pension=UPPER(vpension),otros=UPPER(votros),
+-- adultos_Mayores=UPPER(vadultos_Mayores),total_Mensual=UPPER(vtotal_mensualI),total_Semanal=UPPER(vtotal_semanalI)
+	-- WHERE fk_familia = vid;
+select 'Familia Actualizada' AS msg,vid as idval;
+END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_EditarMunicipio` (IN `pid` INT, IN `pnombre` VARCHAR(60))  NO SQL
 BEGIN
@@ -144,7 +223,16 @@ BEGIN
 	select 'Municipio Actualizado' AS msg;
 	end$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_EditarUnidad` (IN `punidad` VARCHAR(60), IN `pclave` VARCHAR(60), IN `pidunidad` INT)  NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_EditarProveedor` (IN `pid` INT(11), IN `prazon_Social` VARCHAR(50), IN `prfc` VARCHAR(13), IN `pcalle` VARCHAR(25), IN `pnum_Interior` INT(11), IN `pnum_Exterior` INT(11), IN `pcolonia` VARCHAR(50), IN `pcodPostal` INT(11), IN `pnombre_Contacto` VARCHAR(50), IN `ptelefono` INT(11), IN `pcelular` VARCHAR(10), IN `pcorreo` VARCHAR(30), IN `precibo` VARCHAR(50), IN `vproveedor` TINYINT(1))  BEGIN
+
+UPDATE personas set razon_Social = UPPER(prazon_Social), rfc = UPPER(prfc) ,calle = UPPER(pcalle),num_Interior = UPPER(pnum_Interior),num_Exterior =  UPPER(pnum_Exterior)
+,colonia = UPPER(pcolonia),codPostal = UPPER(pcodPostal),nombre_Contacto = UPPER(pnombre_Contacto),telefono = UPPER(ptelefono),celular = UPPER(pcelular)
+,correo = UPPER(pcorreo),recibo = UPPER(precibo),proveedor = vproveedor WHERE idpersona =  pid;
+
+select "PROVEEDOR ACTUALIZADO" as msg;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_EditarUnidad` (IN `punidad` VARCHAR(60), IN `pclave` VARCHAR(60), IN `pidunidad` INT(11))  NO SQL
 BEGIN
 	#Routine body goes here...
 	
@@ -176,7 +264,7 @@ END$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_EliminarBanco` (IN `pid` INT(11))  BEGIN
 	#Routine body goes here...
 	
-	DELETE FROM persona WHERE idpersona = pid;
+	UPDATE personas SET banco = 0 WHERE idpersona = pid;
 
 	SELECT  'BANCO DE ALIMENTOS ELIMINADO' AS msg;
 END$$
@@ -202,9 +290,39 @@ END$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_EliminarDonador` (IN `pid` INT(11))  BEGIN
 	#Routine body goes here...
 	
-	DELETE FROM persona WHERE idpersona = pid;
+	UPDATE personas SET donador = 0 WHERE idpersona = pid;
 
 	SELECT  'DONADOR ELIMINADO' AS msg;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_EliminarFamilia` (IN `vid` INT)  BEGIN
+		IF (SELECT count(1)FROM familias
+		WHERE id	= vid) = 0 THEN
+	
+	
+	
+	#SELECT LAST_INSERT_ID() INTO id_Articulo;
+	#SET id_Articulo = 0;
+	select 'Familia No Existente' AS msg;
+	else 
+	select 'Familia Eliminada' AS msg;
+	DELETE FROM familias WHERE id = vid;
+	END IF;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_EliminarIntegrante` (IN `pid` INT(11))  BEGIN
+IF (SELECT count(1)FROM integrantes
+	WHERE id	= pid) = 0 THEN
+	
+	
+	
+	#SELECT LAST_INSERT_ID() INTO id_Articulo;
+	#SET id_Articulo = 0;
+	select 'Integrante No Existente' AS msg;
+	else 
+	select 'Integrante Eliminado' AS msg;
+	DELETE FROM integrantes WHERE id = pid;
+	END IF;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_EliminarMunicipio` (IN `pid` INT)  NO SQL
@@ -234,11 +352,11 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_EliminarPersona` (IN `pid` INT(1
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_EliminarProveedor` (IN `pid` INT(11))  BEGIN
-	#Routine body goes here...
 	
-	DELETE FROM persona WHERE idpersona = pid;
+	UPDATE personas SET proveedor = 0 WHERE idpersona = pid;
 
 	SELECT  'PROVEEDOR ELIMINADO' AS msg;
+
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_EliminarUnidad` (IN `pid` INT)  NO SQL
@@ -257,6 +375,11 @@ BEGIN
 	select 'Unidad Eliminada' AS msg;
 	DELETE FROM unidad_medida WHERE idunidad = pid;
 	END IF;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_prueba` (IN `vingreso` DOUBLE)  BEGIN
+	#Routine body goes here...
+ INSERT INTO familias(ingresototal) VALUES(vingreso);
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_Registro` (IN `prazon_Social` VARCHAR(50), IN `prfc` VARCHAR(13), IN `pcalle` VARCHAR(25), IN `pnum_Interior` INT(11), IN `pnum_Exterior` INT(11), IN `pcolonia` VARCHAR(50), IN `pcodPostal` INT(11), IN `pnombre_Contacto` VARCHAR(50), IN `ptelefono` INT(11), IN `pcelular` VARCHAR(10), IN `pcorreo` VARCHAR(30), IN `precibo` VARCHAR(50), IN `tipoPer` INT(11))  BEGIN
@@ -304,11 +427,14 @@ END IF;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_RFC` (IN `prfc` VARCHAR(50))  BEGIN
-	IF (SELECT count(1)FROM persona
+	IF (SELECT count(1)FROM personas
 	WHERE rfc	LIKE prfc) = 0 THEN
 	select 'NO' as msg;
+	
 	else 
-	select 'SI' as msg;
+	select 'SI' as msg,idpersona as id
+	FROM personas WHERE rfc = prfc;
+	
 	END IF;
 END$$
 
@@ -317,7 +443,21 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `articulo`
+-- Estructura de tabla para la tabla `abonos`
+--
+
+CREATE TABLE `abonos` (
+  `id` int(11) NOT NULL,
+  `fk_compra` int(11) DEFAULT NULL,
+  `fecha` date DEFAULT NULL,
+  `abono` double DEFAULT NULL,
+  `restante` double DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `articulo`
 --
 
 CREATE TABLE `articulo` (
@@ -325,30 +465,132 @@ CREATE TABLE `articulo` (
   `nombre` varchar(60) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
---
--- Dumping data for table `articulo`
---
-
-INSERT INTO `articulo` (`id`, `nombre`) VALUES
-(49, 'ARTICULO 1'),
-(50, 'ARTICULO 2'),
-(51, 'ARTICULO 3');
-
 -- --------------------------------------------------------
 
 --
--- Table structure for table `colonias`
+-- Estructura de tabla para la tabla `colonias`
 --
 
 CREATE TABLE `colonias` (
   `id` int(11) NOT NULL,
-  `nombre` varchar(60) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `fk_municipio` int(11) DEFAULT NULL,
+  `nombre` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `colonias`
+--
+
+INSERT INTO `colonias` (`id`, `fk_municipio`, `nombre`) VALUES
+(20, 4, 'VILLAS DE ORO'),
+(21, 4, 'VILLAS FLORES');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `entradas`
+-- Estructura de tabla para la tabla `compras`
+--
+
+CREATE TABLE `compras` (
+  `id` int(11) NOT NULL,
+  `fk_vendedor` int(11) NOT NULL,
+  `factura` varchar(20) DEFAULT NULL,
+  `fecha` date DEFAULT NULL,
+  `total` double DEFAULT NULL,
+  `tipo_pago` varchar(20) NOT NULL,
+  `estatus` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `detalle_compra`
+--
+
+CREATE TABLE `detalle_compra` (
+  `id` int(11) NOT NULL,
+  `fk_compra` int(11) DEFAULT NULL,
+  `fk_articulo` int(11) DEFAULT NULL,
+  `cantidad` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `detalle_donacion`
+--
+
+CREATE TABLE `detalle_donacion` (
+  `id` int(11) NOT NULL,
+  `fk_donacion` int(11) DEFAULT NULL,
+  `fk_articulo` int(11) DEFAULT NULL,
+  `cantidad` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `donaciones`
+--
+
+CREATE TABLE `donaciones` (
+  `id` int(11) NOT NULL,
+  `fk_donador` int(11) NOT NULL,
+  `fecha` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `egresos`
+--
+
+CREATE TABLE `egresos` (
+  `id` int(11) NOT NULL,
+  `fk_familia` int(11) DEFAULT NULL,
+  `vivienda` double(10,2) DEFAULT NULL,
+  `alimentacion` double(10,2) DEFAULT NULL,
+  `luz` double(10,2) DEFAULT NULL,
+  `agua` double(10,2) DEFAULT NULL,
+  `telefono` double(10,2) DEFAULT NULL,
+  `transporte` double(10,2) DEFAULT NULL,
+  `atencion_medica` double(10,2) DEFAULT NULL,
+  `otros_gastos` double(10,2) DEFAULT NULL,
+  `celular` double(10,2) DEFAULT NULL,
+  `educacion` double(10,2) DEFAULT NULL,
+  `total_semanal` double(10,2) DEFAULT NULL,
+  `total_mensual` double(10,2) DEFAULT NULL,
+  `gas` double(10,2) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `egresos`
+--
+
+INSERT INTO `egresos` (`id`, `fk_familia`, `vivienda`, `alimentacion`, `luz`, `agua`, `telefono`, `transporte`, `atencion_medica`, `otros_gastos`, `celular`, `educacion`, `total_semanal`, `total_mensual`, `gas`) VALUES
+(42, 96, 7887.00, 2323.00, 87.00, 87.00, 78.00, 78.00, 87.00, 78.00, 78.00, 78.00, 78.00, 87.00, 78.00);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `empleados`
+--
+
+CREATE TABLE `empleados` (
+  `id` int(11) NOT NULL,
+  `fk_puesto` int(11) DEFAULT NULL,
+  `nombre` varchar(50) DEFAULT NULL,
+  `apellido1` varchar(50) DEFAULT NULL,
+  `apellido2` varchar(50) DEFAULT NULL,
+  `telefono` varchar(20) DEFAULT NULL,
+  `sexo` char(1) DEFAULT NULL,
+  `curp` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `entradas`
 --
 
 CREATE TABLE `entradas` (
@@ -367,21 +609,109 @@ CREATE TABLE `entradas` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `municipios`
+-- Estructura de tabla para la tabla `familias`
 --
 
-CREATE TABLE `municipios` (
+CREATE TABLE `familias` (
   `id` int(11) NOT NULL,
-  `nombre` varchar(60) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `calle` varchar(100) DEFAULT NULL,
+  `telefono` varchar(10) DEFAULT '',
+  `colonia` int(11) DEFAULT NULL,
+  `municipio` int(11) DEFAULT NULL,
+  `integrantes` varchar(50) DEFAULT '',
+  `ingresototal` double(10,2) DEFAULT NULL,
+  `num_Interno` varchar(50) DEFAULT NULL,
+  `num_Externo` varchar(50) DEFAULT NULL,
+  `calle_col1` varchar(50) DEFAULT NULL,
+  `calle_col2` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `familias`
+--
+
+INSERT INTO `familias` (`id`, `calle`, `telefono`, `colonia`, `municipio`, `integrantes`, `ingresototal`, `num_Interno`, `num_Externo`, `calle_col1`, `calle_col2`) VALUES
+(96, 'AV PABLO SILVA GARCIA', '3123112262', 21, 4, '6', 3000.00, '302', '302', 'DIAMANTES', 'BRONCE');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `persona`
+-- Estructura de tabla para la tabla `ingresos`
 --
 
-CREATE TABLE `persona` (
+CREATE TABLE `ingresos` (
+  `id` int(11) NOT NULL,
+  `fk_familia` int(11) DEFAULT NULL,
+  `padre` double(10,2) DEFAULT NULL,
+  `madre` double(10,2) DEFAULT NULL,
+  `hijos` double(10,2) DEFAULT NULL,
+  `becas` double(10,2) DEFAULT NULL,
+  `pension` double(10,2) DEFAULT NULL,
+  `otros` double(10,2) DEFAULT NULL,
+  `adultos_Mayores` double(10,2) DEFAULT NULL,
+  `total_Semanal` double(10,2) DEFAULT NULL,
+  `total_Mensual` double(10,2) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `integrantes`
+--
+
+CREATE TABLE `integrantes` (
+  `id` int(11) NOT NULL,
+  `fk_familia` int(11) DEFAULT NULL,
+  `nombre` varchar(50) DEFAULT NULL,
+  `apellido1` varchar(50) DEFAULT NULL,
+  `apellido2` varchar(50) DEFAULT NULL,
+  `gefe_familia` varchar(50) DEFAULT '',
+  `sexo` char(1) DEFAULT NULL,
+  `fecha_nac` date DEFAULT NULL,
+  `curp` varchar(20) DEFAULT NULL,
+  `entidad` varchar(50) DEFAULT NULL,
+  `parentesco` varchar(20) DEFAULT NULL,
+  `ocupacion` varchar(50) DEFAULT NULL,
+  `estado_estudio` varchar(50) DEFAULT '',
+  `grado` varchar(20) DEFAULT NULL,
+  `estado_civil` varchar(50) DEFAULT '',
+  `nivel_estudios` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `municipios`
+--
+
+CREATE TABLE `municipios` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `municipios`
+--
+
+INSERT INTO `municipios` (`id`, `nombre`) VALUES
+(4, 'COLIMA'),
+(5, 'VILLA DE ALVAREZ'),
+(6, 'COMALA'),
+(7, 'MINATITLÁN'),
+(8, 'CUAUHTÉMOC'),
+(9, 'ARMERÍA'),
+(10, 'TECOMÁN'),
+(11, 'IXTLAHUACÁN'),
+(12, 'COQUIMATLÁN'),
+(13, 'MANZANILLO');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `personas`
+--
+
+CREATE TABLE `personas` (
   `idpersona` int(11) NOT NULL,
   `razon_Social` varchar(50) DEFAULT NULL,
   `rfc` varchar(50) DEFAULT NULL,
@@ -395,35 +725,34 @@ CREATE TABLE `persona` (
   `celular` varchar(50) DEFAULT NULL,
   `correo` varchar(50) DEFAULT NULL,
   `recibo` varchar(255) DEFAULT NULL,
-  `tipoPer` int(11) DEFAULT NULL
+  `proveedor` tinyint(1) NOT NULL,
+  `donador` tinyint(1) NOT NULL,
+  `banco` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
--- --------------------------------------------------------
-
 --
--- Table structure for table `persona_tipo`
+-- Volcado de datos para la tabla `personas`
 --
 
-CREATE TABLE `persona_tipo` (
-  `idpersona` int(11) DEFAULT NULL,
-  `idtipo` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tipo_persona`
---
-
-CREATE TABLE `tipo_persona` (
-  `idtipo` int(11) DEFAULT NULL,
-  `tipo` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+INSERT INTO `personas` (`idpersona`, `razon_Social`, `rfc`, `calle`, `num_Interior`, `num_Exterior`, `colonia`, `codPostal`, `nombre_Contacto`, `telefono`, `celular`, `correo`, `recibo`, `proveedor`, `donador`, `banco`) VALUES
+(14, 'AV PABLO SILVA GARCIA BANCOFFF', 'VEBJ880326', 'AV PABLO SILVA', '12', '12', 'DSSD', '28985', 'DSDS', '2147483647', '3121985243', 'ABEL@HOTMAIL.COM', '', 0, 0, 0),
+(15, 'SUCESORES DE EMILIO GRUV', 'VEBJ890324', 'MADERO', '303', '100', 'CENTRO', '28000', 'ABEL  ROMERO RUIZ', '2147483647', '3121564857', 'ECHAVEZ@GMAIL.COM', '', 1, 1, 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `unidad_medida`
+-- Estructura de tabla para la tabla `puestos`
+--
+
+CREATE TABLE `puestos` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(250) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `unidad_medida`
 --
 
 CREATE TABLE `unidad_medida` (
@@ -432,33 +761,111 @@ CREATE TABLE `unidad_medida` (
   `unidad_medida` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
---
--- Dumping data for table `unidad_medida`
---
-
-INSERT INTO `unidad_medida` (`idunidad`, `clave`, `unidad_medida`) VALUES
-(3, 'SDFSD', 'DF'),
-(4, 'SDFFGFRG', 'DSF'),
-(5, 'GGGGG', 'GHJGHJ');
+-- --------------------------------------------------------
 
 --
--- Indexes for dumped tables
+-- Estructura de tabla para la tabla `usuarios`
+--
+
+CREATE TABLE `usuarios` (
+  `id` int(11) NOT NULL,
+  `fk_empleado` int(11) DEFAULT NULL,
+  `usuario` varchar(50) DEFAULT NULL,
+  `pass` text DEFAULT NULL,
+  `rol` varchar(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `vivienda`
+--
+
+CREATE TABLE `vivienda` (
+  `id` int(11) NOT NULL,
+  `fk_familia` int(11) DEFAULT NULL,
+  `tenencia` varchar(50) DEFAULT '',
+  `num_Cuartos` varchar(50) DEFAULT '',
+  `num_Familias` varchar(50) DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `vivienda`
+--
+
+INSERT INTO `vivienda` (`id`, `fk_familia`, `tenencia`, `num_Cuartos`, `num_Familias`) VALUES
+(44, 96, 'PROPIA', '2', '2');
+
+--
+-- Índices para tablas volcadas
 --
 
 --
--- Indexes for table `articulo`
+-- Indices de la tabla `abonos`
+--
+ALTER TABLE `abonos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_compra` (`fk_compra`);
+
+--
+-- Indices de la tabla `articulo`
 --
 ALTER TABLE `articulo`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Indexes for table `colonias`
+-- Indices de la tabla `colonias`
 --
 ALTER TABLE `colonias`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_municipio` (`fk_municipio`);
 
 --
--- Indexes for table `entradas`
+-- Indices de la tabla `compras`
+--
+ALTER TABLE `compras`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_vendedor` (`fk_vendedor`);
+
+--
+-- Indices de la tabla `detalle_compra`
+--
+ALTER TABLE `detalle_compra`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_compra` (`fk_compra`),
+  ADD KEY `fk_articulo` (`fk_articulo`);
+
+--
+-- Indices de la tabla `detalle_donacion`
+--
+ALTER TABLE `detalle_donacion`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_donacion` (`fk_donacion`),
+  ADD KEY `fk_articulo` (`fk_articulo`);
+
+--
+-- Indices de la tabla `donaciones`
+--
+ALTER TABLE `donaciones`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_donador` (`fk_donador`);
+
+--
+-- Indices de la tabla `egresos`
+--
+ALTER TABLE `egresos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_familia` (`fk_familia`);
+
+--
+-- Indices de la tabla `empleados`
+--
+ALTER TABLE `empleados`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_puesto` (`fk_puesto`);
+
+--
+-- Indices de la tabla `entradas`
 --
 ALTER TABLE `entradas`
   ADD PRIMARY KEY (`identrada`) USING BTREE,
@@ -467,85 +874,267 @@ ALTER TABLE `entradas`
   ADD KEY `idunidad` (`idunidad`) USING BTREE;
 
 --
--- Indexes for table `municipios`
+-- Indices de la tabla `familias`
+--
+ALTER TABLE `familias`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `colonia` (`colonia`),
+  ADD KEY `municipio` (`municipio`);
+
+--
+-- Indices de la tabla `ingresos`
+--
+ALTER TABLE `ingresos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `ingresos_ibfk_1` (`fk_familia`);
+
+--
+-- Indices de la tabla `integrantes`
+--
+ALTER TABLE `integrantes`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_familia` (`fk_familia`);
+
+--
+-- Indices de la tabla `municipios`
 --
 ALTER TABLE `municipios`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `persona`
+-- Indices de la tabla `personas`
 --
-ALTER TABLE `persona`
+ALTER TABLE `personas`
   ADD PRIMARY KEY (`idpersona`) USING BTREE;
 
 --
--- Indexes for table `persona_tipo`
+-- Indices de la tabla `puestos`
 --
-ALTER TABLE `persona_tipo`
-  ADD KEY `idtipo` (`idtipo`) USING BTREE,
-  ADD KEY `idpersona` (`idpersona`) USING BTREE;
+ALTER TABLE `puestos`
+  ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `tipo_persona`
---
-ALTER TABLE `tipo_persona`
-  ADD KEY `idtipo` (`idtipo`) USING BTREE;
-
---
--- Indexes for table `unidad_medida`
+-- Indices de la tabla `unidad_medida`
 --
 ALTER TABLE `unidad_medida`
   ADD PRIMARY KEY (`idunidad`) USING BTREE;
 
 --
--- AUTO_INCREMENT for dumped tables
+-- Indices de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_empleado` (`fk_empleado`);
+
+--
+-- Indices de la tabla `vivienda`
+--
+ALTER TABLE `vivienda`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_familia` (`fk_familia`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
--- AUTO_INCREMENT for table `articulo`
+-- AUTO_INCREMENT de la tabla `abonos`
+--
+ALTER TABLE `abonos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `articulo`
 --
 ALTER TABLE `articulo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
--- AUTO_INCREMENT for table `colonias`
+-- AUTO_INCREMENT de la tabla `colonias`
 --
 ALTER TABLE `colonias`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
--- AUTO_INCREMENT for table `entradas`
+-- AUTO_INCREMENT de la tabla `compras`
+--
+ALTER TABLE `compras`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `detalle_compra`
+--
+ALTER TABLE `detalle_compra`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `detalle_donacion`
+--
+ALTER TABLE `detalle_donacion`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `donaciones`
+--
+ALTER TABLE `donaciones`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `egresos`
+--
+ALTER TABLE `egresos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+
+--
+-- AUTO_INCREMENT de la tabla `empleados`
+--
+ALTER TABLE `empleados`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `entradas`
 --
 ALTER TABLE `entradas`
   MODIFY `identrada` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `municipios`
+-- AUTO_INCREMENT de la tabla `familias`
+--
+ALTER TABLE `familias`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
+
+--
+-- AUTO_INCREMENT de la tabla `ingresos`
+--
+ALTER TABLE `ingresos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+
+--
+-- AUTO_INCREMENT de la tabla `integrantes`
+--
+ALTER TABLE `integrantes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT de la tabla `municipios`
 --
 ALTER TABLE `municipios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
--- AUTO_INCREMENT for table `persona`
+-- AUTO_INCREMENT de la tabla `personas`
 --
-ALTER TABLE `persona`
-  MODIFY `idpersona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+ALTER TABLE `personas`
+  MODIFY `idpersona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
--- AUTO_INCREMENT for table `unidad_medida`
+-- AUTO_INCREMENT de la tabla `puestos`
+--
+ALTER TABLE `puestos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `unidad_medida`
 --
 ALTER TABLE `unidad_medida`
-  MODIFY `idunidad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idunidad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- Constraints for dumped tables
+-- AUTO_INCREMENT de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `vivienda`
+--
+ALTER TABLE `vivienda`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+
+--
+-- Restricciones para tablas volcadas
 --
 
 --
--- Constraints for table `persona_tipo`
+-- Filtros para la tabla `abonos`
 --
-ALTER TABLE `persona_tipo`
-  ADD CONSTRAINT `persona_tipo_ibfk_1` FOREIGN KEY (`idpersona`) REFERENCES `persona` (`idpersona`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `abonos`
+  ADD CONSTRAINT `abonos_ibfk_1` FOREIGN KEY (`fk_compra`) REFERENCES `compras` (`id`);
+
+--
+-- Filtros para la tabla `colonias`
+--
+ALTER TABLE `colonias`
+  ADD CONSTRAINT `colonias_ibfk_1` FOREIGN KEY (`fk_municipio`) REFERENCES `municipios` (`id`);
+
+--
+-- Filtros para la tabla `compras`
+--
+ALTER TABLE `compras`
+  ADD CONSTRAINT `compras_ibfk_1` FOREIGN KEY (`fk_vendedor`) REFERENCES `personas` (`idpersona`);
+
+--
+-- Filtros para la tabla `detalle_compra`
+--
+ALTER TABLE `detalle_compra`
+  ADD CONSTRAINT `detalle_compra_ibfk_1` FOREIGN KEY (`fk_compra`) REFERENCES `compras` (`id`),
+  ADD CONSTRAINT `detalle_compra_ibfk_2` FOREIGN KEY (`fk_articulo`) REFERENCES `articulo` (`id`);
+
+--
+-- Filtros para la tabla `detalle_donacion`
+--
+ALTER TABLE `detalle_donacion`
+  ADD CONSTRAINT `detalle_donacion_ibfk_1` FOREIGN KEY (`fk_donacion`) REFERENCES `donaciones` (`id`),
+  ADD CONSTRAINT `detalle_donacion_ibfk_2` FOREIGN KEY (`fk_articulo`) REFERENCES `articulo` (`id`);
+
+--
+-- Filtros para la tabla `donaciones`
+--
+ALTER TABLE `donaciones`
+  ADD CONSTRAINT `donaciones_ibfk_1` FOREIGN KEY (`fk_donador`) REFERENCES `personas` (`idpersona`);
+
+--
+-- Filtros para la tabla `egresos`
+--
+ALTER TABLE `egresos`
+  ADD CONSTRAINT `egresos_ibfk_1` FOREIGN KEY (`fk_familia`) REFERENCES `familias` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `empleados`
+--
+ALTER TABLE `empleados`
+  ADD CONSTRAINT `empleados_ibfk_1` FOREIGN KEY (`fk_puesto`) REFERENCES `puestos` (`id`);
+
+--
+-- Filtros para la tabla `familias`
+--
+ALTER TABLE `familias`
+  ADD CONSTRAINT `familias_ibfk_1` FOREIGN KEY (`colonia`) REFERENCES `colonias` (`id`),
+  ADD CONSTRAINT `familias_ibfk_2` FOREIGN KEY (`municipio`) REFERENCES `municipios` (`id`);
+
+--
+-- Filtros para la tabla `ingresos`
+--
+ALTER TABLE `ingresos`
+  ADD CONSTRAINT `ingresos_ibfk_1` FOREIGN KEY (`fk_familia`) REFERENCES `familias` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `integrantes`
+--
+ALTER TABLE `integrantes`
+  ADD CONSTRAINT `integrantes_ibfk_1` FOREIGN KEY (`fk_familia`) REFERENCES `familias` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD CONSTRAINT `usuarios_ibfk_1` FOREIGN KEY (`fk_empleado`) REFERENCES `empleados` (`id`);
+
+--
+-- Filtros para la tabla `vivienda`
+--
+ALTER TABLE `vivienda`
+  ADD CONSTRAINT `vivienda_ibfk_1` FOREIGN KEY (`fk_familia`) REFERENCES `familias` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

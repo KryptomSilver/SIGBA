@@ -2,9 +2,9 @@
 
 include('../conexion.php');
 
-$query = "select p.idpersona,p.razon_Social,p.rfc,p.colonia,p.nombre_Contacto,p.telefono,p.celular from persona_tipo pa
-INNER JOIN persona p on pa.idpersona = p.idpersona
-where idtipo = 2";
+$query = "select *
+from personas
+where donador = 1";
 $resultado = mysqli_query($conn,$query);
 
 if(!$resultado){

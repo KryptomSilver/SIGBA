@@ -1,10 +1,8 @@
 <?php 
 
 include('../conexion.php');
-
-$query = "select *
-from personas
-where banco = 1";
+$id = $_GET['idfamilia'];
+$query = "select * from integrantes where fk_familia = '$id'";
 $resultado = mysqli_query($conn,$query);
 
 if(!$resultado){

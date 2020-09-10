@@ -1,9 +1,9 @@
 <?php 
 include('../conexion.php');
 
-$name = $_POST['name'];
-$municipio = $_POST['municipio'];
-$sql = "CALL sp_AgregarColonia('".$name."','".$municipio."');";
+$id = $_POST['id'];
+$sql = "CALL sp_EliminarIntegrante('".$id."');";
+
 $resultado = mysqli_query($conn,$sql);
 $row = mysqli_fetch_array($resultado);
 

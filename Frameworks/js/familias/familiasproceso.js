@@ -1,5 +1,6 @@
 $(document).ready(function () {
     // Menu secciones
+    
     $('.secciones .hide').hide();
     $('ul.tabs li a:first').addClass('active');
 
@@ -31,15 +32,6 @@ $(document).ready(function () {
             tenencia: $('#tenencia').val(),
             cuartos: $('#cuartos').val(),
             numfamilias: $('#numfamilias').val(),
-            padre: $('#padre').val(),
-            madre: $('#madre').val(),
-            hijos: $('#hijos').val(),
-            becas: $('#becas').val(),
-            pension: $('#pension').val(),
-            otros: $('#otros').val(),
-            adultos: $('#adultos').val(),
-            totalsemanal: $('#totalsemanal').val(),
-            totalmensual: $('#totalmensual').val(),
             vivienda: $('#vivienda').val(),
             alimentacion: $('#alimentacion').val(),
             luz: $('#luz').val(),
@@ -59,11 +51,14 @@ $(document).ready(function () {
         console.log(postData, url);
         $.post(url, postData, (response) => {
             console.log(response);
-            if (response == 'Familia Registrada') {
-                alert_success(response);
+            var parsedData = JSON.parse(response);
+            var mensaje = parsedData.mns;
+            var id = parsedData.id;
+            if (mensaje == 'Familia Registrada') {
+                alert_success(mensaje);
                 setTimeout(function () {
-                    window.location.href='familias.php';
-                }, 1000);
+                    window.location.href='integrantes.php?idfamilia='+id;
+                }, 1000);  
             } else {
                 alert_warning(response);
             }
@@ -86,15 +81,6 @@ $(document).ready(function () {
             tenencia: $('#tenencia').val(),
             cuartos: $('#cuartos').val(),
             numfamilias: $('#numfamilias').val(),
-            padre: $('#padre').val(),
-            madre: $('#madre').val(),
-            hijos: $('#hijos').val(),
-            becas: $('#becas').val(),
-            pension: $('#pension').val(),
-            otros: $('#otros').val(),
-            adultos: $('#adultos').val(),
-            totalsemanal: $('#totalsemanal').val(),
-            totalmensual: $('#totalmensual').val(),
             vivienda: $('#vivienda').val(),
             alimentacion: $('#alimentacion').val(),
             luz: $('#luz').val(),
@@ -113,10 +99,13 @@ $(document).ready(function () {
         console.log(postData, url);
         $.post(url, postData, (response) => {
             console.log(response);
-            if (response == 'Familia Actualizada') {
-                alert_success(response);
+            var parsedData = JSON.parse(response);
+            var mensaje = parsedData.mns;
+            var id = parsedData.id;
+            if (mensaje == 'Familia Actualizada') {
+                alert_success(mensaje);
                 setTimeout(function () {
-                    window.location.href='familias.php';
+                    window.location.href='integrantes.php?idfamilia='+ id;
                 }, 1000);  
             } else {
                 alert_warning(response);
@@ -126,6 +115,7 @@ $(document).ready(function () {
     
 
 });
+
 // alerta 
 var alert_success = function (msg) {
     var respuesta = msg
@@ -137,7 +127,10 @@ var alert_success = function (msg) {
     })
 }
 
-
+function cambiarcolonias() {
+    var id = $('#municipio').val()
+    $('#colonia').load("procesos/cargarcolonias.php?id=" + id)
+}
 
 //alerta
 var alert_warning = function (msg) {

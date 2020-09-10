@@ -15,15 +15,15 @@ $tenencia= $_POST['tenencia'];
 $cuartos= $_POST['cuartos'];
 $numfamilias= $_POST['numfamilias'];
 //ingresos
-$padre= $_POST['padre'];
-$madre= $_POST['madre'];
-$hijos= $_POST['hijos'];
-$becas= $_POST['becas'];
-$pension= $_POST['pension'];
-$otros= $_POST['otros'];
-$adultos= $_POST['adultos'];
-$totalsemanal= $_POST['totalsemanal'];
-$totalmensual= $_POST['totalmensual'];
+$padre= 2;
+$madre=2;
+$hijos= 2;
+$becas= 2;
+$pension=2;
+$otros= 2;
+$adultos= 2;
+$totalsemanal= 2;
+$totalmensual= 2;
 //egresos
 $vivienda= $_POST['vivienda'];
 $alimentacion= $_POST['alimentacion'];
@@ -39,10 +39,18 @@ $educacion= $_POST['educacion'];
 $totalsemanalE= $_POST['totalsemanalE'];
 $totalmensualE= $_POST['totalmensualE'];
 require('../conexion.php');
-$sql = "CALL sp_AgregarFamilia('".$calle."', '".$telefono."', '".$colonia."', '".$municipio."', '".$integrantes."', '".$numint."', '".$numext."', '".$callecol1."', '".$callecol2."', '".$ingreso."', '".$numfamilias."','".$cuartos."','".$tenencia."','".$vivienda."','".$alimentacion."','".$luz."','".$agua."','".$telefonoE."','".$transporte."','".$atencionM."','".$otrosE."','".$celular."','".$educacion."','".$totalsemanalE."','".$totalmensualE."','".$gas."','".$padre."','".$madre."','".$hijos."','".$becas."','".$pension."','".$otros."','".$adultos."','".$totalmensual."','".$totalsemanal."');";
+$sql = "CALL sp_AgregarFamilia('".$calle."', '".$telefono."', '".$colonia."', '".$municipio."', '".$integrantes."', '".$numint."', '".$numext."', '".$callecol1."', '".$callecol2."', '".$ingreso."', '".$numfamilias."','".$cuartos."','".$tenencia."','".$vivienda."','".$alimentacion."','".$luz."','".$agua."','".$telefonoE."','".$transporte."','".$atencionM."','".$otrosE."','".$celular."','".$educacion."','".$totalsemanalE."','".$totalmensualE."','".$gas."');";
+
 $resultado = mysqli_query($conn,$sql);
 $row = mysqli_fetch_array($resultado);
-echo $row['msg'];
+$mensaje =  $row['msg'];
+$id =  $row['idval'];
+$std = new stdClass();
+$std->mns = $mensaje;
+$std->id = $id;
+$json = json_encode($std);
+echo $json;
+
 mysqli_close($conn);
 
 ?>

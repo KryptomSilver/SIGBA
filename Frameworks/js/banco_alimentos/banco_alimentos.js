@@ -136,8 +136,8 @@ var edit_data = function (tbody, table) {
     $(tbody).off('click', 'a.editar');
     $(tbody).on("click", "a.editar", function name() {
         var data = table.row($(this).parents("tr")).data();
-        var rfc = data.rfc;
-        window.location.href = 'banco_alimentosupdate.php?rfc=' + rfc;
+        var id = data.idpersona;
+        window.location.href = 'banco_alimentosupdate.php?id=' + id;
     });
 }
 var delete_data = function (tbody, table) {

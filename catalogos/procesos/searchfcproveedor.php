@@ -7,8 +7,9 @@ $resultado = mysqli_query($conn,$sql);
 $row = mysqli_fetch_array($resultado);
 
 if ($row['msg'] == 'SI') {
+    $id = $row['id'];
     echo "<script>
-    window.location='../proveedoresupdate.php?rfc=$rfc'
+    window.location='../proveedoresupdate.php?id=$id'
     </script>";
 } else {
     echo "<script>

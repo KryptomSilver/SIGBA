@@ -23,11 +23,12 @@ $rfc = $_GET['rfc'];
     require('header.html');
     ?>
 
-    <br>
-
-            <div class="formulario z">
-                <h1 class="titulo">Banco de Alimentos</h1>
+    <h1 class="titulo">Banco de Alimentos</h1>
+    <hr>
+            <div class="tabla-lg">
+                
                 <form id="bancos_add" method="post">
+                    <input type="hidden"value="1" id="banco">
                     <div class="row">
                         <div class="col-8">
                             <div class="form-group">

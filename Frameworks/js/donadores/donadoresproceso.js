@@ -25,15 +25,19 @@ $(document).ready(function () {
             telefono: $('#telefono').val(),
             celular: $('#celular').val(),
             correo: $('#correo').val(),
-            recibo: $('#recibo').val()
+            idpersona: $('#id').val(),
+            recibo:$('#recibo').val(), 
+            donador: $('#donador').val()
         };
         const url = 'procesos/donadores/donadores_add.php';
         console.log(postData, url);
         $.post(url, postData, (response) => {
             console.log(response);
             if (response == 'DONADOR REGISTRADO') {
-                window.location.href='donadores.php';
                 alert_success(response);
+                setTimeout(function () {
+                    window.location.href='donadores.php';
+                }, 1000); 
             } else {
                 alert_warning(response);
             }
@@ -54,15 +58,18 @@ $(document).ready(function () {
             celular: $('#celular').val(),
             correo: $('#correo').val(),
             idpersona: $('#id').val(),
-            recibo: $('#recibo').val()
+            recibo: $('#recibo').val(),
+            donador: $('#donador').val()
         };
         const url = 'procesos/donadores/donadores_update.php';
         console.log(postData, url);
         $.post(url, postData, (response) => {
             console.log(response);
-            if (response == 'REGISTRO ACTUALIZADO') {
-                window.location.href='donadores.php';
+            if (response == 'DONADOR ACTUALIZADO') {
                 alert_success(response);
+                setTimeout(function () {
+                    window.location.href='donadores.php';
+                }, 1000); 
             } else {
                 alert_warning(response);
             }

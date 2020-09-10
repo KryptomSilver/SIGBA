@@ -1,4 +1,6 @@
 <?php
+$banco = $_POST['banco'];
+
 $razon = $_POST['razon'];
 $rfc = $_POST['rfc'];
 $calle = $_POST['calle'];
@@ -10,10 +12,10 @@ $contacto = $_POST['contacto'];
 $telefono = $_POST['telefono'];
 $celular = $_POST['celular'];
 $correo = $_POST['correo'];
-$recibo = '';
-$tipo = 3;
+
+$recibo ='';
 require('../conexion.php');
-$sql = "CALL sp_Registro('".$razon."', '".$rfc."', '".$calle."', '".$numint."', '".$numext."', '".$colonia."', '".$codpostal."', '".$contacto."', '".$telefono."', '".$celular."', '".$correo."','".$recibo."','".$tipo."');";
+$sql = "CALL sp_AgregarBanco('".$razon."', '".$rfc."', '".$calle."', '".$numint."', '".$numext."', '".$colonia."', '".$codpostal."', '".$contacto."', '".$telefono."', '".$celular."', '".$correo."','".$recibo."','".$banco."');";
 $resultado = mysqli_query($conn,$sql);
 $row = mysqli_fetch_array($resultado);
 echo $row['msg'];

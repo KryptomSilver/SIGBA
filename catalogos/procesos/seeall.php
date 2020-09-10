@@ -5,7 +5,7 @@
         case 2: // PROVEEDORES
         require('conexion.php');
         $id = $_GET['idpersona'];
-        $sql = " SELECT  * from persona WHERE idpersona = $id ";
+        $sql = " SELECT  * from personas WHERE idpersona = $id ";
         $resultado = mysqli_query($conn, $sql);
         $rows = mysqli_fetch_array($resultado);
 
@@ -160,7 +160,7 @@
         case 3: //DONADORES
         require('conexion.php');
         $id = $_GET['idpersona'];
-        $sql = " SELECT  * from persona WHERE idpersona = $id ";
+        $sql = " SELECT  * from personas WHERE idpersona = $id ";
         $resultado = mysqli_query($conn, $sql);
         $rows = mysqli_fetch_array($resultado);
         $recibo=$rows['recibo'];
@@ -334,7 +334,7 @@
         case 4: //BANCO DE ALIMENTOS
         require('conexion.php');
         $id = $_GET['idpersona'];
-        $sql = " SELECT  * from persona WHERE idpersona = $id ";
+        $sql = " SELECT  * from personas WHERE idpersona = $id ";
         $resultado = mysqli_query($conn, $sql);
         $rows = mysqli_fetch_array($resultado);
         ?>
@@ -485,7 +485,7 @@
         case 5: //PROYECTOS
                 require('conexion.php');
         $id = $_GET['idpersona'];
-        $sql = " SELECT  * from persona WHERE idpersona = $id ";
+        $sql = " SELECT  * from personas WHERE idpersona = $id ";
         $resultado = mysqli_query($conn, $sql);
         $rows = mysqli_fetch_array($resultado);
         ?>

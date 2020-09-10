@@ -136,8 +136,8 @@ var edit_data = function (tbody, table) {
     $(tbody).off('click', 'a.editar');
     $(tbody).on("click", "a.editar", function name() {
         var data = table.row($(this).parents("tr")).data();
-        var rfc = data.rfc;
-        window.location.href = 'donadoresupdate.php?rfc=' + rfc;
+        var id = data.idpersona;
+        window.location.href = 'donadoresupdate.php?id=' + id;
     });
 }
 var delete_data = function (tbody, table) {

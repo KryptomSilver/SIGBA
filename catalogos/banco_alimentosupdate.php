@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="es">
 <?php 
-$rfc = $_GET['rfc'];
+$id = $_GET['id'];
 require('procesos/conexion.php');
-$sql = " SELECT  * from persona WHERE rfc = '$rfc' ";
+$sql = " SELECT  * from personas WHERE idpersona = '$id' ";
 $resultado = mysqli_query($conn, $sql);
 $rows = mysqli_fetch_array($resultado);
 ?>
@@ -28,11 +28,12 @@ $rows = mysqli_fetch_array($resultado);
     require('header.html');
     ?>
 
-    <br>
-
-            <div class="formulario z">
-                <h1 class="titulo">Banco de Alimentos</h1>
+    <h1 class="titulo">Banco de Alimentos</h1>
+    <hr>
+            <div class="tabla-lg">
+               
                 <form id="bancos_update" method="post">
+                    <input type="hidden"value="1" id="banco">
                     <input type="hidden" id="id" value="<?php echo $rows['idpersona'];?>">
                     <div class="row">
                         <div class="col-8">
