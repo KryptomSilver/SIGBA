@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $('#agregarintegrante').submit(e => {
+    $('#integrantesadd').submit(e => {
         e.preventDefault();
         const postData = {
             id: $('#idfamilia').val(),
@@ -16,15 +16,29 @@ $(document).ready(function () {
             parentesco: $('#parentesco').val(),
             nivel_estudios: $('#nivel_estudios').val(),
             grado: $('#grado').val(),
-            estado: $('#estado').val()
+            estado: $('#estado').val(),
+            padre: $('#padre').val(),
+            madre: $('#madre').val(),
+            hijos: $('#hijos').val(),
+            becas: $('#becas').val(),
+            pension: $('#pension').val(),
+            talla: $('#talla').val(),
+            peso: $('#peso').val(),
+            adultos: $('#adultos').val()
+
         };
         const url = 'procesos/integrantes/integrantes_add.php';
         console.log(postData, url);
         $.post(url, postData, (response) => {
             console.log(response);
-            if (response == 'Integrante Registrado') {
-                alert_success(response);
-                
+            var parsedData = JSON.parse(response);
+            var mensaje = parsedData.mns;
+            var id = parsedData.id;
+            if (mensaje == 'Integrante Registrado') {                   
+                alert_success(mensaje);
+                setTimeout(function () {
+                    window.location.href='integrantes.php?idfamilia='+id;
+                }, 1000);  
             } else {
                 alert_warning(response);
             }
@@ -33,3 +47,27 @@ $(document).ready(function () {
 
 
 });
+
+
+var alert_success = function (msg) {
+    var respuesta = msg
+    Swal.fire({
+        type: 'success',
+        title: respuesta,
+        showConfirmButton: false,
+        timer: 800
+    })
+}
+
+
+
+//alerta
+var alert_warning = function (msg) {
+    var respuesta = msg
+    Swal.fire({
+        type: 'warning',
+        title: respuesta,
+        showConfirmButton: false,
+        timer: 800
+    })
+}

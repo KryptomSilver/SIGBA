@@ -12,6 +12,8 @@ $idfamilia = $_GET['idfamilia'];
     <link rel="stylesheet" href="../Frameworks/datatables.css">
     <link rel="stylesheet" href="../Frameworks/css/estilo.css">
     <script src="../Frameworks/js/alert.js"></script>
+    <script src="../Frameworks/jQuery/jquery.js"></script>
+    <script src="../Frameworks/js/integrantes/integrantesproceso.js"></script>
     <title>Document</title>
 </head>
 
@@ -23,7 +25,7 @@ $idfamilia = $_GET['idfamilia'];
     <hr>
     <div class="tabla-lg">
         <form id="integrantesadd" method="post">
-            <input type="hidden" id="idfamilia" name="">
+            <input type="hidden" id="idfamilia" value="<?php echo $idfamilia;?>"name="">
             <div class="row">
                 <div class="col-3">
                     <div class="form-group">
@@ -169,8 +171,8 @@ $idfamilia = $_GET['idfamilia'];
                 </div>
                 <div class="col-4">
                     <div class="form-group">
-                        <label for="">Otros:</label>
-                        <input type="text" id="otros" placeholder="$" class="form-control" required>
+                        <label for="">Adultos mayores:</label>
+                        <input type="text" id="adultos" placeholder="$" class="form-control" required>
                     </div>
                 </div>
             </div>
@@ -179,15 +181,11 @@ $idfamilia = $_GET['idfamilia'];
                 <div class="col-6">
                     <div class="form-group">
                         <label for="">Talla:</label>
-                        <input type="text" id="entidad" class="form-control" required>
+                        <input type="text" id="talla" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label for="">Peso:</label>
-                        <input type="text" id="entidad" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="">Adultos mayores:</label>
-                        <input type="text" id="adultos" placeholder="$" class="form-control" required>
+                        <input type="text" id="peso" class="form-control" required>
                     </div>
                 </div>
 
@@ -198,12 +196,12 @@ $idfamilia = $_GET['idfamilia'];
                                 <div class="form-group">
                                     <label for="">Nivel de estudios:</label>
                                     <select name="" id="nivel_estudios" class="form-control" required>
-                                        <option value="">Kinder</option>
-                                        <option value="">Primaria</option>
-                                        <option value="">Secundaria</option>
-                                        <option value="">Bachillerato</option>
-                                        <option value="">Profesional</option>
-                                        <option value="">Maestria</option>
+                                        <option value="Kinder">Kinder</option>
+                                        <option value="Primaria">Primaria</option>
+                                        <option value="Secundaria">Secundaria</option>
+                                        <option value="Bachillerato">Bachillerato</option>
+                                        <option value="Profesional">Profesional</option>
+                                        <option value="Maestria">Maestria</option>
                                     </select>
                                 </div>
                             </div>
@@ -213,7 +211,7 @@ $idfamilia = $_GET['idfamilia'];
                             <div class="col-12">
                                 <label for="">Grado:</label>
                                 <select name="" id="grado" class="form-control" required>
-                                    <option value="">Opción 1</option>
+                                    <option value="hola">Opción 1</option>
                                 </select>
                             </div>
                         </div>

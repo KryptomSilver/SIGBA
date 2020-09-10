@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.1
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 11-09-2020 a las 01:22:46
--- Versión del servidor: 10.4.11-MariaDB
--- Versión de PHP: 7.4.3
+-- Servidor: localhost
+-- Tiempo de generación: 11-09-2020 a las 01:24:43
+-- Versión del servidor: 10.4.14-MariaDB
+-- Versión de PHP: 7.4.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -95,10 +94,11 @@ select 'Familia Registrada' AS msg, @vid AS idval;
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_AgregarIntegrante` (IN `vid` INT(11), IN `vtitular` VARCHAR(50), IN `vnombre` VARCHAR(50), IN `vapellido1` VARCHAR(50), IN `vapellido2` VARCHAR(50), IN `vsexo` CHAR(1), IN `vfecha` DATE, IN `ventidad` VARCHAR(50), IN `vcurp` VARCHAR(50), IN `vestado_civil` VARCHAR(50), IN `vocupacion` VARCHAR(50), IN `vparentesco` VARCHAR(50), IN `vnivel_estudios` VARCHAR(50), IN `vgrado` VARCHAR(50), IN `vestado` VARCHAR(50))  BEGIN
-	INSERT INTO integrantes (fk_familia,gefe_familia,nombre,apellido1,apellido2,sexo,fecha_nac,entidad,curp,estado_civil,ocupacion,parentesco,nivel_estudios,grado,estado_estudio)
-	VALUES (vid,vtitular,vnombre,vapellido1,vapellido2,vsexo,vfecha,ventidad,vcurp,vestado_civil,vocupacion,vparentesco,vnivel_estudios,vgrado,vestado);
-	 select 'Integrante Registrado' AS msg;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_AgregarIntegrante` (IN `vid` INT(11), IN `vtitular` VARCHAR(50), IN `vnombre` VARCHAR(50), IN `vapellido1` VARCHAR(50), IN `vapellido2` VARCHAR(50), IN `vsexo` CHAR(1), IN `vfecha` DATE, IN `ventidad` VARCHAR(50), IN `vcurp` VARCHAR(50), IN `vestado_civil` VARCHAR(50), IN `vocupacion` VARCHAR(50), IN `vparentesco` VARCHAR(50), IN `vnivel_estudios` VARCHAR(50), IN `vgrado` VARCHAR(50), IN `vestado` VARCHAR(50), IN `vpadre` DOUBLE(10,2), IN `vmadre` DOUBLE(10,2), IN `vhijos` DOUBLE(10,2), IN `vbecas` DOUBLE(10,2), IN `vpension` DOUBLE(10,2), IN `vtalla` DOUBLE(10,2), IN `vpeso` DOUBLE(10,2), IN `vadultos` DOUBLE(10,2))  BEGIN
+	INSERT INTO integrantes (fk_familia,gefe_familia,nombre,apellido1,apellido2,sexo,fecha_nac,entidad,curp,estado_civil,ocupacion,parentesco,nivel_estudios,grado,estado_estudio,padre,madre,hijos,becas,pension,talla,peso,adultos)
+	VALUES (vid,vtitular,vnombre,vapellido1,vapellido2,vsexo,vfecha,ventidad,vcurp,vestado_civil,vocupacion,vparentesco,vnivel_estudios,vgrado,vestado,vpadre,vmadre,vhijos,vbecas,vpension,vtalla,vpeso,vadultos);
+	 SET @vidf = vid;
+     select 'Integrante Registrado' AS msg,@vidf AS idval;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_AgregarMunicipio` (IN `pnombre` VARCHAR(60))  NO SQL
@@ -675,8 +675,28 @@ CREATE TABLE `integrantes` (
   `estado_estudio` varchar(50) DEFAULT '',
   `grado` varchar(20) DEFAULT NULL,
   `estado_civil` varchar(50) DEFAULT '',
-  `nivel_estudios` varchar(50) DEFAULT NULL
+  `nivel_estudios` varchar(50) DEFAULT NULL,
+  `padre` double(10,2) NOT NULL,
+  `madre` double(10,2) NOT NULL,
+  `hijos` double(10,2) NOT NULL,
+  `becas` double(10,2) NOT NULL,
+  `pension` double(10,2) NOT NULL,
+  `talla` double(10,2) NOT NULL,
+  `peso` double(10,2) NOT NULL,
+  `adultos` double(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `integrantes`
+--
+
+INSERT INTO `integrantes` (`id`, `fk_familia`, `nombre`, `apellido1`, `apellido2`, `gefe_familia`, `sexo`, `fecha_nac`, `curp`, `entidad`, `parentesco`, `ocupacion`, `estado_estudio`, `grado`, `estado_civil`, `nivel_estudios`, `padre`, `madre`, `hijos`, `becas`, `pension`, `talla`, `peso`, `adultos`) VALUES
+(23, 96, 'dfs', 'sdf', 'sdf', 'Si', 'M', '2020-10-05', 'sdf', 'sdf', 'Madre', 'rr', 'TRUNCO', 'hola', 'separado', 'Kinder', 12.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00),
+(24, 96, '', '', '', '', '', '2020-10-05', '', '', '', '', '', '', '', '', 1.00, 1.00, 1.00, 1.00, 1.00, 0.00, 0.00, 0.00),
+(25, 96, 'Abel', 'Romero', 'RUIZ', 'Si', 'M', '2020-09-21', 'djyfgjyg', 'SDF', 'Madre', 'rr', 'TRUNCO', 'hola', 'soltero', 'Kinder', 12.00, 12.00, 12.00, 12.00, 12.00, 0.00, 0.00, 0.00),
+(26, 96, 'Abel', 'Romero', 'RUIZ', 'Si', 'M', '2020-09-21', 'djyfgjyg', 'SDF', 'Madre', 'rr', 'TRUNCO', 'hola', 'soltero', 'Kinder', 12.00, 12.00, 12.00, 12.00, 12.00, 0.00, 0.00, 0.00),
+(27, 96, 'Abel', 'Romero', 'RUIZ', 'Si', 'M', '2020-09-21', 'djyfgjyg', 'SDF', 'Madre', 'rr', 'TRUNCO', 'hola', 'soltero', 'Kinder', 12.00, 12.00, 12.00, 12.00, 12.00, 0.00, 0.00, 0.00),
+(28, 96, 'Abel', 'Romero', 'RUIZ', 'Si', 'H', '2020-09-22', 'sdf', 'wewe', 'Hijo', 'rr', 'TRUNCO', 'hola', 'casado', 'Secundaria', 1212.00, 12.00, 12.00, 12.00, 12.00, 12.00, 12.00, 12.00);
 
 -- --------------------------------------------------------
 
@@ -947,7 +967,7 @@ ALTER TABLE `abonos`
 -- AUTO_INCREMENT de la tabla `articulo`
 --
 ALTER TABLE `articulo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT de la tabla `colonias`
@@ -1013,7 +1033,7 @@ ALTER TABLE `ingresos`
 -- AUTO_INCREMENT de la tabla `integrantes`
 --
 ALTER TABLE `integrantes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT de la tabla `municipios`

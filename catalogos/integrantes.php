@@ -5,8 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="../Frameworks/datatables.js" type="text/javascript"></script>
-
-    <script src="../Frameworks/js/alert.js"></script>
+    <link rel="stylesheet" href="../Frameworks/css/normalize.css">
+    <link rel="stylesheet" href="../Frameworks/datatables.css">
+    <link rel="stylesheet" href="../Frameworks/css/estilo.css">
     <script src="../Frameworks/js/integrantes/integrantes.js"></script>
     <title>Integrantes</title>
 </head>
