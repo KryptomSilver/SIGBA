@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: localhost
--- Tiempo de generación: 11-09-2020 a las 01:24:43
--- Versión del servidor: 10.4.14-MariaDB
--- Versión de PHP: 7.4.9
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 11-09-2020 a las 08:36:43
+-- Versión del servidor: 10.4.11-MariaDB
+-- Versión de PHP: 7.4.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -207,6 +208,15 @@ transporte=UPPER(vtransporte),atencion_medica=UPPER(vatencion_medica),otros_gast
 -- adultos_Mayores=UPPER(vadultos_Mayores),total_Mensual=UPPER(vtotal_mensualI),total_Semanal=UPPER(vtotal_semanalI)
 	-- WHERE fk_familia = vid;
 select 'Familia Actualizada' AS msg,vid as idval;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_EditarIntegrante` (IN `vid` INT(11), IN `vtitular` VARCHAR(50), IN `vnombre` VARCHAR(50), IN `vapellido1` VARCHAR(50), IN `vapellido2` VARCHAR(50), IN `vsexo` CHAR(1), IN `vfecha` DATE, IN `ventidad` VARCHAR(50), IN `vcurp` VARCHAR(50), IN `vestado_civil` VARCHAR(50), IN `vocupacion` VARCHAR(50), IN `vparentesco` VARCHAR(50), IN `vnivel_estudios` VARCHAR(50), IN `vgrado` VARCHAR(50), IN `vestado` VARCHAR(50), IN `vpadre` DOUBLE(10,2), IN `vmadre` DOUBLE(10,2), IN `vhijos` DOUBLE(10,2), IN `vbecas` DOUBLE(10,2), IN `vpension` DOUBLE(10,2), IN `vtalla` DOUBLE(10,2), IN `vpeso` DOUBLE(10,2), IN `vadultos` DOUBLE(10,2), IN `vidfamilia` INT)  BEGIN
+	UPDATE integrantes SET gefe_familia=UPPER(vtitular),nombre=UPPER(vnombre),apellido1=UPPER(vapellido1),apellido2=UPPER(vapellido2)
+,sexo=UPPER(vsexo),fecha_nac=vfecha,entidad=UPPER(ventidad),curp=vcurp,estado_civil=UPPER(vestado_civil),ocupacion=UPPER(vocupacion),
+parentesco=UPPER(vparentesco),nivel_estudios=UPPER(vnivel_estudios),grado=UPPER(vgrado),estado_estudio=UPPER(vestado),padre=vpadre,
+madre=vmadre,hijos=vhijos,becas=vbecas,pension=vpension,talla=vtalla,peso=vpeso,adultos=vadultos WHERE id =vid;
+	 SET @vidf = vidfamilia;
+     select 'Integrante Actualizado' AS msg,@vidf AS idval;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_EditarMunicipio` (IN `pid` INT, IN `pnombre` VARCHAR(60))  NO SQL
@@ -691,12 +701,10 @@ CREATE TABLE `integrantes` (
 --
 
 INSERT INTO `integrantes` (`id`, `fk_familia`, `nombre`, `apellido1`, `apellido2`, `gefe_familia`, `sexo`, `fecha_nac`, `curp`, `entidad`, `parentesco`, `ocupacion`, `estado_estudio`, `grado`, `estado_civil`, `nivel_estudios`, `padre`, `madre`, `hijos`, `becas`, `pension`, `talla`, `peso`, `adultos`) VALUES
-(23, 96, 'dfs', 'sdf', 'sdf', 'Si', 'M', '2020-10-05', 'sdf', 'sdf', 'Madre', 'rr', 'TRUNCO', 'hola', 'separado', 'Kinder', 12.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00),
-(24, 96, '', '', '', '', '', '2020-10-05', '', '', '', '', '', '', '', '', 1.00, 1.00, 1.00, 1.00, 1.00, 0.00, 0.00, 0.00),
-(25, 96, 'Abel', 'Romero', 'RUIZ', 'Si', 'M', '2020-09-21', 'djyfgjyg', 'SDF', 'Madre', 'rr', 'TRUNCO', 'hola', 'soltero', 'Kinder', 12.00, 12.00, 12.00, 12.00, 12.00, 0.00, 0.00, 0.00),
-(26, 96, 'Abel', 'Romero', 'RUIZ', 'Si', 'M', '2020-09-21', 'djyfgjyg', 'SDF', 'Madre', 'rr', 'TRUNCO', 'hola', 'soltero', 'Kinder', 12.00, 12.00, 12.00, 12.00, 12.00, 0.00, 0.00, 0.00),
-(27, 96, 'Abel', 'Romero', 'RUIZ', 'Si', 'M', '2020-09-21', 'djyfgjyg', 'SDF', 'Madre', 'rr', 'TRUNCO', 'hola', 'soltero', 'Kinder', 12.00, 12.00, 12.00, 12.00, 12.00, 0.00, 0.00, 0.00),
-(28, 96, 'Abel', 'Romero', 'RUIZ', 'Si', 'H', '2020-09-22', 'sdf', 'wewe', 'Hijo', 'rr', 'TRUNCO', 'hola', 'casado', 'Secundaria', 1212.00, 12.00, 12.00, 12.00, 12.00, 12.00, 12.00, 12.00);
+(25, 96, 'ABELS', 'ROMERO', 'RUIZ', 'SI', 'M', '2020-09-21', ' 	RORA980108HCMMZB01', 'SDF', 'PADRE', 'RR', 'TRUNCO', 'HOLA', 'SOLTERO', 'KINDER', 12.00, 12.00, 12.00, 12.00, 12.00, 0.00, 12.00, 0.00),
+(26, 96, 'Abel', 'Romero', 'RUIZ', 'SI', 'M', '2020-09-21', ' 	RORA980108HCMMZB01', 'SDF', 'Madre', 'rr', 'TRUNCO', 'hola', 'soltero', 'Kinder', 12.00, 12.00, 12.00, 12.00, 12.00, 0.00, 0.00, 0.00),
+(27, 96, 'Abel', 'Romero', 'RUIZ', 'SI', 'M', '2020-09-21', ' 	RORA980108HCMMZB01', 'SDF', 'Madre', 'rr', 'TRUNCO', 'hola', 'soltero', 'Kinder', 12.00, 12.00, 12.00, 12.00, 12.00, 0.00, 0.00, 0.00),
+(28, 96, 'Abel', 'Romero', 'RUIZ', 'SI', 'H', '2020-09-22', ' 	RORA980108HCMMZB01', 'wewe', 'Hijo', 'rr', 'PROCESO', 'hola', 'casado', 'Secundaria', 1212.00, 12.00, 12.00, 12.00, 12.00, 12.00, 12.00, 12.00);
 
 -- --------------------------------------------------------
 
@@ -756,7 +764,7 @@ CREATE TABLE `personas` (
 
 INSERT INTO `personas` (`idpersona`, `razon_Social`, `rfc`, `calle`, `num_Interior`, `num_Exterior`, `colonia`, `codPostal`, `nombre_Contacto`, `telefono`, `celular`, `correo`, `recibo`, `proveedor`, `donador`, `banco`) VALUES
 (14, 'AV PABLO SILVA GARCIA BANCOFFF', 'VEBJ880326', 'AV PABLO SILVA', '12', '12', 'DSSD', '28985', 'DSDS', '2147483647', '3121985243', 'ABEL@HOTMAIL.COM', '', 0, 0, 0),
-(15, 'SUCESORES DE EMILIO GRUV', 'VEBJ890324', 'MADERO', '303', '100', 'CENTRO', '28000', 'ABEL  ROMERO RUIZ', '2147483647', '3121564857', 'ECHAVEZ@GMAIL.COM', '', 1, 1, 1);
+(15, 'SUCESORES DE EMILIO GRUV', 'VEBJ890324', 'MADERO', '303', '100', 'CENTRO', '28000', 'ABEL  ROMERO RUIZ', '2147483647', '3121564857', 'ECHAVEZ@GMAIL.COM', 'SI', 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -973,7 +981,7 @@ ALTER TABLE `articulo`
 -- AUTO_INCREMENT de la tabla `colonias`
 --
 ALTER TABLE `colonias`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de la tabla `compras`
@@ -1057,7 +1065,7 @@ ALTER TABLE `puestos`
 -- AUTO_INCREMENT de la tabla `unidad_medida`
 --
 ALTER TABLE `unidad_medida`
-  MODIFY `idunidad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idunidad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
