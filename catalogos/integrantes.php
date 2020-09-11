@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../Frameworks/css/normalize.css">
     <link rel="stylesheet" href="../Frameworks/datatables.css">
     <link rel="stylesheet" href="../Frameworks/css/estilo.css">
+    <link rel="stylesheet" href="../Frameworks/css/fontello.css">
     <script src="../Frameworks/js/integrantes/integrantes.js"></script>
     <title>Integrantes</title>
 </head>
@@ -32,7 +33,6 @@ $id = $_GET['idfamilia'];
                 <a type="button" class="btn btn-lg btn-primary" href="integrantesadd.php?idfamilia=<?php echo $id;?>">Agregar</a>
             </div>
         </div>
-
         <table id="integrantes" class="table table-striped table-bordered">
             <thead>
                 <tr>
