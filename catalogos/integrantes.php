@@ -24,6 +24,7 @@ $id = $_GET['idfamilia'];
     <br>
     <h1 class="titulo">Integrantes</h1>
     <br>
+    <input type="hidden" value="<?=$id?>" id="idfamilia">
     <div class="tabla-lg">
         <div class="row">
             <div class="col-9"></div>

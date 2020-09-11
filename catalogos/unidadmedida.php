@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="../Frameworks/datatables.css">
     <link rel="stylesheet" href="../Frameworks/css/estilo.css">
     <script src="../Frameworks/js/alert.js"></script>
-    <script  src="../Frameworks/js/unidad_medida/unidad_medida.js"></script>
+    <script src="../Frameworks/js/unidad_medida/unidad_medida.js"></script>
     <title>SIGBA</title>
 </head>
 
@@ -31,27 +31,23 @@
                 <form method="post" id="formulario">
                     <div class="row">
                         <div class="col-1"></div>
-                        <div class="col-5">
-                        <label for="">Nombre</label>
-                            <input type="text" id="idunidad" hidden>
-                            <input style="width:100%;" id="nombre" class="form-control" type="text"required>
-                        </div>
-                        <div class="col-5">
-                        <label for="">Clave</label>
-                            <input style="width:100%;" id="clave" class="form-control" type="text"required>
-                        </div>
-                        <div class="col-1"></div>
-                    </div>
-                    <div class="row">
-                        <div class="col-3"></div>
-                        <div class="col-5"></div>
                         <div class="col-4">
+                            <label for="">Nombre</label>
+                            <input type="text" id="idunidad" hidden>
+                            <input style="width:100%;" id="nombre" class="form-control" type="text" required>
+                        </div>
+                        <div class="col-4">
+                            <label for="">Clave</label>
+                            <input style="width:100%;" id="clave" class="form-control" type="text" required>
+                        </div>
+                        <div class="col-3">
                             <div class="form-group">
                                 <button style="margin-top:32px;" class="btn btn-md btn-primary"
                                     type="submit">Guardar</button>
                             </div>
                         </div>
                     </div>
+                   
                 </form>
 
                 <div class="row">
@@ -94,9 +90,9 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="recipient-name" class="col-form-label">Nombre:</label>
-                            <input type="text"class="form-control" id="name">
+                            <input type="text" class="form-control" id="name">
                             <label for="recipient-name" class="col-form-label">Clave:</label>
-                            <input type="text"class="form-control" id="clave">
+                            <input type="text" class="form-control" id="clave">
                             <input type="hidden" class="form-control" id="id">
                         </div>
                     </div>

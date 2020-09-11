@@ -32,12 +32,12 @@ $idfamilia = $_GET['idfamilia'];
                         <div class="form-check-inline">
                             <label for="">Titular de familia:</label>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="titular" id="titular" value="Si"
+                                <input class="form-check-input" type="radio" name="titular" id="titular" value="SI"
                                     required>
                                 <label class="form-check-label" for="inlineRadio1">Si</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="titular" id="titular" value="No"
+                                <input class="form-check-input" type="radio" name="titular" id="titular" value="NO"
                                     required>
                                 <label class="form-check-label" for="inlineRadio2">No</label>
                             </div>
