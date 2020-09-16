@@ -120,6 +120,6 @@ var delete_data = function (tbody, table) {
     $(tbody).off("click", "a.eliminar");
     $(tbody).on("click", "a.eliminar", function () {
         var data = table.row($(this).parents("tr")).data();
-        var idarticulo = $("#formdelete #iddelete").val(data.id);
+        $("#formdelete #iddelete").val(data.id);
     });
 };

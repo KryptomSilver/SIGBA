@@ -1,9 +1,15 @@
 $(document).ready(function () {
     $('#integrantesadd').submit(e => {
         e.preventDefault();
+        var titular
+        if (document.getElementById('titular').checked==true) {
+            titular = 'NO';
+        } else {
+            titular = 'SI';
+        }
         const postData = {
             id: $('#idfamilia').val(),
-            titular: $('#titular').val(),
+            titular: titular,
             nombre: $('#nombre').val(),
             apellido1: $('#apellido1').val(),
             apellido2: $('#apellido2').val(),
@@ -17,14 +23,9 @@ $(document).ready(function () {
             nivel_estudios: $('#nivel_estudios').val(),
             grado: $('#grado').val(),
             estado: $('#estado').val(),
-            padre: $('#padre').val(),
-            madre: $('#madre').val(),
-            hijos: $('#hijos').val(),
-            becas: $('#becas').val(),
-            pension: $('#pension').val(),
+            ingresos: $('#ingresos').val(),
             talla: $('#talla').val(),
-            peso: $('#peso').val(),
-            adultos: $('#adultos').val()
+            peso: $('#peso').val()
 
         };
         const url = 'procesos/integrantes/integrantes_add.php';
@@ -37,7 +38,7 @@ $(document).ready(function () {
             if (mensaje == 'Integrante Registrado') {                   
                 alert_success(mensaje);
                 setTimeout(function () {
-                    window.location.href='integrantes.php?idfamilia='+id;
+                    window.location.href='integrantes.php';
                 }, 1000);  
             } else {
                 alert_warning(response);
@@ -46,10 +47,15 @@ $(document).ready(function () {
     });
     $('#integrantesupdate').submit(e => {
         e.preventDefault();
+        var titular
+        if (document.getElementById('titular').checked==true) {
+            titular = 'SI';
+        } else {
+            titular = 'NO';
+        }
         const postData = {
             id: $('#id').val(),
-            idfamilia: $('#idfamilia').val(),
-            titular: $('#titular').val(),
+            titular: titular,
             nombre: $('#nombre').val(),
             apellido1: $('#apellido1').val(),
             apellido2: $('#apellido2').val(),
@@ -63,27 +69,19 @@ $(document).ready(function () {
             nivel_estudios: $('#nivel_estudios').val(),
             grado: $('#grado').val(),
             estado: $('#estado').val(),
-            padre: $('#padre').val(),
-            madre: $('#madre').val(),
-            hijos: $('#hijos').val(),
-            becas: $('#becas').val(),
-            pension: $('#pension').val(),
+            ingresos: $('#ingresos').val(),
             talla: $('#talla').val(),
-            peso: $('#peso').val(),
-            adultos: $('#adultos').val()
+            peso: $('#peso').val()
 
         };
         const url = 'procesos/integrantes/integrantes_update.php';
         console.log(postData, url);
         $.post(url, postData, (response) => {
             console.log(response);
-            var parsedData = JSON.parse(response);
-            var mensaje = parsedData.mns;
-            var id = parsedData.id;
-            if (mensaje == 'Integrante Actualizado') {                   
-                alert_success(mensaje);
+            if (response == 'Integrante Actualizado') {                   
+                alert_success(response);
                 setTimeout(function () {
-                    window.location.href='integrantes.php?idfamilia='+id;
+                    window.location.href='familiasadd.php';
                 }, 1000);  
             } else {
                 alert_warning(response);

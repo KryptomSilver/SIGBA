@@ -136,46 +136,7 @@ $idfamilia = $_GET['idfamilia'];
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-4">
-                    <div class="form-group">
-                        <label for="">Padre:</label>
-                        <input type="text" placeholder="$" id="padre" class="form-control" required>
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="form-group">
-                        <label for="">Madre:</label>
-                        <input type="text" id="madre" placeholder="$" class="form-control" required>
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="form-group">
-                        <label for="">Hijos:</label>
-                        <input type="text" id="hijos" placeholder="$" class="form-control" required>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-4">
-                    <div class="form-group">
-                        <label for="">Becas:</label>
-                        <input type="text" id="becas" placeholder="$" class="form-control" required>
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="form-group">
-                        <label for="">Pensión:</label>
-                        <input type="text" id="pension" placeholder="$" class="form-control" required>
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="form-group">
-                        <label for="">Adultos mayores:</label>
-                        <input type="text" id="adultos" placeholder="$" class="form-control" required>
-                    </div>
-                </div>
-            </div>
+            
 
             <div class="row">
                 <div class="col-6">
@@ -186,6 +147,10 @@ $idfamilia = $_GET['idfamilia'];
                     <div class="form-group">
                         <label for="">Peso:</label>
                         <input type="text" id="peso" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Ingresos:</label>
+                        <input type="text" id="ingresos" class="form-control" required>
                     </div>
                 </div>
 
@@ -250,7 +215,7 @@ $idfamilia = $_GET['idfamilia'];
             <div class="row">
                 <div class="col-5"></div>
                 <div class="col-3">
-                    <a href="integrantes.php?idfamilia=<?php echo $idfamilia; ?>" class="btn btn-lg btn-primary"
+                    <a href="familiasadd.php" class="btn btn-lg btn-primary"
                         title="Ir la página anterior">Cancelar</a>
                 </div>
                 <div class="col-1"></div>

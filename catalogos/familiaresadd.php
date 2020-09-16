@@ -20,7 +20,6 @@
     <h1 class="titulo">Registro de Familiares</h1>
     <hr>
     <div class="tabla-lg">
-        
         <div class="row">
             <div class="col-6">
                 <div class="form-group">
@@ -107,9 +106,7 @@
                 </div>
 
                 <div class="row">
-
                     <div class="col-12 formulario_borde">
-
                         <div class="row">
                             <div class="col-11">
                                 <div class="form-group">
