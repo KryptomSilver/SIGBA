@@ -14,7 +14,7 @@ $idfamilia = $_GET['idfamilia'];
     <script src="../Frameworks/js/alert.js"></script>
     <script src="../Frameworks/jQuery/jquery.js"></script>
     <script src="../Frameworks/js/integrantes/integrantesproceso.js"></script>
-    <title>Document</title>
+    <title>SIGBA</title>
 </head>
 
 <body>
@@ -93,7 +93,9 @@ $idfamilia = $_GET['idfamilia'];
                     <div class="form-group">
                         <label for="">Ocupación:</label>
                         <select name="" id="ocupacion" class="form-control" required>
-                            <option value="rr">Opción 1</option>
+                            <option value="Trabajador/a">Trabajador/a</option>
+                            <option value="Ama de casa">Ama de casa</option>
+                            <option value="Estudiante">Estudiante</option>
                         </select>
                     </div>
                 </div>

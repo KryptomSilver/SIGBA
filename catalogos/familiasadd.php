@@ -40,7 +40,7 @@
                             <li><a href="#tab4"><span class="fa fa-bookmark"></span><span
                                         class="tab-text">Egresos</span></a>
                             </li>
-                            <li><a href="#tab5|"><span class="fa fa-briefcase"></span><span
+                            <li><a href="#tab5"><span class="fa fa-briefcase"></span><span
                                         class="tab-text">Ingresos</span></a></li>
                         </ul>
                     </div>
@@ -69,7 +69,7 @@
                                     
                                     ?>
                                     <select id="municipio" class="form-control" onchange="cambiarcolonias()" required>
-                                    <option selected>Seleccione un opcion</option>
+                                        <option selected>Seleccione un opcion</option>
                                         <?php  while ($municipios = mysqli_fetch_array($resultado)) { ?>
                                         <option value="<?=$municipios['id']?>"
                                             <?php if ($rows['municipio'] == $municipios['id']) { echo "selected";}?>>
@@ -89,7 +89,7 @@
                                     
                                     ?>
                                     <select id="colonia" class="form-control" required>
-                                            <option selected>Seleccione un opcion</option>
+                                        <option selected>Seleccione un opcion</option>
                                         <?php  while ($colonias = mysqli_fetch_array($resultadoc)) { ?>
                                         <option value="<?=$colonias['id']?>"
                                             <?php if ($rows['colonia'] == $colonias['id']) { echo "selected";}?>>
@@ -394,6 +394,83 @@
                             </div>
                         </div>
                     </form>
+                </div>
+                <div class="hide" id="tab5">
+                    <?php
+                include('procesos/conexion.php');
+                $sql = "SELECT * FROM ingresos where fk_familia = $idfam";
+                $resultado = mysqli_query($conn,$sql);
+                $rowsi= mysqli_fetch_array($resultado);
+                ?>
+                    <div class="row">
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label for="">Padre:</label>
+                                <input type="text" placeholder="$" value="<?=$rowsi['padre']?>" id="padre"
+                                    class="form-control" disabled required>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label for="">Madre:</label>
+                                <input type="text" id="madre" placeholder="$" value="<?=$rowsi['madre']?>"
+                                    class="form-control" disabled required>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label for="">Hijos:</label>
+                                <input type="text" id="hijos" placeholder="$" value="<?=$rowsi['hijos']?>"
+                                    class="form-control" disabled required>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label for="">Becas:</label>
+                                <input type="text" id="becas" placeholder="$" value="<?=$rowsi['becas']?>"
+                                    class="form-control" disabled required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="">Otros:</label>
+                                <input type="text" id="otros" placeholder="$" value="<?=$rowsi['otros']?>"
+                                    class="form-control" disabled required>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="">Pensión:</label>
+                                <input type="text" id="pension" placeholder="$" value="<?=$rowsi['pension']?>"
+                                    class="form-control" disabled required>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="">Adultos mayores:</label>
+                                <input type="text" id="adultos" placeholder="$" value="<?=$rowsi['adultos_Mayores']?>"
+                                    class="form-control" disabled required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="">Ingreso semanal:</label>
+                                <input type="text" id="ingresosem" placeholder="$" value="<?=$rowsi['total_Semanal']?>"
+                                    class="form-control" disabled required>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="">Ingreso mensual:</label>
+                                <input type="text" id="ingresomen" placeholder="$" value="<?=$rowsi['total_Mensual']?>"
+                                    class="form-control" disabled required>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
