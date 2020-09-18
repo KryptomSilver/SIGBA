@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.1
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-09-2020 a las 02:31:26
--- Versión del servidor: 10.4.11-MariaDB
--- Versión de PHP: 7.4.3
+-- Tiempo de generación: 18-09-2020 a las 03:01:30
+-- Versión del servidor: 10.4.14-MariaDB
+-- Versión de PHP: 7.2.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -77,19 +76,26 @@ VALUES (prazon_Social, prfc,pcalle,pnum_Interior,pnum_Exterior,pcolonia,pcodPost
 select "DONADOR REGISTRADO" as msg;
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_AgregarEgresos` (IN `vvivienda` DOUBLE, IN `valimentacion` DOUBLE, IN `vluz` DOUBLE, IN `vgas` DOUBLE, IN `vagua` DOUBLE, IN `vatencion` DOUBLE, IN `vtelefono` DOUBLE, IN `vtransporte` DOUBLE, IN `votros` DOUBLE, IN `vcelular` DOUBLE, IN `veducacion` DOUBLE, IN `vtotals` DOUBLE, IN `vtotalm` DOUBLE, IN `vidfam` INT)  BEGIN
+	INSERT INTO egresos  (vivienda,alimentacion,luz,gas,agua,
+	atencion_medica,telefono,transporte,otros_gastos,celular, educacion,total_semanal,total_mensual,fk_familia)
+	VALUES (vvivienda,valimentacion,vluz,vgas,vagua,vatencion,vtelefono,vtransporte,votros,vcelular,veducacion,vtotals,votros,vidfam);
+	SELECT "Egresos Registrados" as msg;
+	END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_AgregarFamilia` (IN `vcalle` VARCHAR(50), IN `vtelefono` VARCHAR(50), IN `vcolonia` VARCHAR(50), IN `vmunicipio` VARCHAR(50), IN `vintegrantes` VARCHAR(50), IN `vnum_Interno` VARCHAR(50), IN `vnum_Externo` VARCHAR(50), IN `vcalle_col1` VARCHAR(50), IN `vcalle_col2` VARCHAR(50))  BEGIN
 	-- Agregar datos generales --
 	INSERT INTO familias(calle,telefono,colonia,municipio,integrantes,num_Interno,num_Externo,calle_col1,calle_col2)
 	VALUES (vcalle,vtelefono,vcolonia,vmunicipio,vintegrantes,vnum_Interno,vnum_Externo,vcalle_col1,vcalle_col2);
-	SET @vid = LAST_INSERT_ID();
+	SET @vid = @@IDENTITY;
 	
 select 'Familia Registrada' AS msg, @vid AS idval;
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_AgregarIntegrante` (IN `vidfam` INT(11), IN `vtitular` VARCHAR(50), IN `vnombre` VARCHAR(50), IN `vapellido1` VARCHAR(50), IN `vapellido2` VARCHAR(50), IN `vsexo` CHAR(1), IN `vfecha` DATE, IN `ventidad` VARCHAR(50), IN `vcurp` VARCHAR(50), IN `vestado_civil` VARCHAR(50), IN `vocupacion` VARCHAR(50), IN `vparentesco` VARCHAR(50), IN `vnivel_estudios` VARCHAR(50), IN `vgrado` VARCHAR(50), IN `vestado` VARCHAR(50), IN `vtalla` DOUBLE(10,2), IN `vpeso` DOUBLE(10,2))  BEGIN
-	-- INSERT INTO integrantes (fk_familia,gefe_familia,nombre,apellido1,apellido2,sexo,fecha_nac,entidad,curp,estado_civil,ocupacion,parentesco,nivel_estudios,grado,estado_estudio,talla,peso)
-	-- VALUES (vid,vtitular,vnombre,vapellido1,vapellido2,vsexo,vfecha,ventidad,vcurp,vestado_civil,vocupacion,vparentesco,vnivel_estudios,vgrado,vestado,vtalla,vpeso) where fk_familia = vidfam;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_AgregarIntegrante` (IN `vidfam` INT(11), IN `vtitular` VARCHAR(50), IN `vnombre` VARCHAR(50), IN `vapellido1` VARCHAR(50), IN `vapellido2` VARCHAR(50), IN `vsexo` CHAR(1), IN `vfecha` DATE, IN `ventidad` VARCHAR(50), IN `vcurp` VARCHAR(50), IN `vestado_civil` VARCHAR(50), IN `vocupacion` VARCHAR(50), IN `vparentesco` VARCHAR(50), IN `vnivel_estudios` VARCHAR(50), IN `vgrado` VARCHAR(50), IN `vestado` VARCHAR(50), IN `vtalla` DOUBLE(10,2), IN `vpeso` DOUBLE(10,2), IN `vingresos` DOUBLE(10,2))  BEGIN
+	INSERT INTO integrantes (fk_familia,gefe_familia,nombre,apellido1,apellido2,sexo,fecha_nac,entidad,curp,estado_civil,ocupacion,parentesco,nivel_estudios,grado,estado_estudio,talla,peso,ingresos)
+	VALUES (vidfam,vtitular,vnombre,vapellido1,vapellido2,vsexo,vfecha,ventidad,vcurp,vestado_civil,vocupacion,vparentesco,vnivel_estudios,vgrado,vestado,vtalla,vpeso,vingresos);
      select 'Integrante Registrado' AS msg;
 END$$
 
@@ -138,6 +144,12 @@ BEGIN
 	END IF;
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_AgregarVivienda` (IN `vtenencia` VARCHAR(50), IN `vcuartos` INT(11), IN `vnumfamilias` INT(11), IN `vidfam` INT(11))  BEGIN
+INSERT INTO vivienda (tenencia,num_Cuartos,num_Familias,fk_familia)
+VALUES (vtenencia,vcuartos,vnumfamilias,vidfam);
+SELECT "Vivienda Registrada" as msg;
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_EditarArticulo` (IN `pid` INT(11), IN `pnombre` VARCHAR(60))  BEGIN
 	#Routine body goes here...
 	
@@ -180,6 +192,12 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_EditarDonador` (IN `pid` INT(11)
 
 select "DONADOR ACTUALIZADO" as msg;
 END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_EditarEgresos` (IN `vvivienda` DOUBLE, IN `valimentacion` DOUBLE, IN `vluz` DOUBLE, IN `vgas` DOUBLE, IN `vagua` DOUBLE, IN `vatencion` DOUBLE, IN `vtelefono` DOUBLE, IN `vtransporte` DOUBLE, IN `votros` DOUBLE, IN `vcelular` DOUBLE, IN `veducacion` DOUBLE, IN `vtotals` DOUBLE, IN `vtotalm` DOUBLE, IN `vidfam` INT)  BEGIN
+	UPDATE egresos SET vivienda=vvivienda,alimentacion=valimentacion,luz=vluz,gas=vgas,agua=vagua,
+	atencion_medica=vatencion,telefono=vtelefono,transporte=vtransporte,otros_gastos=votros,celular=vcelular, educacion=veducacion,total_semanal=vtotals,total_mensual=vtotalm WHERE fk_familia = vidfam;
+	SELECT "Egresos Actualizados" as msg;
+	END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_EditarFamilia` (IN `vid` INT(11), IN `vcalle` VARCHAR(50), IN `vtelefono` VARCHAR(50), IN `vcolonia` VARCHAR(50), IN `vmunicipio` VARCHAR(50), IN `vintegrantes` VARCHAR(50), IN `vnum_Interno` VARCHAR(50), IN `vnum_Externo` VARCHAR(50), IN `vcalle_col1` VARCHAR(50), IN `vcalle_col2` VARCHAR(50))  BEGIN
 	-- Actualizar datos generales --
@@ -484,9 +502,9 @@ CREATE TABLE `colonias` (
 --
 
 INSERT INTO `colonias` (`id`, `fk_municipio`, `nombre`) VALUES
-(20, 4, 'VILLAS DE ORO'),
 (21, 4, 'VILLAS FLORES'),
-(23, 6, 'AGUAJES');
+(23, 6, 'AGUAJES'),
+(24, 5, 'VILLAS DE ORO');
 
 -- --------------------------------------------------------
 
@@ -571,8 +589,7 @@ CREATE TABLE `egresos` (
 --
 
 INSERT INTO `egresos` (`id`, `fk_familia`, `vivienda`, `alimentacion`, `luz`, `agua`, `telefono`, `transporte`, `atencion_medica`, `otros_gastos`, `celular`, `educacion`, `total_semanal`, `total_mensual`, `gas`) VALUES
-(42, 96, 7887.00, 2323.00, 87.00, 87.00, 78.00, 78.00, 87.00, 78.00, 78.00, 78.00, 78.00, 87.00, 78.00),
-(43, 102, 0.00, 4000.00, 300.00, 150.00, 100.00, 400.00, 300.00, 500.00, 300.00, 300.00, 100.00, 100.00, 300.00);
+(48, 106, 1.00, 1.00, 122222.00, 1.00, 99999999.99, 1.00, 1.00, 1.00, 1.00, 1.00, 125574.01, 502296.04, 3333.00);
 
 -- --------------------------------------------------------
 
@@ -636,12 +653,7 @@ CREATE TABLE `familias` (
 --
 
 INSERT INTO `familias` (`id`, `calle`, `telefono`, `colonia`, `municipio`, `integrantes`, `ingresototal`, `num_Interno`, `num_Externo`, `calle_col1`, `calle_col2`, `estatus`) VALUES
-(96, 'AV PABLO SILVA GARCIAH GDF FGF', '3123112262', 23, 6, '6', 3000.00, '302', '302', 'DIAMANTES', 'BRONCE', 1),
-(97, 'Guillermo Prieto', '3121082100', 23, 6, '2', 100.00, '0', '200', 'Juarez', 'Morelos', 1),
-(100, 'LDJSFHBK', '12', 20, 4, '2', NULL, '12', '121', 'SÑDJ', 'LK', 1),
-(101, 'dfsd', '283827', 20, 4, '2', NULL, '87218', '187287', 'kajsdkj', 'sajdgfkuy', 1),
-(102, 'SDFS', '121', 20, 4, '1', NULL, '12', '2121', 'ASDGF', 'ASD', 1),
-(103, 'asdf', '123', 20, 4, '2', NULL, '23', '23', 'sdf', 'asdf', 0);
+(106, 'Av Pablo Silva Garcia', '3121985243', 24, 5, '4', NULL, '302', '302', 'Estado de Hidalgo', 'Chiapas', 0);
 
 -- --------------------------------------------------------
 
@@ -696,8 +708,10 @@ CREATE TABLE `integrantes` (
 --
 
 INSERT INTO `integrantes` (`id`, `fk_familia`, `nombre`, `apellido1`, `apellido2`, `gefe_familia`, `sexo`, `fecha_nac`, `curp`, `entidad`, `parentesco`, `ocupacion`, `estado_estudio`, `grado`, `estado_civil`, `nivel_estudios`, `ingresos`, `talla`, `peso`) VALUES
-(25, 96, 'ABELS', 'ROMERO', 'RUIZ', 'SI', 'M', '2020-09-21', 'RORA980108HCMMZB01', 'SDF', 'PADRE', 'RR', 'TRUNCO', 'HOLA', 'SOLTERO', 'KINDER', 12.00, NULL, NULL),
-(26, 96, 'Abel', 'Romero', 'RUIZ', 'SI', 'M', '2020-09-21', 'RORA980108HCMMZB01', 'SDF', 'Madre', 'rr', 'TRUNCO', 'hola', 'soltero', 'Kinder', 12.00, NULL, NULL);
+(36, 106, 'Jose Abel', 'Romero', 'Rincón', 'NO', 'H', '2020-09-16', 'BACJ841223HASRVN09', 'COLIMA', 'Padre', 'Trabajador/a', 'TRUNCO', 'hola', 'casado', 'Profesional', 20000.00, 25, 80.00),
+(37, 106, 'Abel', 'Romero', 'Ruiz', 'SI', 'H', '1998-01-08', 'BACJ841223HASRVN09', 'COLIMA', 'Hijo', 'Estudiante', 'TRUNCO', 'hola', 'soltero', 'Profesional', 0.00, 25, 75.00),
+(38, 106, 'Maria Teresa', 'Ruiz', 'Vielmas', 'SI', 'M', '2020-09-09', 'BACJ841223HASRVN09', 'COLIMA', 'Madre', 'Ama de casa', 'TRUNCO', 'hola', 'casado', 'Secundaria', 0.00, 25, 80.00),
+(39, 106, 'Victor Alejando', 'Romero', 'Ruiz', 'SI', 'H', '2020-09-21', 'BACJ841223HASRVN09', 'COLIMA', 'Hijo', 'Estudiante', 'TRUNCO', 'hola', 'soltero', 'Profesional', 0.00, 25, 80.00);
 
 -- --------------------------------------------------------
 
@@ -815,7 +829,7 @@ CREATE TABLE `vivienda` (
 --
 
 INSERT INTO `vivienda` (`id`, `fk_familia`, `tenencia`, `num_Cuartos`, `num_Familias`) VALUES
-(46, 102, 'Propia', 2, 1);
+(58, 106, 'Propia', 5, 1);
 
 --
 -- Índices para tablas volcadas
@@ -974,7 +988,7 @@ ALTER TABLE `articulo`
 -- AUTO_INCREMENT de la tabla `colonias`
 --
 ALTER TABLE `colonias`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT de la tabla `compras`
@@ -1004,7 +1018,7 @@ ALTER TABLE `donaciones`
 -- AUTO_INCREMENT de la tabla `egresos`
 --
 ALTER TABLE `egresos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT de la tabla `empleados`
@@ -1022,19 +1036,19 @@ ALTER TABLE `entradas`
 -- AUTO_INCREMENT de la tabla `familias`
 --
 ALTER TABLE `familias`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=107;
 
 --
 -- AUTO_INCREMENT de la tabla `ingresos`
 --
 ALTER TABLE `ingresos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT de la tabla `integrantes`
 --
 ALTER TABLE `integrantes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT de la tabla `municipios`
@@ -1070,7 +1084,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `vivienda`
 --
 ALTER TABLE `vivienda`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
 -- Restricciones para tablas volcadas

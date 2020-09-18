@@ -32,13 +32,10 @@ $(document).ready(function () {
         console.log(postData, url);
         $.post(url, postData, (response) => {
             console.log(response);
-            var parsedData = JSON.parse(response);
-            var mensaje = parsedData.mns;
-            var id = parsedData.id;
-            if (mensaje == 'Integrante Registrado') {                   
-                alert_success(mensaje);
+            if (response == 'Integrante Registrado') {                   
+                alert_success(response);
                 setTimeout(function () {
-                    window.location.href='integrantes.php';
+                    window.location.href='familiasadd.php';
                 }, 1000);  
             } else {
                 alert_warning(response);

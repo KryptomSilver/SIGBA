@@ -16,17 +16,14 @@ $grado = $_POST['grado'];
 $estado = $_POST['estado'];
 $talla =$_POST['talla'];
 $peso = $_POST['peso'];
+$ingresos = $_POST['ingresos'];
 require('../conexion.php');
-$sql = "CALL sp_AgregarIntegrante('".$id."','".$titular."','".$nombre."','".$apellido1."','".$apellido2."', '".$sexo."', '".$fecha."', '".$entidad."', '".$curp."', '".$estado_civil."', '".$ocupacion."', '".$parentesco."', '".$nivel_estudios."', '".$grado."', '".$estado."','".$talla."','".$peso."');";
+$sql = "CALL sp_AgregarIntegrante('".$id."','".$titular."','".$nombre."','".$apellido1."','".$apellido2."', '".$sexo."', '".$fecha."', '".$entidad."', '".$curp."', '".$estado_civil."', '".$ocupacion."', '".$parentesco."', '".$nivel_estudios."', '".$grado."', '".$estado."','".$talla."','".$peso."','".$ingresos."');";
+
 $resultado = mysqli_query($conn,$sql);
 $row = mysqli_fetch_array($resultado);
 $mensaje =  $row['msg'];
-$id =  $row['idval'];
-$std = new stdClass();
-$std->mns = $mensaje;
-$std->id = $id;
-$json = json_encode($std);
-echo $json;
+echo $mensaje;
 
 mysqli_close($conn);
 

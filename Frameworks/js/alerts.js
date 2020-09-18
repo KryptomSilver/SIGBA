@@ -1,5 +1,5 @@
 
-var alert_success = function (msg) {
+function alert_success (msg) {
     var respuesta = msg
     Swal.fire({
         type: 'success',
@@ -12,7 +12,7 @@ var alert_success = function (msg) {
 
 
 //alerta
-var alert_warning = function (msg) {
+function alert_warning(msg) {
     var respuesta = msg
     Swal.fire({
         type: 'warning',
@@ -21,3 +21,13 @@ var alert_warning = function (msg) {
         timer: 800
     })
 }
+function alert_info(msg) {
+    var respuesta = msg
+    Swal.fire({
+        type: 'info',
+        title: respuesta,
+        showConfirmButton: false,
+        timer: 800
+    })
+}
+

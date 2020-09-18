@@ -251,7 +251,7 @@ $estado=$rows['estado_estudio'];
             <div class="row">
                 <div class="col-5"></div>
                 <div class="col-3">
-                    <a href="integrantes.php?idfamilia=<?=$idf?>" class="btn btn-lg btn-primary"
+                    <a href="familiasadd.php" class="btn btn-lg btn-primary"
                         title="Ir la página anterior">Cancelar</a>
                 </div>
                 <div class="col-1"></div>

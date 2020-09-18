@@ -183,7 +183,7 @@
                             <div class="col-9"></div>
                             <div class="col-3">
                                 <a type="button" class="btn btn-lg btn-primary"
-                                    href="integrantesadd.php?idfamilia=<?=$rows['id']?>">Agregar</a>
+                                    href="procesos/integrantes/integrantes_count.php?idfamlia=<?=$rows['id']?>">Agregar</a>
                             </div>
                         </div>
                         <table id="integrantes" class="table table-striped table-bordered">
@@ -201,12 +201,7 @@
                             <tbody id="tab">
                             </tbody>
                         </table>
-                        <div class="row">
-                            <div class="col-9"></div>
-                            <div class="col-3">
-                                <a class="btn btn-md btn-primary" href="familias.php">Completar</a>
-                            </div>
-                        </div>
+                        
                     </div>
                 </div>
                 <!--- vivienda --->
@@ -214,11 +209,11 @@
                 include('procesos/conexion.php');
                 $idfam = $rows['id'];
                 $sql = "SELECT * FROM vivienda where fk_familia = $idfam";
-                
                 $resultado = mysqli_query($conn,$sql);
                 $rowsv= mysqli_fetch_array($resultado);
                 ?>
                 <div class="hide" id="tab3">
+                <input type="hidden"id="idvivenda" value="<?=$rowsv['id']?>">
                     <form action="" id="vivienda">
                         <div class="row">
                             <div class="col-4">
@@ -277,38 +272,38 @@
                 $sql = "SELECT * FROM egresos where fk_familia = $idfam";
                 $resultado = mysqli_query($conn,$sql);
                 $rowse= mysqli_fetch_array($resultado);
-                $totalsem=$rowse['vivienda'] + $rowse['alimentacion']+$rowse['luz']+$rowse['gas']+$rowse['agua']+$rowse['atencion_medica']+$rowse['telefono']+$rowse['transporte']+$rowse['otros_gastos']+$rowse['celular']+$rowse['educacion'];
-                $totalmen= $totalsem * 4;
+               
                 ?>
                 <div class="hide" id="tab4">
+                <input type="hidden" id="idegresos" value="<?=$rowse['id']?>">
                     <form id="egresos">
                         <div class="row">
                             <div class="col-3">
                                 <div class="form-group">
                                     <label for="">Vivienda:</label>
-                                    <input type="text" id="vivienda" placeholder="$" value="<?=$rowse['vivienda']?>"
-                                        class="form-control" required>
+                                    <input type="text" id="v" placeholder="$" value="<?=$rowse['vivienda']?>"
+                                        class="form-control sumar" onchange="sumar();" required>
                                 </div>
                             </div>
                             <div class="col-3">
                                 <div class="form-group">
                                     <label for="">Alimentación:</label>
                                     <input type="text" id="alimentacion" placeholder="$"
-                                        value="<?=$rowse['alimentacion']?>" class="form-control" required>
+                                        value="<?=$rowse['alimentacion']?>" onchange="sumar();" class="form-control sumar" required>
                                 </div>
                             </div>
                             <div class="col-3">
                                 <div class="form-group">
                                     <label for="">Luz:</label>
                                     <input type="text" id="luz" placeholder="$" value="<?=$rowse['luz']?>"
-                                        class="form-control" required>
+                                        class="form-control sumar" onchange="sumar();"required>
                                 </div>
                             </div>
                             <div class="col-3">
                                 <div class="form-group">
                                     <label for="">Gas:</label>
                                     <input type="text" id="gas" placeholder="$" value="<?=$rowse['gas']?>"
-                                        class="form-control" required>
+                                        class="form-control sumar" onchange="sumar();"required>
                                 </div>
                             </div>
                         </div>
@@ -317,28 +312,28 @@
                                 <div class="form-group">
                                     <label for="">Agua:</label>
                                     <input type="text" id="agua" placeholder="$" value="<?=$rowse['agua']?>"
-                                        class="form-control" required>
+                                        class="form-control sumar" onchange="sumar();"required>
                                 </div>
                             </div>
                             <div class="col-3">
                                 <div class="form-group">
                                     <label for="">Atención medica:</label>
                                     <input type="text" id="atencionM" placeholder="$"
-                                        value="<?=$rowse['atencion_medica']?>" class="form-control" required>
+                                        value="<?=$rowse['atencion_medica']?>"onchange="sumar();" class="form-control sumar" required>
                                 </div>
                             </div>
                             <div class="col-3">
                                 <div class="form-group">
                                     <label for="">Teléfono:</label>
-                                    <input type="text" id="telefonoE" placeholder="$" value="<?=$rowse['telefono']?>"
-                                        class="form-control" required>
+                                    <input type="text" id="telefonoE" placeholder="$" onchange="sumar();"value="<?=$rowse['telefono']?>"
+                                        class="form-control sumar" required>
                                 </div>
                             </div>
                             <div class="col-3">
                                 <div class="form-group">
                                     <label for="">Transporte:</label>
-                                    <input type="text" id="transporte" placeholder="$" value="<?=$rowse['transporte']?>"
-                                        class="form-control" required>
+                                    <input type="text" id="transporte" placeholder="$" onchange="sumar();"value="<?=$rowse['transporte']?>"
+                                        class="form-control sumar" required>
                                 </div>
                             </div>
                         </div>
@@ -346,22 +341,22 @@
                             <div class="col-4">
                                 <div class="form-group">
                                     <label for="">Otros gastos:</label>
-                                    <input type="text" id="otrosE" placeholder="$" value="<?=$rowse['otros_gastos']?>"
-                                        class="form-control" required>
+                                    <input type="text" id="otrosE" placeholder="$"onchange="sumar();" value="<?=$rowse['otros_gastos']?>"
+                                        class="form-control sumar" required>
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="form-group">
                                     <label for="">Celular:</label>
-                                    <input type="text" id="celular" placeholder="$" value="<?=$rowse['celular']?>"
-                                        class="form-control" required>
+                                    <input type="text" id="celular" placeholder="$"onchange="sumar();" value="<?=$rowse['celular']?>"
+                                        class="form-control sumar" required>
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="form-group">
                                     <label for="">Educación:</label>
-                                    <input type="text" id="educacion" placeholder="$" value="<?=$rowse['educacion']?>"
-                                        class="form-control" required>
+                                    <input type="text" id="educacion" placeholder="$" onchange="sumar();"value="<?=$rowse['educacion']?>"
+                                        class="form-control sumar" required>
                                 </div>
                             </div>
                         </div>
@@ -369,14 +364,14 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="">Total semanal:</label>
-                                    <input type="text" id="totalsemanalE" placeholder="$" value="<?=$totalsem?>"
+                                    <input type="text" id="totalsemanalE" placeholder="$" value="<?=$rowse['total_mensual']?>"
                                         class="form-control" disabled required>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="">Total mensual:</label>
-                                    <input type="text" id="totalmensualE" placeholder="$" value="<?=$totalmen?>"
+                                    <input type="text" id="totalmensualE" placeholder="$" value="<?=$rowse['total_semanal']?>"
                                         class="form-control" disabled required>
                                 </div>
                             </div>
