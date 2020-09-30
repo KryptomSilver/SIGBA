@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../Frameworks/datatables.css">
     <link rel="stylesheet" href="../Frameworks/css/estilo.css">
     <script src="../Frameworks/js/alert.js"></script>
+    <script src="../Frameworks/js/alerts.js"></script>
     <script src="../Frameworks/jQuery/jquery.js"></script>
     <script src="../Frameworks/js/integrantes/integrantesproceso.js"></script>
     <title>Document</title>
@@ -77,7 +78,7 @@ $estado=$rows['estado_estudio'];
                 <div class="col-3">
                     <div class="form-group">
                         <label for="">CURP:</label>
-                        <input type="text" id="curp" value="<?=$rows['curp']?>" class="form-control" required>
+                        <input type="text" id="curp" value="<?=$rows['curp']?>"  pattern="^([A-Z&]|[a-z&]{1})([AEIOU]|[aeiou]{1})([A-Z&]|[a-z&]{1})([A-Z&]|[a-z&]{1})([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])([HM]|[hm]{1})([AS|as|BC|bc|BS|bs|CC|cc|CS|cs|CH|ch|CL|cl|CM|cm|DF|df|DG|dg|GT|gt|GR|gr|HG|hg|JC|jc|MC|mc|MN|mn|MS|ms|NT|nt|NL|nl|OC|oc|PL|pl|QT|qt|QR|qr|SP|sp|SL|sl|SR|sr|TC|tc|TS|ts|TL|tl|VZ|vz|YN|yn|ZS|zs|NE|ne]{2})([^A|a|E|e|I|i|O|o|U|u]{1})([^A|a|E|e|I|i|O|o|U|u]{1})([^A|a|E|e|I|i|O|o|U|u]{1})([0-9]{2})$" class="form-control" required>
                     </div>
                 </div>
                 <div class="col-3">
@@ -87,17 +88,17 @@ $estado=$rows['estado_estudio'];
                             <option value="soltero" <?php if($rows['estado_civil']=='soltero') print "selected"?>>
                                 Soltero/a</option>
                             <option value="comprometido"
-                                <?php if($rows['estado_civil']=='comprometido') print "selected"?>>comprometido/a
+                                <?php if($rows['estado_civil']=='comprometido') print "selected"?>>Comprometido/a
                             </option>
-                            <option value="casado" <?php if($rows['estado_civil']=='casado') print "selected"?>>casado
+                            <option value="casado" <?php if($rows['estado_civil']=='casado') print "selected"?>>Casado
                             </option>
                             <option value="union libre"
                                 <?php if($rows['estado_civil']=='union libre') print "selected"?>>Union libre</option>
                             <option value="separado" <?php if($rows['estado_civil']=='separado') print "selected"?>>
-                                separado/a</option>
+                                Separado/a</option>
                             <option value="divorciado" <?php if($rows['estado_civil']=='divorciado') print "selected"?>>
-                                divorciado/a</option>
-                            <option value="viudo" <?php if($rows['estado_civil']=='viudo') print "selected"?>>viudo/a
+                                Divorciado/a</option>
+                            <option value="viudo" <?php if($rows['estado_civil']=='viudo') print "selected"?>>Viudo/a
                             </option>
 
                         </select>
@@ -107,7 +108,9 @@ $estado=$rows['estado_estudio'];
                     <div class="form-group">
                         <label for="">Ocupación:</label>
                         <select name="" id="ocupacion" class="form-control" required>
-                            <option value="rr">Opción 1</option>
+                            <option value="Trabajador/a" <?php if($rows['ocupacion']=='Trabajador/a') print "selected"?>>Trabajador/a</option>
+                            <option value="Ama de casa" <?php if($rows['ocupacion']=='Ama de casa') print "selected"?>>Ama de casa</option>
+                            <option value="Estudiante" <?php if($rows['ocupacion']=='Estudiante') print "selected"?>>Estudiante</option>
                         </select>
                     </div>
                 </div>
@@ -181,25 +184,14 @@ $estado=$rows['estado_estudio'];
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="">Nivel de estudios:</label>
-                                    <select name="" id="nivel_estudios" class="form-control" required>
-                                        <option value="Kinder"
-                                            <?php if($rows['nivel_estudios']=='Kinder') print "selected"?>>Kinder
-                                        </option>
-                                        <option value="Primaria"
-                                            <?php if($rows['nivel_estudios']=='Primaria') print "selected"?>>Primaria
-                                        </option>
-                                        <option value="Secundaria"
-                                            <?php if($rows['nivel_estudios']=='Secundaria') print "selected"?>>
-                                            Secundaria</option>
-                                        <option value="Bachillerato"
-                                            <?php if($rows['nivel_estudios']=='Bachillerato') print "selected"?>>
-                                            Bachillerato</option>
-                                        <option value="Profesional"
-                                            <?php if($rows['nivel_estudios']=='Profesional') print "selected"?>>
-                                            Profesional</option>
-                                        <option value="Maestria"
-                                            <?php if($rows['nivel_estudios']=='Maestria') print "selected"?>>Maestria
-                                        </option>
+                                    <?php include('procesos/conexion.php');
+                                    $queryf = "SELECT * FROM nivel_estudios";
+                                    $resultadof = mysqli_query($conn,$queryf);
+                                    ?>
+                                    <select name="" id="nivel_estudios" class="form-control"onchange="cargargrados()" required>
+                                        <?php  while ($nivel = mysqli_fetch_array($resultadof)) { ?>
+                                        <option value="<?=$nivel['id']?>" <?php if ($rows['nivel_estudios'] == $nivel['id']) { echo "selected";}?>><?=$nivel['nombre']?></option>
+                                        <?php }?>
                                     </select>
                                 </div>
                             </div>
@@ -208,9 +200,19 @@ $estado=$rows['estado_estudio'];
                         <div class="row">
                             <div class="col-12">
                                 <label for="">Grado:</label>
-                                <select name="" id="grado" class="form-control" required>
-                                    <option value="hola">Opción 1</option>
-                                </select>
+                                <?php include('procesos/conexion.php');
+                                    $idnivel = $rows['nivel_estudios'];
+                                    $queryc = "SELECT * FROM grado where fk_nivel_estudios ='$idnivel'";
+                                    $resultadoc = mysqli_query($conn,$queryc);
+                                    ?>
+                                    
+                                    <select id="grado" class="form-control" required>
+                                    <?php  while ($grados = mysqli_fetch_array($resultadoc)) { ?>
+                                        <option value="<?=$grados['id']?>"
+                                            <?php if ($rows['grado'] == $grados['id']) { echo "selected";}?>>
+                                            <?=$grados['grado']?></option>
+                                        <?php }?>
+                                    </select>
                             </div>
                         </div>
                         <br>

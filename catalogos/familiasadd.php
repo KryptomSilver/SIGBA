@@ -9,6 +9,7 @@
     <script src="../Frameworks/Bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
     <link rel="stylesheet" href="../Frameworks/css/estilo.css">
     <script src="../Frameworks/js/alert.js" type="text/javascript"></script>
+    <script src="../Frameworks/js/alerts.js" type="text/javascript"></script>
     <script src="../Frameworks/js/familias/familiasproceso.js"></script>
     <title>Familiares</title>
 
@@ -182,8 +183,7 @@
                         <div class="row">
                             <div class="col-9"></div>
                             <div class="col-3">
-                                <a type="button" class="btn btn-lg btn-primary"
-                                    href="procesos/integrantes/integrantes_count.php?idfamlia=<?=$rows['id']?>">Agregar</a>
+                                <button class="btn btn-md btn-primary" onclick="verificar();">Agregar</button>
                             </div>
                         </div>
                         <table id="integrantes" class="table table-striped table-bordered">
@@ -201,7 +201,7 @@
                             <tbody id="tab">
                             </tbody>
                         </table>
-                        
+
                     </div>
                 </div>
                 <!--- vivienda --->
@@ -213,7 +213,7 @@
                 $rowsv= mysqli_fetch_array($resultado);
                 ?>
                 <div class="hide" id="tab3">
-                <input type="hidden"id="idvivenda" value="<?=$rowsv['id']?>">
+                    <input type="hidden" id="idvivenda" value="<?=$rowsv['id']?>">
                     <form action="" id="vivienda">
                         <div class="row">
                             <div class="col-4">
@@ -275,7 +275,7 @@
                
                 ?>
                 <div class="hide" id="tab4">
-                <input type="hidden" id="idegresos" value="<?=$rowse['id']?>">
+                    <input type="hidden" id="idegresos" value="<?=$rowse['id']?>">
                     <form id="egresos">
                         <div class="row">
                             <div class="col-3">
@@ -289,21 +289,22 @@
                                 <div class="form-group">
                                     <label for="">Alimentación:</label>
                                     <input type="text" id="alimentacion" placeholder="$"
-                                        value="<?=$rowse['alimentacion']?>" onchange="sumar();" class="form-control sumar" required>
+                                        value="<?=$rowse['alimentacion']?>" onchange="sumar();"
+                                        class="form-control sumar" required>
                                 </div>
                             </div>
                             <div class="col-3">
                                 <div class="form-group">
                                     <label for="">Luz:</label>
                                     <input type="text" id="luz" placeholder="$" value="<?=$rowse['luz']?>"
-                                        class="form-control sumar" onchange="sumar();"required>
+                                        class="form-control sumar" onchange="sumar();" required>
                                 </div>
                             </div>
                             <div class="col-3">
                                 <div class="form-group">
                                     <label for="">Gas:</label>
                                     <input type="text" id="gas" placeholder="$" value="<?=$rowse['gas']?>"
-                                        class="form-control sumar" onchange="sumar();"required>
+                                        class="form-control sumar" onchange="sumar();" required>
                                 </div>
                             </div>
                         </div>
@@ -312,28 +313,29 @@
                                 <div class="form-group">
                                     <label for="">Agua:</label>
                                     <input type="text" id="agua" placeholder="$" value="<?=$rowse['agua']?>"
-                                        class="form-control sumar" onchange="sumar();"required>
+                                        class="form-control sumar" onchange="sumar();" required>
                                 </div>
                             </div>
                             <div class="col-3">
                                 <div class="form-group">
                                     <label for="">Atención medica:</label>
                                     <input type="text" id="atencionM" placeholder="$"
-                                        value="<?=$rowse['atencion_medica']?>"onchange="sumar();" class="form-control sumar" required>
+                                        value="<?=$rowse['atencion_medica']?>" onchange="sumar();"
+                                        class="form-control sumar" required>
                                 </div>
                             </div>
                             <div class="col-3">
                                 <div class="form-group">
                                     <label for="">Teléfono:</label>
-                                    <input type="text" id="telefonoE" placeholder="$" onchange="sumar();"value="<?=$rowse['telefono']?>"
-                                        class="form-control sumar" required>
+                                    <input type="text" id="telefonoE" placeholder="$" onchange="sumar();"
+                                        value="<?=$rowse['telefono']?>" class="form-control sumar" required>
                                 </div>
                             </div>
                             <div class="col-3">
                                 <div class="form-group">
                                     <label for="">Transporte:</label>
-                                    <input type="text" id="transporte" placeholder="$" onchange="sumar();"value="<?=$rowse['transporte']?>"
-                                        class="form-control sumar" required>
+                                    <input type="text" id="transporte" placeholder="$" onchange="sumar();"
+                                        value="<?=$rowse['transporte']?>" class="form-control sumar" required>
                                 </div>
                             </div>
                         </div>
@@ -341,22 +343,22 @@
                             <div class="col-4">
                                 <div class="form-group">
                                     <label for="">Otros gastos:</label>
-                                    <input type="text" id="otrosE" placeholder="$"onchange="sumar();" value="<?=$rowse['otros_gastos']?>"
-                                        class="form-control sumar" required>
+                                    <input type="text" id="otrosE" placeholder="$" onchange="sumar();"
+                                        value="<?=$rowse['otros_gastos']?>" class="form-control sumar" required>
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="form-group">
                                     <label for="">Celular:</label>
-                                    <input type="text" id="celular" placeholder="$"onchange="sumar();" value="<?=$rowse['celular']?>"
-                                        class="form-control sumar" required>
+                                    <input type="text" id="celular" placeholder="$" onchange="sumar();"
+                                        value="<?=$rowse['celular']?>" class="form-control sumar" required>
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="form-group">
                                     <label for="">Educación:</label>
-                                    <input type="text" id="educacion" placeholder="$" onchange="sumar();"value="<?=$rowse['educacion']?>"
-                                        class="form-control sumar" required>
+                                    <input type="text" id="educacion" placeholder="$" onchange="sumar();"
+                                        value="<?=$rowse['educacion']?>" class="form-control sumar" required>
                                 </div>
                             </div>
                         </div>
@@ -364,15 +366,15 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="">Total semanal:</label>
-                                    <input type="text" id="totalsemanalE" placeholder="$" value="<?=$rowse['total_mensual']?>"
-                                        class="form-control" disabled required>
+                                    <input type="text" id="totalsemanalE" placeholder="$"
+                                        value="<?=$rowse['total_mensual']?>" class="form-control" disabled required>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="">Total mensual:</label>
-                                    <input type="text" id="totalmensualE" placeholder="$" value="<?=$rowse['total_semanal']?>"
-                                        class="form-control" disabled required>
+                                    <input type="text" id="totalmensualE" placeholder="$"
+                                        value="<?=$rowse['total_semanal']?>" class="form-control" disabled required>
                                 </div>
                             </div>
                         </div>
@@ -391,82 +393,105 @@
                     </form>
                 </div>
                 <div class="hide" id="tab5">
-                    <?php
-                include('procesos/conexion.php');
-                $sql = "SELECT * FROM ingresos where fk_familia = $idfam";
-                $resultado = mysqli_query($conn,$sql);
-                $rowsi= mysqli_fetch_array($resultado);
-                ?>
-                    <div class="row">
-                        <div class="col-3">
-                            <div class="form-group">
-                                <label for="">Padre:</label>
-                                <input type="text" placeholder="$" value="<?=$rowsi['padre']?>" id="padre"
-                                    class="form-control" disabled required>
+                    <form id="ingresos">
+                        <input type="hidden" id="estatusf" value="1">
+                        <div class="row">
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <?php
+                                include('procesos/conexion.php');
+                                $sql = "select ingresos from integrantes WHERE fk_familia = $idfam and parentesco = 'Padre'";
+                                $resultado = mysqli_query($conn,$sql);
+                                $rowsi= mysqli_fetch_array($resultado);
+                                ?>
+                                    <label for="">Padre:</label>
+                                    <input type="text" placeholder="$" value="<?=$rowsi['ingresos']?>" id="padre"
+                                        class="form-control ingresos" disabled >
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <?php
+                                include('procesos/conexion.php');
+                                $sql = "select ingresos from integrantes WHERE fk_familia = $idfam and parentesco = 'Madre'";
+                                $resultado = mysqli_query($conn,$sql);
+                                $rowsi= mysqli_fetch_array($resultado);
+                                ?>
+                                    <label for="">Madre:</label>
+                                    <input type="text" id="madre" placeholder="$" value="<?=$rowsi['ingresos']?>"
+                                        class="form-control ingresos" disabled >
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <?php
+                                include('procesos/conexion.php');
+                                $sql = "select ingresos from integrantes WHERE fk_familia = $idfam and parentesco = 'Hijo'";
+                                $resultado = mysqli_query($conn,$sql);
+                                $rowsi= mysqli_fetch_array($resultado);
+                                ?>
+                                    <label for="">Hijos:</label>
+                                    <input type="text" id="hijos" placeholder="$" value="<?=$rowsi['ingresos']?>"
+                                        class="form-control ingresos" disabled >
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <label for="">Becas:</label>
+                                    <input type="text" id="becas" placeholder="$" value="<?=$rowsi['becas']?>"
+                                        class="form-control ingresos" disabled >
+                                </div>
                             </div>
                         </div>
-                        <div class="col-3">
-                            <div class="form-group">
-                                <label for="">Madre:</label>
-                                <input type="text" id="madre" placeholder="$" value="<?=$rowsi['madre']?>"
-                                    class="form-control" disabled required>
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="">Otros:</label>
+                                    <input type="text" id="otros" placeholder="$" value="<?=$rowsi['otros']?>"
+                                        class="form-control ingresos" disabled >
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="">Pensión:</label>
+                                    <input type="text" id="pension" placeholder="$" value="<?=$rowsi['pension']?>"
+                                        class="form-control ingresos" disabled >
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="">Adultos mayores:</label>
+                                    <input type="text" id="adultos" placeholder="$"
+                                        value="<?=$rowsi['adultos_Mayores']?>" class="form-control ingresos" disabled
+                                        >
+                                </div>
                             </div>
                         </div>
-                        <div class="col-3">
-                            <div class="form-group">
-                                <label for="">Hijos:</label>
-                                <input type="text" id="hijos" placeholder="$" value="<?=$rowsi['hijos']?>"
-                                    class="form-control" disabled required>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="">Ingreso semanal:</label>
+                                    <input type="text" id="ingresosem" placeholder="$"
+                                        value="<?=$rowsi['total_Semanal']?>" class="form-control" disabled >
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="">Ingreso mensual:</label>
+                                    <input type="text" id="ingresomen" placeholder="$"
+                                        value="<?=$rowsi['total_Mensual']?>" class="form-control" disabled >
+                                </div>
                             </div>
                         </div>
-                        <div class="col-3">
-                            <div class="form-group">
-                                <label for="">Becas:</label>
-                                <input type="text" id="becas" placeholder="$" value="<?=$rowsi['becas']?>"
-                                    class="form-control" disabled required>
+                        <div class="row">
+                            <div class="col-9"></div>
+                            <div class="col-3">
+                                <button class="btn btn-lg btn-primary" type="submit">Terminar</button>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-4">
-                            <div class="form-group">
-                                <label for="">Otros:</label>
-                                <input type="text" id="otros" placeholder="$" value="<?=$rowsi['otros']?>"
-                                    class="form-control" disabled required>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="form-group">
-                                <label for="">Pensión:</label>
-                                <input type="text" id="pension" placeholder="$" value="<?=$rowsi['pension']?>"
-                                    class="form-control" disabled required>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="form-group">
-                                <label for="">Adultos mayores:</label>
-                                <input type="text" id="adultos" placeholder="$" value="<?=$rowsi['adultos_Mayores']?>"
-                                    class="form-control" disabled required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label for="">Ingreso semanal:</label>
-                                <input type="text" id="ingresosem" placeholder="$" value="<?=$rowsi['total_Semanal']?>"
-                                    class="form-control" disabled required>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label for="">Ingreso mensual:</label>
-                                <input type="text" id="ingresomen" placeholder="$" value="<?=$rowsi['total_Mensual']?>"
-                                    class="form-control" disabled required>
-                            </div>
-                        </div>
-                    </div>
+                    </form>
                 </div>
+
             </div>
         </div>
     </div>

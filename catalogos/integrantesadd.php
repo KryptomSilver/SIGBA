@@ -3,6 +3,16 @@
 <?php
 $idfamilia = $_GET['idfamilia'];
 
+require('procesos/conexion.php');
+$sql = " SELECT  gefe_familia from integrantes WHERE fk_familia = '$idfamilia' ";
+$resultado = mysqli_query($conn, $sql);
+$gefe = 0;
+while ($rows = mysqli_fetch_assoc($resultado)) {
+    if ($rows['gefe_familia'] == 'SI') {
+        $gefe = 1;
+       
+    }
+}
 ?>
 
 <head>
@@ -12,6 +22,7 @@ $idfamilia = $_GET['idfamilia'];
     <link rel="stylesheet" href="../Frameworks/datatables.css">
     <link rel="stylesheet" href="../Frameworks/css/estilo.css">
     <script src="../Frameworks/js/alert.js"></script>
+    <script src="../Frameworks/js/alerts.js"></script>
     <script src="../Frameworks/jQuery/jquery.js"></script>
     <script src="../Frameworks/js/integrantes/integrantesproceso.js"></script>
     <title>SIGBA</title>
@@ -31,6 +42,22 @@ $idfamilia = $_GET['idfamilia'];
                     <div class="form-group">
                         <div class="form-check-inline">
                             <label for="">Titular de familia:</label>
+                            <?php 
+                            if ($gefe == 1) {
+                            ?>
+                             <div class="form-check">
+                                <input class="form-check-input" type="radio" name="titular" id="titular" value="SI"
+                                    required disabled>
+                                <label class="form-check-label" for="inlineRadio1">Si</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input"checked="true" type="radio" name="titular" id="titular" value="NO"
+                                    required disabled>
+                                <label class="form-check-label"  for="inlineRadio2">No</label>
+                            </div>
+                            <?php
+                            } else {
+                            ?>
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="titular" id="titular" value="SI"
                                     required>
@@ -41,6 +68,8 @@ $idfamilia = $_GET['idfamilia'];
                                     required>
                                 <label class="form-check-label" for="inlineRadio2">No</label>
                             </div>
+                            <?php }?>
+                            
                         </div>
                     </div>
                 </div>
@@ -71,7 +100,7 @@ $idfamilia = $_GET['idfamilia'];
                 <div class="col-3">
                     <div class="form-group">
                         <label for="">CURP:</label>
-                        <input type="text" id="curp" class="form-control" required>
+                        <input type="text" title="Introducir valor valido" id="curp" pattern="^([A-Z&]|[a-z&]{1})([AEIOU]|[aeiou]{1})([A-Z&]|[a-z&]{1})([A-Z&]|[a-z&]{1})([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])([HM]|[hm]{1})([AS|as|BC|bc|BS|bs|CC|cc|CS|cs|CH|ch|CL|cl|CM|cm|DF|df|DG|dg|GT|gt|GR|gr|HG|hg|JC|jc|MC|mc|MN|mn|MS|ms|NT|nt|NL|nl|OC|oc|PL|pl|QT|qt|QR|qr|SP|sp|SL|sl|SR|sr|TC|tc|TS|ts|TL|tl|VZ|vz|YN|yn|ZS|zs|NE|ne]{2})([^A|a|E|e|I|i|O|o|U|u]{1})([^A|a|E|e|I|i|O|o|U|u]{1})([^A|a|E|e|I|i|O|o|U|u]{1})([0-9]{2})$" class="form-control" required>
                     </div>
                 </div>
                 <div class="col-3">
@@ -79,12 +108,12 @@ $idfamilia = $_GET['idfamilia'];
                         <label for="">Estado civil:</label>
                         <select name="" id="estado_civil" class="form-control" required>
                             <option value="soltero">Soltero/a</option>
-                            <option value="comprometido">comprometido/a</option>
-                            <option value="casado">casado</option>
+                            <option value="comprometido">Comprometido/a</option>
+                            <option value="casado">Casado</option>
                             <option value="union libre">Union libre</option>
-                            <option value="separado">separado/a</option>
-                            <option value="divorciado">divorciado/a</option>
-                            <option value="viudo">viudo/a</option>
+                            <option value="separado">Separado/a</option>
+                            <option value="divorciado">Divorciado/a</option>
+                            <option value="viudo">Viudo/a</option>
 
                         </select>
                     </div>
@@ -162,13 +191,16 @@ $idfamilia = $_GET['idfamilia'];
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="">Nivel de estudios:</label>
-                                    <select name="" id="nivel_estudios" class="form-control" required>
-                                        <option value="Kinder">Kinder</option>
-                                        <option value="Primaria">Primaria</option>
-                                        <option value="Secundaria">Secundaria</option>
-                                        <option value="Bachillerato">Bachillerato</option>
-                                        <option value="Profesional">Profesional</option>
-                                        <option value="Maestria">Maestria</option>
+                                    <?php include('procesos/conexion.php');
+                                    $query = "SELECT * FROM nivel_estudios";
+                                    $resultado = mysqli_query($conn,$query);
+                                    
+                                    ?>
+                                    <select name="" id="nivel_estudios" onchange="cargargrados()" class="form-control" required>
+                                        <option selected>Seleccione un opcion</option>
+                                        <?php  while ($nivel = mysqli_fetch_array($resultado)) { ?>
+                                        <option value="<?=$nivel['id']?>"><?=$nivel['nombre']?></option>
+                                        <?php }?>
                                     </select>
                                 </div>
                             </div>
@@ -178,7 +210,7 @@ $idfamilia = $_GET['idfamilia'];
                             <div class="col-12">
                                 <label for="">Grado:</label>
                                 <select name="" id="grado" class="form-control" required>
-                                    <option value="hola">Opción 1</option>
+
                                 </select>
                             </div>
                         </div>

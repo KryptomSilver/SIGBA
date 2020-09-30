@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    sumaringresos();
     // Menu secciones
     listarintegrantes();
     $('.secciones .hide').hide();
@@ -16,7 +17,7 @@ $(document).ready(function () {
         return false;
     });
     // familia
-    $('#familias_update').submit(e =>{
+    $('#familias_update').submit(e => {
         e.preventDefault();
         var id = $('#idv').val()
         const postData = {
@@ -41,7 +42,7 @@ $(document).ready(function () {
             if (mensaje == 'Familia Actualizada') {
                 alert_success(mensaje);
                 setTimeout(function () {
-                    window.location.href = 'familiasupdate.php?idfamilia='+ id;
+                    window.location.href = 'familiasupdate.php?idfamilia=' + id;
                 }, 1000);
                 listarintegrantes();
             } else {
@@ -309,18 +310,47 @@ $(document).ready(function () {
             }
         });
     });
+    $('#ingresos').submit(e => {
+        e.preventDefault();
+        const postData = {
+            estatus: $("#estatusf").val(),
+            idf: $('#idv').val()
+        };
+        const url = 'procesos/familias/familia_estatus.php';
+        console.log(postData, url);
+        $.post(url, postData, (response) => {
+            console.log(response);
+            if (response == 'Familia Registrada') {
+                alert_success(response);
+                setTimeout(function () {
+                    window.location.href='familias.php';
+                }, 1000);
+            } else {
+                alert_warning(response);
+            }
+        });
+
+    });
+
 
 });
 
-// alerta 
-var alert_success = function (msg) {
-    var respuesta = msg
-    Swal.fire({
-        type: 'success',
-        title: respuesta,
-        showConfirmButton: false,
-        timer: 1000
-    })
+function verificar() {
+    var idf = $('#idv').val();
+    const postData = {
+        idf: $('#idv').val()
+        
+    };
+    const url = "procesos/integrantes/integrantes_count.php";
+    console.log(postData, url);
+    $.post(url, postData, (response) => {
+        console.log(response);
+        if (response == 0) {
+            window.location.href = 'integrantesadd.php?idfamilia=' + idf;
+        } else {
+            alert_info("No se puede registrar mas integrantes");
+        }
+    });
 }
 
 function eliminar(id) {
@@ -339,22 +369,22 @@ function listarintegrantes() {
     $('#tab').load("procesos/integrantes/integrantes_listar.php?idfamlia=" + id)
 }
 
-//alerta
-var alert_warning = function (msg) {
-    var respuesta = msg
-    Swal.fire({
-        type: 'warning',
-        title: respuesta,
-        showConfirmButton: false,
-        timer: 800
-    })
-}
+
 function sumar() {
     var sum = 0;
-    $(".sumar").each(function(){
+    $(".sumar").each(function () {
         sum += +$(this).val();
     });
     $("#totalsemanalE").val(sum);
-    $("#totalmensualE").val(sum*4);
-    
+    $("#totalmensualE").val(sum * 4);
+}
+
+function sumaringresos() {
+    var sum = 0;
+    $(".ingresos").each(function () {
+        sum += +$(this).val();
+    });
+    $("#ingresosem").val(sum);
+    $("#ingresomen").val(sum * 4);
+
 }

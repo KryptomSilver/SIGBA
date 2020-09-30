@@ -8,10 +8,6 @@ function alert_success (msg) {
         timer: 800
     })
 }
-
-
-
-//alerta
 function alert_warning(msg) {
     var respuesta = msg
     Swal.fire({
