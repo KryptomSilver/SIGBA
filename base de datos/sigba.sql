@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-09-2020 a las 03:01:30
+-- Tiempo de generación: 30-09-2020 a las 22:22:12
 -- Versión del servidor: 10.4.14-MariaDB
 -- Versión de PHP: 7.2.33
 
@@ -25,6 +25,11 @@ DELIMITER $$
 --
 -- Procedimientos
 --
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_ActualizarEstatus` (IN `pestatus` INT(11), IN `pidfamilia` INT(11))  BEGIN
+	#Routine body goes here...
+
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_AgregarArticulo` (IN `pnombre` VARCHAR(60))  BEGIN
 	#Routine body goes here...
 	
@@ -198,6 +203,11 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_EditarEgresos` (IN `vvivienda` D
 	atencion_medica=vatencion,telefono=vtelefono,transporte=vtransporte,otros_gastos=votros,celular=vcelular, educacion=veducacion,total_semanal=vtotals,total_mensual=vtotalm WHERE fk_familia = vidfam;
 	SELECT "Egresos Actualizados" as msg;
 	END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_EditarEstatus` (IN `pestatus` INT(11), IN `pidfamilia` INT(11))  BEGIN
+	UPDATE familias set estatus = pestatus where id = pidfamilia;
+	SELECT "Familia Registrada" as msg;
+END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_EditarFamilia` (IN `vid` INT(11), IN `vcalle` VARCHAR(50), IN `vtelefono` VARCHAR(50), IN `vcolonia` VARCHAR(50), IN `vmunicipio` VARCHAR(50), IN `vintegrantes` VARCHAR(50), IN `vnum_Interno` VARCHAR(50), IN `vnum_Externo` VARCHAR(50), IN `vcalle_col1` VARCHAR(50), IN `vcalle_col2` VARCHAR(50))  BEGIN
 	-- Actualizar datos generales --
@@ -589,7 +599,7 @@ CREATE TABLE `egresos` (
 --
 
 INSERT INTO `egresos` (`id`, `fk_familia`, `vivienda`, `alimentacion`, `luz`, `agua`, `telefono`, `transporte`, `atencion_medica`, `otros_gastos`, `celular`, `educacion`, `total_semanal`, `total_mensual`, `gas`) VALUES
-(48, 106, 1.00, 1.00, 122222.00, 1.00, 99999999.99, 1.00, 1.00, 1.00, 1.00, 1.00, 125574.01, 502296.04, 3333.00);
+(48, 106, 12.00, 1.00, 122222.00, 1.00, 99999999.99, 1.00, 1.00, 1.00, 1.00, 1.00, 99999999.99, 99999999.99, 3333.00);
 
 -- --------------------------------------------------------
 
@@ -653,7 +663,40 @@ CREATE TABLE `familias` (
 --
 
 INSERT INTO `familias` (`id`, `calle`, `telefono`, `colonia`, `municipio`, `integrantes`, `ingresototal`, `num_Interno`, `num_Externo`, `calle_col1`, `calle_col2`, `estatus`) VALUES
-(106, 'Av Pablo Silva Garcia', '3121985243', 24, 5, '4', NULL, '302', '302', 'Estado de Hidalgo', 'Chiapas', 0);
+(106, 'AV PABLO SILVA GARCIA', '3121985243', 24, 5, '5', NULL, '302', '302', 'ESTADO DE HIDALGO', 'CHIAPAS', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `grado`
+--
+
+CREATE TABLE `grado` (
+  `id` int(11) NOT NULL,
+  `grado` int(11) DEFAULT NULL,
+  `fk_nivel_estudios` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `grado`
+--
+
+INSERT INTO `grado` (`id`, `grado`, `fk_nivel_estudios`) VALUES
+(1, 1, 1),
+(2, 2, 1),
+(3, 3, 1),
+(4, 1, 2),
+(5, 2, 2),
+(6, 3, 2),
+(7, 4, 2),
+(8, 5, 2),
+(9, 6, 2),
+(10, 1, 3),
+(11, 2, 3),
+(12, 3, 3),
+(13, 1, 4),
+(14, 2, 4),
+(15, 3, 4);
 
 -- --------------------------------------------------------
 
@@ -695,9 +738,9 @@ CREATE TABLE `integrantes` (
   `parentesco` varchar(20) DEFAULT NULL,
   `ocupacion` varchar(50) DEFAULT NULL,
   `estado_estudio` varchar(50) DEFAULT '',
-  `grado` varchar(20) DEFAULT NULL,
+  `grado` int(11) DEFAULT NULL,
   `estado_civil` varchar(50) DEFAULT '',
-  `nivel_estudios` varchar(50) DEFAULT NULL,
+  `nivel_estudios` int(11) DEFAULT NULL,
   `ingresos` double(10,2) DEFAULT NULL,
   `talla` int(11) DEFAULT NULL,
   `peso` double(10,2) DEFAULT NULL
@@ -708,10 +751,9 @@ CREATE TABLE `integrantes` (
 --
 
 INSERT INTO `integrantes` (`id`, `fk_familia`, `nombre`, `apellido1`, `apellido2`, `gefe_familia`, `sexo`, `fecha_nac`, `curp`, `entidad`, `parentesco`, `ocupacion`, `estado_estudio`, `grado`, `estado_civil`, `nivel_estudios`, `ingresos`, `talla`, `peso`) VALUES
-(36, 106, 'Jose Abel', 'Romero', 'Rincón', 'NO', 'H', '2020-09-16', 'BACJ841223HASRVN09', 'COLIMA', 'Padre', 'Trabajador/a', 'TRUNCO', 'hola', 'casado', 'Profesional', 20000.00, 25, 80.00),
-(37, 106, 'Abel', 'Romero', 'Ruiz', 'SI', 'H', '1998-01-08', 'BACJ841223HASRVN09', 'COLIMA', 'Hijo', 'Estudiante', 'TRUNCO', 'hola', 'soltero', 'Profesional', 0.00, 25, 75.00),
-(38, 106, 'Maria Teresa', 'Ruiz', 'Vielmas', 'SI', 'M', '2020-09-09', 'BACJ841223HASRVN09', 'COLIMA', 'Madre', 'Ama de casa', 'TRUNCO', 'hola', 'casado', 'Secundaria', 0.00, 25, 80.00),
-(39, 106, 'Victor Alejando', 'Romero', 'Ruiz', 'SI', 'H', '2020-09-21', 'BACJ841223HASRVN09', 'COLIMA', 'Hijo', 'Estudiante', 'TRUNCO', 'hola', 'soltero', 'Profesional', 0.00, 25, 80.00);
+(45, 106, 'Abel', 'Romero', 'Ruiz', 'NO', 'M', '2020-09-24', 'RORA980108HCMMZB01', 'COLIMA', 'Padre', 'Trabajador/a', 'TRUNCO', 6, 'comprometido', 2, 123223.00, 25, 12.00),
+(46, 106, 'Maria Teresa', 'Ruiz', 'Vielmas', 'SI', 'M', '2020-09-26', 'RORA980108HCMMZB02', 'COLIMA', 'Madre', 'Ama de casa', 'TRUNCO', 13, 'casado', 4, 123223.00, 12, 12.00),
+(47, 106, 'Abel', 'Romee', 'Ruiz', 'SI', 'H', '2020-09-24', 'RORA980108HCMMZB01', 'COLIMA', 'Hijo', 'Trabajador/a', 'TRUNCO', 4, 'soltero', 2, 12222.00, 12, 12.00);
 
 -- --------------------------------------------------------
 
@@ -739,6 +781,27 @@ INSERT INTO `municipios` (`id`, `nombre`) VALUES
 (11, 'IXTLAHUACÁN'),
 (12, 'COQUIMATLÁN'),
 (13, 'MANZANILLO');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `nivel_estudios`
+--
+
+CREATE TABLE `nivel_estudios` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `nivel_estudios`
+--
+
+INSERT INTO `nivel_estudios` (`id`, `nombre`) VALUES
+(1, 'Kinder'),
+(2, 'Primaria'),
+(3, 'Secundaria'),
+(4, 'Bachillerato');
 
 -- --------------------------------------------------------
 
@@ -917,6 +980,14 @@ ALTER TABLE `familias`
   ADD KEY `municipio` (`municipio`);
 
 --
+-- Indices de la tabla `grado`
+--
+ALTER TABLE `grado`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_nivel_estudios` (`fk_nivel_estudios`),
+  ADD KEY `grado` (`grado`);
+
+--
 -- Indices de la tabla `ingresos`
 --
 ALTER TABLE `ingresos`
@@ -928,12 +999,20 @@ ALTER TABLE `ingresos`
 --
 ALTER TABLE `integrantes`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_familia` (`fk_familia`);
+  ADD KEY `fk_familia` (`fk_familia`),
+  ADD KEY `nivel_estudios` (`nivel_estudios`),
+  ADD KEY `integrantes_ibfk_2` (`grado`);
 
 --
 -- Indices de la tabla `municipios`
 --
 ALTER TABLE `municipios`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `nivel_estudios`
+--
+ALTER TABLE `nivel_estudios`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1036,7 +1115,13 @@ ALTER TABLE `entradas`
 -- AUTO_INCREMENT de la tabla `familias`
 --
 ALTER TABLE `familias`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=107;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
+
+--
+-- AUTO_INCREMENT de la tabla `grado`
+--
+ALTER TABLE `grado`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `ingresos`
@@ -1048,13 +1133,19 @@ ALTER TABLE `ingresos`
 -- AUTO_INCREMENT de la tabla `integrantes`
 --
 ALTER TABLE `integrantes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT de la tabla `municipios`
 --
 ALTER TABLE `municipios`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT de la tabla `nivel_estudios`
+--
+ALTER TABLE `nivel_estudios`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `personas`
@@ -1148,6 +1239,12 @@ ALTER TABLE `familias`
   ADD CONSTRAINT `familias_ibfk_2` FOREIGN KEY (`municipio`) REFERENCES `municipios` (`id`);
 
 --
+-- Filtros para la tabla `grado`
+--
+ALTER TABLE `grado`
+  ADD CONSTRAINT `grado_ibfk_1` FOREIGN KEY (`fk_nivel_estudios`) REFERENCES `nivel_estudios` (`id`);
+
+--
 -- Filtros para la tabla `ingresos`
 --
 ALTER TABLE `ingresos`
@@ -1157,7 +1254,9 @@ ALTER TABLE `ingresos`
 -- Filtros para la tabla `integrantes`
 --
 ALTER TABLE `integrantes`
-  ADD CONSTRAINT `integrantes_ibfk_1` FOREIGN KEY (`fk_familia`) REFERENCES `familias` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `integrantes_ibfk_1` FOREIGN KEY (`fk_familia`) REFERENCES `familias` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `integrantes_ibfk_2` FOREIGN KEY (`grado`) REFERENCES `grado` (`id`),
+  ADD CONSTRAINT `integrantes_ibfk_3` FOREIGN KEY (`nivel_estudios`) REFERENCES `nivel_estudios` (`id`);
 
 --
 -- Filtros para la tabla `usuarios`
