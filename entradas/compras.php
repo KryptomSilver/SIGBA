@@ -1,213 +1,219 @@
+<?php
+error_reporting(0);
+include('conexion.php');
+require('header.html');
+
+$query = "SELECT * FROM `compras` WHERE `estatus` = 0";
+$res = mysqli_query($conn, $query);
+$fila = mysqli_fetch_assoc($res);
+$row22 = mysqli_num_rows($res);
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 
-<head>
-    <meta charset="UTF-8">
-    <link rel="shortcut icon" href="../img/logo.webp" type="image/x-icon">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="../Frameworks/datatables.js" type="text/javascript"></script>
-    <link rel="stylesheet" href="../Frameworks/datatables.css">
-    <link rel="stylesheet" href="../Frameworks/css/normalize.css">
-    <link rel="stylesheet" href="../Frameworks/css/estilo.css">
-
-    <title>SIGBA</title>
-</head>
-
+<style>
+.right {
+    float: right;
+    margin-top: 10px;
+    font-weight: bold;
+}
+</style>
 
 <body>
-    <div>
-        <h1 class="titulo"><span><img src="../img/logo.webp" class="logo"></span>BANCO DE ALIMENTOS DE COLIMA</h1>
-    </div>
-
-    <?php
-    require('header.html');
-    ?>
-
     <br>
-    <main>
-        <section>
-            <h1 class="titulo">Compras</h1>
-            <hr>
-            <div class="container">
-                <div class="row">
-                    <div class="col-4">
-                        <div class="form-group">
-                            <label for="">Proveedor</label>
-                            <select class="form-control" name="" id="">
-                                <option value="" default>Proveedor 1</option>
-                            </select>
-                        </div>
+    <h1 class="titulo">Compras</h1>
+    <input id="id" type="hidden" value="<?= $fila['id'] ?>">
+    <hr>
+    <div class="container">
+        <form method="post" id="formulario">
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="">Proveedor</label>
+
+                        <select class="form-control" name="" id="donador">
+                            <?php
+                            $query = "SELECT `idpersona`,nombre_Contacto FROM `personas` WHERE donador=1";
+                            $res = mysqli_query($conn, $query);
+                            while ($row = mysqli_fetch_assoc($res)) {
+                            ?>
+                            <option value="<?= $row['idpersona'] ?>"><?= $row['nombre_Contacto'] ?></option>
+                            <?php
+                            } ?>
+                        </select>
                     </div>
-                    <div class="col-4">
-                        <div class="form-group">
-                            <label for="">No de Factura</label>
-                            <input type="text" name="" class="form-control">
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="form-group">
-                            <label for="">Fecha</label>
-                            <input type="date" name="" class="form-control">
-                        </div>
+
+                </div>
+
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="">No de Factura</label>
+                        <input required type="text" autocomplete="off" id="factura" value="<?= $fila['factura'] ?>"
+                            class="form-control">
                     </div>
                 </div>
-                <div class="circular">
-                    <div class="row">
-                        <div class="col-3">
-                            <div class="form-group">
-                                <label for="">Producto</label>
-                                <select class="form-control" name="" id="">
-                                    <option value="" default>producto 1</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-1">
-                        <div class="form-group">
-                        <a id="add"href="#"><img id="add"src="../img/add.png" width="30" height="30" class="d-inline-block align-top"
-                                        alt=""></a>
 
-                        </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="form-group">
-                                <label for="">Unidad de medida</label>
-                                <select class="form-control"name="" id="">
-                                <option value="">Litros</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-2">
-                            <div class="form-group">
-                                <label for="">Cantidad</label>
-                                <input type="numeric" class="form-control">
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="form-group">
-                                <label for="">Caducidad</label>
-                                <input type="date" class="form-control" name="" id="">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-4">
-                            <div class="form-group">
-                                <label for="">Precio de Venta</label>
-                                <input type="numeric" class="form-control">
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="form-group">
-                                <label for="">Precio de Compra</label>
-                                <input type="numeric" class="form-control">
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <button id="boton" class="btn btn-md btn-primary" type="">Agregar</button>
-                        </div>
-                    </div>
-                </div><br><br>
-                <table id="example" class="table table-striped table-bordered" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th>Producto</th>
-                            <th>Cantidad</th>
-                            <th>Precio de C</th>
-                            <th>Precio de V</th>
-                            <th>Caducidad</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        //include('procesos/conexion.php');
-                        //$sql = "";
-                        
-                        //$result = mysqli_query($conn, $sql);
-                        //while($row = mysqli_fetch_array($result)) {
-                        ?>
-                        <tr>
+            </div>
 
-                            <td>Producto 1</td>
-                            <td>11</td>
-                            <td>$12</td>
-                            <td>$412</td>
-                            <td>15/08/2019</td>
-                            <td><a href="#"
-                                    data-href="procesos/proyectoproceso.php?id=<?php echo $row['idpersona']; ?>&i=2"
-                                    data-toggle="modal" data-target="#confirm-delete"><img src="../img/eliminar.ico"
-                                        width="30" height="30" class="d-inline-block align-top" alt=""></a>
-                                <a href="proyectosupdate.php?rfc=<?php echo $row['rfc']; ?>"><img
-                                        src="../img/editar.ico" width="30" height="30" class="d-inline-block align-top"
-                                        alt=""></a>
-                                <a href="procesos/seeall.php?idpersona=<?php echo $row['idpersona']; ?>&i=5"><img
-                                        src="../img/see.svg" width="30" height="30" class="d-inline-block align-top"
-                                        alt=""></a>
-                            </td>
-                        </tr>
-                    </tbody>
-                    <tfoot>
-                        <tr>
+            <div class="row">
+                <div class="col-5">
+                    <div class="form-group">
 
-                            <th>Producto</th>
-                            <th>Cantidad</th>
-                            <th>Precio de C</th>
-                            <th>Precio de V</th>
-                            <th>Caducidad</th>
-                            <th>Acciones</th>
-                        </tr>
-                        </tr>
-                    </tfoot>
-                </table>
-                <br><br>
-                <div class="row">
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label for="">Forma de Pago</label>
-                            <select class="form-control"name="" id="">
-                                <option value="">De contado</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-2">
-                        <div class="form-group">
-                            <label for="">Importe</label>
-                            <input type="numeric" placeholder="$100"class="form-control" disabled>
-                        </div>  
-                    </div>
-                    <div class="col-2">
-                        <div class="form-group">
-                            <label for="">Abono</label>
-                            <input type="numeric"placeholder="$" class="form-control">
-                        </div>
-                    </div>
-                    <div class="col-2">
-                        <div class="form-group">
-                            <label for="">Saldo</label>
-                            <input type="numeric" placeholder="$"class="form-control">
-                        </div>
+                        <label for="">Fecha</label>
+                        <input required type="date" value="<?= $fila['fecha'] ?>" class="form-control" id="fecha">
+
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-6"></div>
-                    <div class="col-3">
-                        <button id="boton" class="btn btn-md btn-primary" type="">Cancelar</button>
+
+
+                <div class="col-5">
+                    <div class="form-group">
+
+                        <label for="">Tipo de Pago</label>
+                        <select class="form-control" name="" id="tpago">
+                            <option value="0">Credito</option>
+                            <option value="1">Contado</option>
+                        </select>
+
                     </div>
-                    <div class="col-3">
-                        <button id="boton" class="btn btn-md btn-primary" type="">Guardar</button>
-                    </div>
+                </div>
+
+                <div class="col-2">
+                    <button type="button" hidden class="btn btn2 icon-trash" onclick="EliminarCompra()" id="btnborrar">
+                        Eliminar</button>
+                    <button type="submit" class="btn btn2 icon-save" id="btncrear">
+                        Crear</button>
                 </div>
             </div>
-        </section>
-    </main>
-    <?php
-    require('footer.html');
-    ?>
+        </form>
+
+        <div id="panelagregar" class="circular" hidden>
+            <form method="post" id="formulario2">
+                <div class="row">
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="">Producto</label>
+                            <select class="form-control" name="" id="producto" searchable="Search here..">
+                                <?php
+                                $query = "SELECT `id`, `nombre` FROM `articulo`";
+                                $res = mysqli_query($conn, $query);
+                                while ($row = mysqli_fetch_assoc($res)) {
+                                ?>
+                                <option value="<?= $row['id'] ?>" data-tokens="<?= $row['nombre'] ?>">
+                                    <?= $row['nombre'] ?></option>
+                                <?php
+                                } ?>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="">Unidad de medida</label>
+                            <select class="form-control" name="" id="">
+                                <?php
+                                $query = "SELECT  `clave`, `unidad_medida` FROM `unidad_medida`";
+                                $res = mysqli_query($conn, $query);
+                                while ($row = mysqli_fetch_assoc($res)) {
+                                ?>
+                                <option value="<?= $row['clave'] ?>" data-tokens="<?= $row['nombre'] ?>">
+                                    <?= $row['unidad_medida'] ?></option>
+                                <?php
+                                } ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="">Cantidad</label>
+                            <input required type="numeric" class="form-control" id="cantidad">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label for="">Caducidad</label>
+                            <input required type="date" class="form-control" name="" id="caducidad">
+                        </div>
+                    </div>
+
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label for="">Precio de Venta</label>
+                            <input required type="numeric" class="form-control" id="preciov">
+                        </div>
+                    </div>
+
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label for="">Precio de Compra</label>
+                            <input required id="precioc" type="numeric" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="col-5">
+                        <button id="boton" style=" margin-top: 30px; " class="ff btn btn-lg btn-primary icon-plus"
+                            type="submit"> Agregar</button>
+                        <button id="boton" style=" margin-top: 30px; " class="ff btn btn-lg btn-primary icon-reload"
+                            onclick="limpiarCampos()" type="button"> Limpiar</button>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+        <br>
+
+        <table id="tabla" class="table table-striped table-bordered" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Cantidad</th>
+                    <th>Producto</th>
+                    <th>Precio Compra</th>
+                    <th>Precio Venta</th>
+                    <th>Monto</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="tab">
+            </tbody>
+        </table>
+        <br>
+        <div class="row">
+            <div class="col-8">
+                <x class="right">Total</x>
+            </div>
+            <div class="col-4">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">$</span>
+                    </div>
+                    <input type="text" class="form-control" id="total" value="<?= $fila['total'] ?>">
+                </div>
+            </div>
+        </div>
+        <button id="btnfinalizar" type="button" class="btn btn2 float-right"
+            onclick="TerminarCompra()">Finalizar</button>
+        <br>
+        <button class="btn2" onclick="location.href='abonos.php'">Abonar</button>
+    </div>
+    <br>
+
 </body>
+<script src="../Frameworks/js/entradas/compras.js"></script>
+<script src="../Frameworks/js/tablas.js"></script>
 <script>
-    $(document).ready(function () {
-        $('#example').DataTable();
-    });
+<?php if ($row22 > 0) : ?>
+deshabilitar();
+<?php endif; ?>
+
+cargar(<?= $fila['id'] ?>);
 </script>
+
+<?php
+require('footer.html');
+?>
+
 </html>

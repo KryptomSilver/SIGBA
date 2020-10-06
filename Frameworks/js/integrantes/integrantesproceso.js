@@ -2,7 +2,8 @@ $(document).ready(function () {
     $('#integrantesadd').submit(e => {
         e.preventDefault();
         var titular
-        if (document.getElementById('titular').checked==true) {
+        //if (document.getElementById('titular').checked==true) {
+        if ( $('#titular').val() == "NO") {
             titular = 'NO';
         } else {
             titular = 'SI';
@@ -35,7 +36,8 @@ $(document).ready(function () {
             if (response == 'Integrante Registrado') {                   
                 alert_success(response);
                 setTimeout(function () {
-                    window.location.href='familiasadd.php';
+                    //window.location.href='familiasadd.php';
+                    window.history.back(); 
                 }, 1000);  
             } else {
                 alert_warning(response);
@@ -78,7 +80,8 @@ $(document).ready(function () {
             if (response == 'Integrante Actualizado') {                   
                 alert_success(response);
                 setTimeout(function () {
-                    window.location.href='familiasadd.php';
+                    //window.location.href='familiasadd.php';
+                    window.history.back();
                 }, 1000);  
             } else {
                 alert_warning(response);

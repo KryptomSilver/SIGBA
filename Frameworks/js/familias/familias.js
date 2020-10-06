@@ -62,9 +62,6 @@ var listar = function () {
         "data": "telefono"
       },
       {
-        "data": "ingresototal"
-      },
-      {
         "defaultContent": "<a  class='eliminar'data-toggle='modal' data-target='#delete'><img src='../img/eliminar.ico' width='30' height='30'class='d-inline-block align-top'></a><a  data-toggle='modal'class='editar'data-target='#editar' ><img src='../img/editar.ico' width='30' height='30'class=d-inline-block align-top'></a>"
       }
     ],

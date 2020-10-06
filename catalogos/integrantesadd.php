@@ -36,7 +36,7 @@ while ($rows = mysqli_fetch_assoc($resultado)) {
     <hr>
     <div class="tabla-lg">
         <form id="integrantesadd" method="post">
-            <input type="hidden" id="idfamilia" value="<?php echo $idfamilia;?>"name="">
+            <input type="hidden" id="idfamilia" value="<?php echo $idfamilia;?>" name="">
             <div class="row">
                 <div class="col-3">
                     <div class="form-group">
@@ -45,31 +45,32 @@ while ($rows = mysqli_fetch_assoc($resultado)) {
                             <?php 
                             if ($gefe == 1) {
                             ?>
-                             <div class="form-check">
+                            <div class="form-check">
                                 <input class="form-check-input" type="radio" name="titular" id="titular" value="SI"
                                     required disabled>
                                 <label class="form-check-label" for="inlineRadio1">Si</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input"checked="true" type="radio" name="titular" id="titular" value="NO"
-                                    required disabled>
-                                <label class="form-check-label"  for="inlineRadio2">No</label>
+                                <input class="form-check-input" checked="true" type="radio" name="titular" id="titular"
+                                    value="NO" required disabled>
+                                <label class="form-check-label" for="inlineRadio2">No</label>
                             </div>
                             <?php
                             } else {
                             ?>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="titular" id="titular" value="SI"
-                                    required>
-                                <label class="form-check-label" for="inlineRadio1">Si</label>
-                            </div>
+
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="titular" id="titular" value="NO"
                                     required>
                                 <label class="form-check-label" for="inlineRadio2">No</label>
                             </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="titular" id="titular" value="SI"
+                                    required>
+                                <label class="form-check-label" for="inlineRadio1">Si</label>
+                            </div>
                             <?php }?>
-                            
+
                         </div>
                     </div>
                 </div>
@@ -100,7 +101,9 @@ while ($rows = mysqli_fetch_assoc($resultado)) {
                 <div class="col-3">
                     <div class="form-group">
                         <label for="">CURP:</label>
-                        <input type="text" title="Introducir valor valido" id="curp" pattern="^([A-Z&]|[a-z&]{1})([AEIOU]|[aeiou]{1})([A-Z&]|[a-z&]{1})([A-Z&]|[a-z&]{1})([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])([HM]|[hm]{1})([AS|as|BC|bc|BS|bs|CC|cc|CS|cs|CH|ch|CL|cl|CM|cm|DF|df|DG|dg|GT|gt|GR|gr|HG|hg|JC|jc|MC|mc|MN|mn|MS|ms|NT|nt|NL|nl|OC|oc|PL|pl|QT|qt|QR|qr|SP|sp|SL|sl|SR|sr|TC|tc|TS|ts|TL|tl|VZ|vz|YN|yn|ZS|zs|NE|ne]{2})([^A|a|E|e|I|i|O|o|U|u]{1})([^A|a|E|e|I|i|O|o|U|u]{1})([^A|a|E|e|I|i|O|o|U|u]{1})([0-9]{2})$" class="form-control" required>
+                        <input type="text" title="Introducir valor valido" id="curp"
+                            pattern="^([A-Z&]|[a-z&]{1})([AEIOU]|[aeiou]{1})([A-Z&]|[a-z&]{1})([A-Z&]|[a-z&]{1})([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])([HM]|[hm]{1})([AS|as|BC|bc|BS|bs|CC|cc|CS|cs|CH|ch|CL|cl|CM|cm|DF|df|DG|dg|GT|gt|GR|gr|HG|hg|JC|jc|MC|mc|MN|mn|MS|ms|NT|nt|NL|nl|OC|oc|PL|pl|QT|qt|QR|qr|SP|sp|SL|sl|SR|sr|TC|tc|TS|ts|TL|tl|VZ|vz|YN|yn|ZS|zs|NE|ne]{2})([^A|a|E|e|I|i|O|o|U|u]{1})([^A|a|E|e|I|i|O|o|U|u]{1})([^A|a|E|e|I|i|O|o|U|u]{1})([0-9]{2})$"
+                            class="form-control" required>
                     </div>
                 </div>
                 <div class="col-3">
@@ -167,7 +170,7 @@ while ($rows = mysqli_fetch_assoc($resultado)) {
                     </div>
                 </div>
             </div>
-            
+
 
             <div class="row">
                 <div class="col-6">
@@ -196,7 +199,8 @@ while ($rows = mysqli_fetch_assoc($resultado)) {
                                     $resultado = mysqli_query($conn,$query);
                                     
                                     ?>
-                                    <select name="" id="nivel_estudios" onchange="cargargrados()" class="form-control" required>
+                                    <select name="" id="nivel_estudios" onchange="cargargrados()" class="form-control"
+                                        required>
                                         <option selected>Seleccione un opcion</option>
                                         <?php  while ($nivel = mysqli_fetch_array($resultado)) { ?>
                                         <option value="<?=$nivel['id']?>"><?=$nivel['nombre']?></option>
@@ -249,8 +253,7 @@ while ($rows = mysqli_fetch_assoc($resultado)) {
             <div class="row">
                 <div class="col-5"></div>
                 <div class="col-3">
-                    <a href="familiasadd.php" class="btn btn-lg btn-primary"
-                        title="Ir la página anterior">Cancelar</a>
+                    <a href="familiasadd.php" class="btn btn-lg btn-primary" title="Ir la página anterior">Cancelar</a>
                 </div>
                 <div class="col-1"></div>
                 <div class="col-3">

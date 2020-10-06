@@ -1,3 +1,7 @@
+<?php
+require('header.html');
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -8,13 +12,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="../Frameworks/datatables.js" type="text/javascript"></script>
     <link rel="stylesheet" href="../Frameworks/css/normalize.css">
-
     <link rel="stylesheet" href="../Frameworks/datatables.css">
-
     <link rel="stylesheet" href="../Frameworks/css/estilo.css">
-
-
-
     <title>SIGBA</title>
 </head>
 
@@ -23,10 +22,6 @@
     <div>
         <h1 class="titulo"><span><img src="../img/logo.webp" class="logo"></span>BANCO DE ALIMENTOS DE COLIMA</h1>
     </div>
-
-    <?php
-    require('header.html');
-    ?>
     <br>
     <main>
         <h1 class="titulo">Detalles</h1>
@@ -42,7 +37,7 @@
                     <div class="col-2"></div>
                     <label class=" col-form-label">Proveedor:</label>
                     <div class="col-4">
-                    <input type="text" class="form-control" placeholder="" disabled>
+                        <input type="text" class="form-control" placeholder="" disabled>
                     </div>
                 </div>
                 <div class="row">
@@ -97,7 +92,7 @@
                 <div class="row">
                     <div class="col-11"></div>
                     <div class="col-1">
-                    <a href="javascript:history.back(-1);" class="btn btn-lg btn-primary" >Cerrar</a>
+                        <a href="javascript:history.back(-1);" class="btn btn-lg btn-primary">Cerrar</a>
                     </div>
                 </div>
             </form>
@@ -109,8 +104,7 @@
     ?>
 
     <!--modal agregar -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -136,8 +130,7 @@
         </div>
     </div>
     <!--modal-->
-    <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -161,7 +154,7 @@
 
 </body>
 <script>
-    $('#confirm-delete').on('show.bs.modal', function (e) {
+    $('#confirm-delete').on('show.bs.modal', function(e) {
         $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
 
         $('.debug-url').html('Delete URL: <strong>' + $(this).find('.btn-ok').attr('href') + '</strong>');
@@ -169,7 +162,7 @@
 </script>
 
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         $('#example').DataTable();
     });
 </script>

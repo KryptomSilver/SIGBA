@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-09-2020 a las 22:22:12
--- Versión del servidor: 10.4.14-MariaDB
--- Versión de PHP: 7.2.33
+-- Tiempo de generación: 06-10-2020 a las 18:56:52
+-- Versión del servidor: 10.4.11-MariaDB
+-- Versión de PHP: 7.4.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -27,6 +28,30 @@ DELIMITER $$
 --
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_ActualizarEstatus` (IN `pestatus` INT(11), IN `pidfamilia` INT(11))  BEGIN
 	#Routine body goes here...
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_AgregarAbono` (IN `varid` INT, IN `varfecha` DATE, IN `varabono` INT)  BEGIN
+	DECLARE varrestante double;
+	DECLARE vartotal double;
+	DECLARE varrestante1 double;
+
+	set vartotal=(SELECT total FROM `compras` WHERE id=varid);
+	set varrestante1=(SELECT SUM(abono) FROM `abonos` WHERE fk_compra=varid);
+
+	IF varrestante1 IS NULL THEN
+		set varrestante1=0;
+	END IF;
+
+	set varrestante=vartotal-varrestante1-varabono;
+
+	INSERT INTO `abonos`(`fk_compra`, `fecha`, `abono`, `restante`) VALUES (varid,varfecha,varabono,varrestante);
+
+	IF varrestante <= 0 THEN
+		UPDATE `compras` SET `estatus_pago`= 1  WHERE `id` = varid;
+	END IF;
+
+	SELECT `restante` as varres FROM `abonos` WHERE `id`= @@identity;
 
 END$$
 
@@ -71,6 +96,34 @@ BEGIN
 	else 
 	select 'Colonia Existente' AS msg;
 	END IF;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_AgregarCompra` (IN `varid` INT, IN `varfactura` VARCHAR(20), IN `varfecha` DATE, IN `vartipo` BOOLEAN)  BEGIN
+	INSERT INTO `compras`(`fk_vendedor`, `factura`, `fecha`, `tipo_pago`) VALUES (varid,varfactura,varfecha,vartipo);
+
+  SELECT @@identity as var;
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_AgregarDetalleCompra` (IN `varid` INT, IN `vararticulo` INT, IN `varcantidad` INT, IN `varprecioventa` DOUBLE(10,2), IN `varpreciocompra` DOUBLE(10,2))  BEGIN
+	DECLARE vartotal double;
+
+	INSERT INTO `detalle_compra`(`fk_compra`, `fk_articulo`, `cantidad`,`precioventa`, `preciocompra` ,`monto`) VALUES (varid,vararticulo,varcantidad,varprecioventa,varpreciocompra,varcantidad*varpreciocompra);
+
+	SET vartotal=(select sum(monto) FROM detalle_compra WHERE fk_compra = varid);
+			
+	UPDATE `compras` SET `total`= vartotal  WHERE `id` = varid;
+
+	SELECT total from compras WHERE `id` = varid;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_AgregarDetalleDonacion` (IN `varid` INT, IN `vararticulo` INT, IN `varcantidad` INT, IN `varcaducidad` DATE, IN `varprecio` DOUBLE(10,2))  BEGIN
+	INSERT INTO `detalle_donacion`( `fk_donacion`, `fk_articulo`, `cantidad`,`caducidad`,`precio_venta`) VALUES (varid,vararticulo,varcantidad,varcaducidad,varprecio);
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_AgregarDonacion` (IN `vardonador` INT, IN `varfecha` DATE)  BEGIN
+INSERT INTO `donaciones`( `fk_donador`, `fecha`) VALUES (vardonador,varfecha);
+SELECT @@identity as var;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_AgregarDonador` (IN `prazon_Social` VARCHAR(50), IN `prfc` VARCHAR(13), IN `pcalle` VARCHAR(25), IN `pnum_Interior` INT(11), IN `pnum_Exterior` INT(11), IN `pcolonia` VARCHAR(50), IN `pcodPostal` INT(11), IN `pnombre_Contacto` VARCHAR(50), IN `ptelefono` INT(11), IN `pcelular` VARCHAR(10), IN `pcorreo` VARCHAR(30), IN `precibo` VARCHAR(50), IN `vdonador` TINYINT(1))  BEGIN
@@ -310,6 +363,32 @@ BEGIN
 	END IF;
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_EliminarDetalleCompra` (IN `var` INT, IN `varid` INT)  BEGIN
+DECLARE vartotal int;
+DELETE FROM `detalle_compra` WHERE `id`= var;
+
+SET vartotal=(select sum(monto) FROM detalle_compra WHERE fk_compra = varid);
+
+IF (vartotal IS null) THEN 
+	set vartotal=0;
+END IF;
+
+UPDATE `compras` SET `total`= vartotal  WHERE `id` = varid;
+
+SELECT total from compras WHERE `id` = varid;
+
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_EliminarDetalleDonacion` (IN `var` INT)  BEGIN
+	DELETE FROM `detalle_donacion` WHERE `id`= var;
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_EliminarDonacion` (IN `var` INT)  BEGIN
+	DELETE FROM  `donaciones` WHERE `id`= var;
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_EliminarDonador` (IN `pid` INT(11))  BEGIN
 	#Routine body goes here...
 	
@@ -461,6 +540,14 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_RFC` (IN `prfc` VARCHAR(50))  BE
 	END IF;
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_TerminarCompra` (IN `varid` INT)  BEGIN
+	UPDATE `compras` SET`estatus`= 1  WHERE `id` = varid;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_TerminarDonacion` (IN `varid` INT)  BEGIN
+	UPDATE `donaciones` SET `estatus`= 1 WHERE `id` = varid;
+END$$
+
 DELIMITER ;
 
 -- --------------------------------------------------------
@@ -473,9 +560,19 @@ CREATE TABLE `abonos` (
   `id` int(11) NOT NULL,
   `fk_compra` int(11) DEFAULT NULL,
   `fecha` date DEFAULT NULL,
-  `abono` double DEFAULT NULL,
-  `restante` double DEFAULT NULL
+  `abono` double(10,2) DEFAULT NULL,
+  `restante` double(10,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `abonos`
+--
+
+INSERT INTO `abonos` (`id`, `fk_compra`, `fecha`, `abono`, `restante`) VALUES
+(1, 1, '2020-10-13', 24.00, 0.00),
+(2, 2, '2020-11-02', 300.00, 19700.00),
+(3, 2, '2020-10-21', 300.00, 19400.00),
+(4, 2, '2020-10-22', 190000.00, -170600.00);
 
 -- --------------------------------------------------------
 
@@ -493,7 +590,8 @@ CREATE TABLE `articulo` (
 --
 
 INSERT INTO `articulo` (`id`, `nombre`) VALUES
-(20, 'WEDER');
+(20, 'WEDER'),
+(21, 'PAPEL');
 
 -- --------------------------------------------------------
 
@@ -514,7 +612,10 @@ CREATE TABLE `colonias` (
 INSERT INTO `colonias` (`id`, `fk_municipio`, `nombre`) VALUES
 (21, 4, 'VILLAS FLORES'),
 (23, 6, 'AGUAJES'),
-(24, 5, 'VILLAS DE ORO');
+(24, 5, 'VILLAS DE ORO'),
+(26, 9, 'LOS GIRASOLES'),
+(27, 12, 'VIRREYES'),
+(28, 9, 'FLORES');
 
 -- --------------------------------------------------------
 
@@ -529,8 +630,17 @@ CREATE TABLE `compras` (
   `fecha` date DEFAULT NULL,
   `total` double DEFAULT NULL,
   `tipo_pago` varchar(20) NOT NULL,
-  `estatus` tinyint(1) NOT NULL
+  `estatus` tinyint(1) NOT NULL DEFAULT 0,
+  `estatus_pago` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `compras`
+--
+
+INSERT INTO `compras` (`id`, `fk_vendedor`, `factura`, `fecha`, `total`, `tipo_pago`, `estatus`, `estatus_pago`) VALUES
+(1, 15, '12', '2020-10-22', 24, '1', 1, 1),
+(2, 15, '12312', '2020-10-21', 20000, '0', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -542,8 +652,20 @@ CREATE TABLE `detalle_compra` (
   `id` int(11) NOT NULL,
   `fk_compra` int(11) DEFAULT NULL,
   `fk_articulo` int(11) DEFAULT NULL,
-  `cantidad` int(11) DEFAULT NULL
+  `cantidad` int(11) DEFAULT NULL,
+  `precioventa` double(10,2) DEFAULT NULL,
+  `preciocompra` double(10,2) DEFAULT NULL,
+  `monto` double(10,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `detalle_compra`
+--
+
+INSERT INTO `detalle_compra` (`id`, `fk_compra`, `fk_articulo`, `cantidad`, `precioventa`, `preciocompra`, `monto`) VALUES
+(1, 1, 20, 12, 1.00, 1.00, 12.00),
+(2, 1, 21, 1, 2.00, 12.00, 12.00),
+(3, 2, 21, 10000, 12.00, 2.00, 20000.00);
 
 -- --------------------------------------------------------
 
@@ -555,8 +677,17 @@ CREATE TABLE `detalle_donacion` (
   `id` int(11) NOT NULL,
   `fk_donacion` int(11) DEFAULT NULL,
   `fk_articulo` int(11) DEFAULT NULL,
-  `cantidad` int(11) NOT NULL
+  `cantidad` int(11) NOT NULL,
+  `caducidad` date DEFAULT NULL,
+  `precio_venta` double(10,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `detalle_donacion`
+--
+
+INSERT INTO `detalle_donacion` (`id`, `fk_donacion`, `fk_articulo`, `cantidad`, `caducidad`, `precio_venta`) VALUES
+(2, 15, 20, 12, '2020-10-01', 12.00);
 
 -- --------------------------------------------------------
 
@@ -567,8 +698,18 @@ CREATE TABLE `detalle_donacion` (
 CREATE TABLE `donaciones` (
   `id` int(11) NOT NULL,
   `fk_donador` int(11) NOT NULL,
-  `fecha` date DEFAULT NULL
+  `fecha` date DEFAULT NULL,
+  `estatus` tinyint(4) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `donaciones`
+--
+
+INSERT INTO `donaciones` (`id`, `fk_donador`, `fecha`, `estatus`) VALUES
+(1, 15, '2020-10-08', 1),
+(15, 15, '2020-10-13', 1),
+(16, 15, '2020-10-15', 1);
 
 -- --------------------------------------------------------
 
@@ -599,7 +740,7 @@ CREATE TABLE `egresos` (
 --
 
 INSERT INTO `egresos` (`id`, `fk_familia`, `vivienda`, `alimentacion`, `luz`, `agua`, `telefono`, `transporte`, `atencion_medica`, `otros_gastos`, `celular`, `educacion`, `total_semanal`, `total_mensual`, `gas`) VALUES
-(48, 106, 12.00, 1.00, 122222.00, 1.00, 99999999.99, 1.00, 1.00, 1.00, 1.00, 1.00, 99999999.99, 99999999.99, 3333.00);
+(52, 114, 1000.00, 2000.00, 150.00, 200.00, 0.00, 500.00, 300.00, 200.00, 200.00, 3000.00, 7850.00, 200.00, 300.00);
 
 -- --------------------------------------------------------
 
@@ -663,7 +804,8 @@ CREATE TABLE `familias` (
 --
 
 INSERT INTO `familias` (`id`, `calle`, `telefono`, `colonia`, `municipio`, `integrantes`, `ingresototal`, `num_Interno`, `num_Externo`, `calle_col1`, `calle_col2`, `estatus`) VALUES
-(106, 'AV PABLO SILVA GARCIA', '3121985243', 24, 5, '5', NULL, '302', '302', 'ESTADO DE HIDALGO', 'CHIAPAS', 1);
+(114, 'BENITO JUAREZ', '3125202521', 26, 9, '3', NULL, '0', '110', 'LÁZARO CÁRDENAS', 'AMAPOLAS', 1),
+(115, 'd', '3125202521', 24, 5, '1', NULL, '3', '3', 'Lázaro Cárdenas', 'Amapolas', 0);
 
 -- --------------------------------------------------------
 
@@ -751,9 +893,7 @@ CREATE TABLE `integrantes` (
 --
 
 INSERT INTO `integrantes` (`id`, `fk_familia`, `nombre`, `apellido1`, `apellido2`, `gefe_familia`, `sexo`, `fecha_nac`, `curp`, `entidad`, `parentesco`, `ocupacion`, `estado_estudio`, `grado`, `estado_civil`, `nivel_estudios`, `ingresos`, `talla`, `peso`) VALUES
-(45, 106, 'Abel', 'Romero', 'Ruiz', 'NO', 'M', '2020-09-24', 'RORA980108HCMMZB01', 'COLIMA', 'Padre', 'Trabajador/a', 'TRUNCO', 6, 'comprometido', 2, 123223.00, 25, 12.00),
-(46, 106, 'Maria Teresa', 'Ruiz', 'Vielmas', 'SI', 'M', '2020-09-26', 'RORA980108HCMMZB02', 'COLIMA', 'Madre', 'Ama de casa', 'TRUNCO', 13, 'casado', 4, 123223.00, 12, 12.00),
-(47, 106, 'Abel', 'Romee', 'Ruiz', 'SI', 'H', '2020-09-24', 'RORA980108HCMMZB01', 'COLIMA', 'Hijo', 'Trabajador/a', 'TRUNCO', 4, 'soltero', 2, 12222.00, 12, 12.00);
+(60, 114, 'Abel', 'Romero', 'ruiz', 'NO', 'M', '2020-10-12', 'BADD110313HCMLNS09', 'Colima', 'Conyuge', 'Ama de casa', 'TRUNCO', 4, 'separado', 2, 123123.00, 12, 12.00);
 
 -- --------------------------------------------------------
 
@@ -859,6 +999,14 @@ CREATE TABLE `unidad_medida` (
   `unidad_medida` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
+--
+-- Volcado de datos para la tabla `unidad_medida`
+--
+
+INSERT INTO `unidad_medida` (`idunidad`, `clave`, `unidad_medida`) VALUES
+(6, 'KG', 'KILOS'),
+(7, 'LT', 'LITROS');
+
 -- --------------------------------------------------------
 
 --
@@ -892,7 +1040,7 @@ CREATE TABLE `vivienda` (
 --
 
 INSERT INTO `vivienda` (`id`, `fk_familia`, `tenencia`, `num_Cuartos`, `num_Familias`) VALUES
-(58, 106, 'Propia', 5, 1);
+(62, 114, 'Pagándose', 2, 1);
 
 --
 -- Índices para tablas volcadas
@@ -1055,49 +1203,49 @@ ALTER TABLE `vivienda`
 -- AUTO_INCREMENT de la tabla `abonos`
 --
 ALTER TABLE `abonos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `articulo`
 --
 ALTER TABLE `articulo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de la tabla `colonias`
 --
 ALTER TABLE `colonias`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT de la tabla `compras`
 --
 ALTER TABLE `compras`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_compra`
 --
 ALTER TABLE `detalle_compra`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_donacion`
 --
 ALTER TABLE `detalle_donacion`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `donaciones`
 --
 ALTER TABLE `donaciones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `egresos`
 --
 ALTER TABLE `egresos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT de la tabla `empleados`
@@ -1115,7 +1263,7 @@ ALTER TABLE `entradas`
 -- AUTO_INCREMENT de la tabla `familias`
 --
 ALTER TABLE `familias`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=116;
 
 --
 -- AUTO_INCREMENT de la tabla `grado`
@@ -1133,13 +1281,13 @@ ALTER TABLE `ingresos`
 -- AUTO_INCREMENT de la tabla `integrantes`
 --
 ALTER TABLE `integrantes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- AUTO_INCREMENT de la tabla `municipios`
 --
 ALTER TABLE `municipios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `nivel_estudios`
@@ -1163,7 +1311,7 @@ ALTER TABLE `puestos`
 -- AUTO_INCREMENT de la tabla `unidad_medida`
 --
 ALTER TABLE `unidad_medida`
-  MODIFY `idunidad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idunidad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
@@ -1175,7 +1323,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `vivienda`
 --
 ALTER TABLE `vivienda`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 
 --
 -- Restricciones para tablas volcadas

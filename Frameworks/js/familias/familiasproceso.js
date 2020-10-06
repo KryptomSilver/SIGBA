@@ -188,6 +188,29 @@ $(document).ready(function () {
         }
 
     });
+    $('#vivienda_update').submit(e => {
+        e.preventDefault();
+        const postData = {
+            tenencia: $('#tenencia').val(),
+            cuartos: $('#cuartos').val(),
+            numfamilias: $('#numfamilias').val(),
+            id: $('#idv').val()
+
+        };
+        const url = 'procesos/familias/vivienda_update.php';
+        console.log(postData, url);
+        $.post(url, postData, (response) => {
+            console.log(response);
+            if (response == 'Vivienda Actualizada') {
+
+                alert_success(response);
+
+                listarintegrantes();
+            } else {
+                alert_warning(response);
+            }
+        });
+    });
     //Egresos
     $('#egresos_update').submit(e => {
         e.preventDefault();

@@ -2,7 +2,7 @@
 
 include('../conexion.php');
 $id = $_GET['idfamlia'];
-$query = "select * from integrantes where fk_familia = '$id'";
+$query = "select id,gefe_familia,sexo,curp,fecha_nac,CONCAT(nombre,' ',apellido1,' ',apellido2) AS nombre from integrantes where fk_familia ='$id'";
 $resultado = mysqli_query($conn,$query);
 
 while ($row = mysqli_fetch_assoc($resultado)) {

@@ -42,7 +42,6 @@
                             <th>Colonia</th>
                             <th>Integrantes</th>
                             <th>Telefono</th>
-                            <th>Ingresos</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>

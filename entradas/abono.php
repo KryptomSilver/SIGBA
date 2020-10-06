@@ -1,27 +1,16 @@
+<?php
+require("conexion.php");
+require('header.html');
+$id = $_GET['id'];
+$query = "SELECT p.nombre_Contacto,c.* FROM `compras` c INNER JOIN personas p ON c.`fk_vendedor` = p.idpersona WHERE c.id='$id'";
+$res = mysqli_query($conn, $query);
+$row = mysqli_fetch_assoc($res);
+
+?>
 <!DOCTYPE html>
 <html lang="es">
 
-<head>
-    <meta charset="UTF-8">
-    <link rel="shortcut icon" href="../img/logo.webp" type="image/x-icon">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="../Frameworks/datatables.js" type="text/javascript"></script>
-    <link rel="stylesheet" href="../Frameworks/css/normalize.css">
-    <link rel="stylesheet" href="../Frameworks/datatables.css">
-    <link rel="stylesheet" href="../Frameworks/css/estilo.css">
-    <title>SIGBA</title>
-</head>
-
-
 <body>
-    <div>
-        <h1 class="titulo"><span><img src="../img/logo.webp" class="logo"></span>BANCO DE ALIMENTOS DE COLIMA</h1>
-    </div>
-
-    <?php
-    require('header.html');
-    ?>
     <br>
     <main>
         <h1 class="titulo">Abono</h1>
@@ -32,12 +21,12 @@
                 <div class="form-group row">
                     <label class=" col-form-label">No. Factura:</label>
                     <div class="col-2">
-                        <input type="text" class="form-control" placeholder="" disabled>
+                        <input type="text" class="form-control" value="<?= $row['factura'] ?>" disabled>
                     </div>
                     <div class="col-2"></div>
                     <label class=" col-form-label">Proveedor:</label>
                     <div class="col-4">
-                    <input type="text" class="form-control" placeholder="" disabled>
+                        <input type="text" class="form-control" value="<?= $row['nombre_Contacto'] ?>" disabled>
                     </div>
                 </div>
                 <div class="row">
@@ -46,7 +35,7 @@
                         <label class="titulo">Importe:</label>
                         <div class="row">
                             <div class="col-12">
-                                <input placeholder="$123.4" class="form-control" type="text" disabled>
+                                <input class="form-control" value="$ <?= $row['total'] ?>" type="text" disabled>
                             </div>
                         </div>
                     </div>
@@ -55,7 +44,19 @@
                         <label class="titulo">Saldo:</label>
                         <div class="row">
                             <div class="col-12">
-                                <input placeholder="$123.4" class="form-control" type="text" disabled>
+                                <?php
+                                $sql = "SELECT MIN(`restante`) as res FROM `abonos` where`fk_compra`= '$id'";
+                                $res = mysqli_query($conn, $sql);
+                                $xx = mysqli_fetch_assoc($res);
+
+                                $numrow = mysqli_num_rows($res);
+                                if ($xx['res'] != "") {
+                                    $restante = $xx['res'];
+                                } else {
+                                    $restante = $row['total'];
+                                }
+                                ?>
+                                <input class="form-control" id="saldo" value="$ <?= $restante ?>" type="text" disabled>
                             </div>
                         </div>
                     </div>
@@ -68,7 +69,12 @@
                         <label class="titulo">Abono:</label>
                         <div class="row">
                             <div class="col-12">
-                                <input placeholder="$" class="form-control" type="text">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">$</span>
+                                    </div>
+                                    <input id="abono" type="text" class="form-control">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -77,7 +83,7 @@
                         <label class="titulo">Fecha:</label>
                         <div class="row">
                             <div class="col-12">
-                                <input class="form-control" type="date">
+                                <input class="form-control" type="date" id="fecha">
                             </div>
                         </div>
                     </div>
@@ -87,9 +93,23 @@
                 <div class="row">
                     <div class="col-11"></div>
                     <div class="col-1">
-                        <a href="javascript:history.back(-1);" class="btn btn-lg btn-primary">Cerrar</a>
+                        <button type="button" onclick="agregarabono(<?= $row['id'] ?>)" class="btn">Abonar</button>
                     </div>
                 </div>
+                <br>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Abono</th>
+                            <th>Saldo</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tab">
+                    <tbody>
+                </table>
+
+
             </form>
 
         </div>
@@ -97,71 +117,10 @@
     <?php
     require('footer.html');
     ?>
-
-    <!--modal agregar -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ingrece el RFC</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form action="articulosadd.php" method="get">
-                        <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">RFC:</label>
-                            <input type="text" name="rfc" class="form-control" id="recipient-name">
-                        </div>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary">Buscar</button>
-                </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <!--modal-->
-    <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="myModalLabel">Eliminar Registro</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-
-                </div>
-
-                <div class="modal-body">
-                    ¿Desea eliminar este registro?
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-danger btn-ok">Eliminar</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- modal editar-->
-
+    <script src="../Frameworks/js/entradas/abonos.js"></script>
+    <script>
+    cargarabonos(<?= $row['id'] ?>)
+    </script>
 </body>
-<script>
-    $('#confirm-delete').on('show.bs.modal', function (e) {
-        $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
-
-        $('.debug-url').html('Delete URL: <strong>' + $(this).find('.btn-ok').attr('href') + '</strong>');
-    });
-</script>
-
-<script>
-    $(document).ready(function () {
-        $('#example').DataTable();
-    });
-</script>
 
 </html>
