@@ -183,7 +183,7 @@
                         <div class="row">
                             <div class="col-9"></div>
                             <div class="col-3">
-                                <button class="btn btn-md btn-primary" onclick="verificar();">Agregar</button>
+                                <button class="btn btn-md btn-primary" onclick="verificar(1);">Agregar</button>
                             </div>
                         </div>
                         <table id="integrantes" class="table table-striped table-bordered">
@@ -367,14 +367,14 @@
                                 <div class="form-group">
                                     <label for="">Total semanal:</label>
                                     <input type="text" id="totalsemanalE" placeholder="$"
-                                        value="<?=$rowse['total_mensual']?>" class="form-control" disabled required>
+                                        value="<?=$rowse['total_semanal']?>" class="form-control" disabled required>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="">Total mensual:</label>
                                     <input type="text" id="totalmensualE" placeholder="$"
-                                        value="<?=$rowse['total_semanal']?>" class="form-control" disabled required>
+                                        value="<?=$rowse['total_mensual']?>" class="form-control" disabled required>
                                 </div>
                             </div>
                         </div>
@@ -400,7 +400,7 @@
                                 <div class="form-group">
                                     <?php
                                 include('procesos/conexion.php');
-                                $sql = "select ingresos from integrantes WHERE fk_familia = $idfam and parentesco = 'Padre'";
+                                $sql = "select SUM(ingresos) as ingresos from integrantes WHERE fk_familia = $idfam and parentesco = 'Padre'";
                                 $resultado = mysqli_query($conn,$sql);
                                 $rowsi= mysqli_fetch_array($resultado);
                                 ?>
@@ -413,7 +413,7 @@
                                 <div class="form-group">
                                     <?php
                                 include('procesos/conexion.php');
-                                $sql = "select ingresos from integrantes WHERE fk_familia = $idfam and parentesco = 'Madre'";
+                                $sql = "select SUM(ingresos) as ingresos from integrantes WHERE fk_familia = $idfam and parentesco = 'Madre'";
                                 $resultado = mysqli_query($conn,$sql);
                                 $rowsi= mysqli_fetch_array($resultado);
                                 ?>
@@ -426,7 +426,7 @@
                                 <div class="form-group">
                                     <?php
                                 include('procesos/conexion.php');
-                                $sql = "select ingresos from integrantes WHERE fk_familia = $idfam and parentesco = 'Hijo'";
+                                $sql = "select SUM(ingresos) as ingresos from integrantes WHERE fk_familia = $idfam and parentesco = 'Hijo'";
                                 $resultado = mysqli_query($conn,$sql);
                                 $rowsi= mysqli_fetch_array($resultado);
                                 ?>
@@ -437,8 +437,14 @@
                             </div>
                             <div class="col-3">
                                 <div class="form-group">
+                                <?php
+                                include('procesos/conexion.php');
+                                $sql = "select sum(becas) as becas,sum(adultos) as adultos,sum(otros) as otros from integrantes WHERE fk_familia = $idfam";
+                                $resultado = mysqli_query($conn,$sql);
+                                $rowss= mysqli_fetch_array($resultado);
+                                ?>
                                     <label for="">Becas:</label>
-                                    <input type="text" id="becas" placeholder="$" value="<?=$rowsi['becas']?>"
+                                    <input type="text" id="becas" placeholder="$" value="<?=$rowss['becas']?>"
                                         class="form-control ingresos" disabled >
                                 </div>
                             </div>
@@ -447,14 +453,14 @@
                             <div class="col-4">
                                 <div class="form-group">
                                     <label for="">Otros:</label>
-                                    <input type="text" id="otros" placeholder="$" value="<?=$rowsi['otros']?>"
+                                    <input type="text" id="otros" placeholder="$" value="<?=$rowss['otros']?>"
                                         class="form-control ingresos" disabled >
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="form-group">
                                     <label for="">Pensión:</label>
-                                    <input type="text" id="pension" placeholder="$" value="<?=$rowsi['pension']?>"
+                                    <input type="text" id="pension" placeholder="$" value="<?=$rowss['pension']?>"
                                         class="form-control ingresos" disabled >
                                 </div>
                             </div>
@@ -462,7 +468,7 @@
                                 <div class="form-group">
                                     <label for="">Adultos mayores:</label>
                                     <input type="text" id="adultos" placeholder="$"
-                                        value="<?=$rowsi['adultos_Mayores']?>" class="form-control ingresos" disabled
+                                        value="<?=$rowss['adultos']?>" class="form-control ingresos" disabled
                                         >
                                 </div>
                             </div>

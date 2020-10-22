@@ -15,6 +15,7 @@ $totalmensualE=$_POST['totalmensualE'];
 $id=$_POST['idf'];
 require('../conexion.php');
 $sql = "CALL sp_AgregarEgresos('".$vivienda."','".$alimentacion."','".$luz."' ,'".$gas."','".$agua."','".$atencionM."','".$telefono."','".$transporte."','".$otrosE."','".$celular."','".$educacion."','".$totalsemanalE."','".$totalmensualE."','".$id."');";
+
 $resultado = mysqli_query($conn,$sql);
 $row = mysqli_fetch_array($resultado);
 echo $row['msg'];

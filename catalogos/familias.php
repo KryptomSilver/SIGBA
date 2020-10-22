@@ -20,9 +20,9 @@
     <?php
     require('header.html');
     ?>
-     <br>
+
     <h1 class="titulo">Familias</h1>
-    <br>
+
     <div class="tabla-lg">
         <div class="row">
             <div class="col-9"></div>

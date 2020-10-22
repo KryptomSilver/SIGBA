@@ -14,7 +14,10 @@
     <title>Document</title>
 </head>
 <?php 
-$id = $_GET['id'];
+$id
+
+ = $_GET['id'];
+$pag = $_GET['pag'];
 require('procesos/conexion.php');
 $sql = " SELECT  * from integrantes WHERE id = '$id' ";
 $resultado = mysqli_query($conn, $sql);
@@ -27,23 +30,24 @@ $estado=$rows['estado_estudio'];
     <?php
     require('header.html');
     ?>
-    <h1 class="titulo">Agregar integrante</h1>
+    <h1 class="titulo">Actualizar integrante</h1>
     <hr>
     <div class="tabla-lg">
         <form id="integrantesupdate" method="post">
             <input type="hidden" id="id" value="<?=$id?>">
+            <input type="hidden" id="idfam" value="<?=$pag?>">
             <div class="row">
                 <div class="col-3">
                     <div class="form-group">
                         <div class="form-check-inline">
                             <label for="">Titular de familia:</label>
                             <div class="form-check">
-                                <input class="form-check-input" value="SI " type="radio" name="titular" id="titular"
+                                <input class="form-check-input" value="SI" type="radio" name="titular"
                                     <?php if($gefe=='SI') print "checked=true"?> required>
                                 <label class="form-check-label" for="inlineRadio1">Si</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" value="NO" type="radio" name="titular" id="titular"
+                                <input class="form-check-input" value="NO" type="radio" name="titular"
                                     <?php if($gefe=='NO') print "checked=true"?> value="NO" required>
                                 <label class="form-check-label" for="inlineRadio2">No</label>
                             </div>
@@ -78,7 +82,9 @@ $estado=$rows['estado_estudio'];
                 <div class="col-3">
                     <div class="form-group">
                         <label for="">CURP:</label>
-                        <input type="text" id="curp" value="<?=$rows['curp']?>"  pattern="^([A-Z&]|[a-z&]{1})([AEIOU]|[aeiou]{1})([A-Z&]|[a-z&]{1})([A-Z&]|[a-z&]{1})([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])([HM]|[hm]{1})([AS|as|BC|bc|BS|bs|CC|cc|CS|cs|CH|ch|CL|cl|CM|cm|DF|df|DG|dg|GT|gt|GR|gr|HG|hg|JC|jc|MC|mc|MN|mn|MS|ms|NT|nt|NL|nl|OC|oc|PL|pl|QT|qt|QR|qr|SP|sp|SL|sl|SR|sr|TC|tc|TS|ts|TL|tl|VZ|vz|YN|yn|ZS|zs|NE|ne]{2})([^A|a|E|e|I|i|O|o|U|u]{1})([^A|a|E|e|I|i|O|o|U|u]{1})([^A|a|E|e|I|i|O|o|U|u]{1})([0-9]{2})$" class="form-control" required>
+                        <input type="text" id="curp" value="<?=$rows['curp']?>"
+                            pattern="^([A-Z&]|[a-z&]{1})([AEIOU]|[aeiou]{1})([A-Z&]|[a-z&]{1})([A-Z&]|[a-z&]{1})([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])([HM]|[hm]{1})([AS|as|BC|bc|BS|bs|CC|cc|CS|cs|CH|ch|CL|cl|CM|cm|DF|df|DG|dg|GT|gt|GR|gr|HG|hg|JC|jc|MC|mc|MN|mn|MS|ms|NT|nt|NL|nl|OC|oc|PL|pl|QT|qt|QR|qr|SP|sp|SL|sl|SR|sr|TC|tc|TS|ts|TL|tl|VZ|vz|YN|yn|ZS|zs|NE|ne]{2})([^A|a|E|e|I|i|O|o|U|u]{1})([^A|a|E|e|I|i|O|o|U|u]{1})([^A|a|E|e|I|i|O|o|U|u]{1})([0-9]{2})$"
+                            class="form-control" required>
                     </div>
                 </div>
                 <div class="col-3">
@@ -108,9 +114,12 @@ $estado=$rows['estado_estudio'];
                     <div class="form-group">
                         <label for="">Ocupación:</label>
                         <select name="" id="ocupacion" class="form-control" required>
-                            <option value="Trabajador/a" <?php if($rows['ocupacion']=='Trabajador/a') print "selected"?>>Trabajador/a</option>
-                            <option value="Ama de casa" <?php if($rows['ocupacion']=='Ama de casa') print "selected"?>>Ama de casa</option>
-                            <option value="Estudiante" <?php if($rows['ocupacion']=='Estudiante') print "selected"?>>Estudiante</option>
+                            <option value="Trabajador/a"
+                                <?php if($rows['ocupacion']=='Trabajador/a') print "selected"?>>Trabajador/a</option>
+                            <option value="Ama de casa" <?php if($rows['ocupacion']=='Ama de casa') print "selected"?>>
+                                Ama de casa</option>
+                            <option value="Estudiante" <?php if($rows['ocupacion']=='Estudiante') print "selected"?>>
+                                Estudiante</option>
                         </select>
                     </div>
                 </div>
@@ -176,6 +185,7 @@ $estado=$rows['estado_estudio'];
                         <label for="">Ingresos:</label>
                         <input type="text" id="ingresos" value="<?=$rows['ingresos']?>" class="form-control" required>
                     </div>
+
                 </div>
 
                 <div class="col-6">
@@ -188,9 +198,12 @@ $estado=$rows['estado_estudio'];
                                     $queryf = "SELECT * FROM nivel_estudios";
                                     $resultadof = mysqli_query($conn,$queryf);
                                     ?>
-                                    <select name="" id="nivel_estudios" class="form-control"onchange="cargargrados()" required>
+                                    <select name="" id="nivel_estudios" class="form-control" onchange="cargargrados()"
+                                        required>
                                         <?php  while ($nivel = mysqli_fetch_array($resultadof)) { ?>
-                                        <option value="<?=$nivel['id']?>" <?php if ($rows['nivel_estudios'] == $nivel['id']) { echo "selected";}?>><?=$nivel['nombre']?></option>
+                                        <option value="<?=$nivel['id']?>"
+                                            <?php if ($rows['nivel_estudios'] == $nivel['id']) { echo "selected";}?>>
+                                            <?=$nivel['nombre']?></option>
                                         <?php }?>
                                     </select>
                                 </div>
@@ -205,14 +218,14 @@ $estado=$rows['estado_estudio'];
                                     $queryc = "SELECT * FROM grado where fk_nivel_estudios ='$idnivel'";
                                     $resultadoc = mysqli_query($conn,$queryc);
                                     ?>
-                                    
-                                    <select id="grado" class="form-control" required>
+
+                                <select id="grado" class="form-control" required>
                                     <?php  while ($grados = mysqli_fetch_array($resultadoc)) { ?>
-                                        <option value="<?=$grados['id']?>"
-                                            <?php if ($rows['grado'] == $grados['id']) { echo "selected";}?>>
-                                            <?=$grados['grado']?></option>
-                                        <?php }?>
-                                    </select>
+                                    <option value="<?=$grados['id']?>"
+                                        <?php if ($rows['grado'] == $grados['id']) { echo "selected";}?>>
+                                        <?=$grados['grado']?></option>
+                                    <?php }?>
+                                </select>
                             </div>
                         </div>
                         <br>
@@ -244,17 +257,53 @@ $estado=$rows['estado_estudio'];
                             </div>
                         </div>
                     </div>
-
                 </div>
 
+            </div>
+
+            <br>
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input " type="checkbox" onchange="checkinput();" id="pension"<?php if ($rows['pension']>0) {echo "checked";}?>>
+                        <label class="form-check-label " for="">Pensión</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="pensioni" value="<?=$rows['pension']?>" class="form-control"<?php if ($rows['pension']<=0) {echo "disabled";}?> >
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input " type="checkbox" id="adultos"onchange="checkinput();"  <?php if ($rows['adultos']>0) {echo "checked";}?>>
+                        <label class="form-check-label" for="adultos">Adultos mayores</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="adultosi" value="<?=$rows['adultos']?>" class="form-control"<?php if ($rows['adultos']<=0) {echo "disabled";}?>>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input " type="checkbox" id="becas" onchange="checkinput();" <?php if ($rows['becas']>0) {echo "checked";}?>>
+                        <label class="form-check-label" for="becas">Becas</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="becasi" value="<?=$rows['becas']?>" class="form-control" <?php if ($rows['becas']<=0) {echo "disabled";}?>>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input " type="checkbox" id="otros"onchange="checkinput();"  <?php if ($rows['otros']>0) {echo "checked";}?>>
+                        <label class="form-check-label" for="otros">Otros</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="otrosi" value="<?=$rows['otros']?>" class="form-control" <?php if ($rows['otros']<=0) {echo "disabled";}?>>
+                    </div>
+                </div>
             </div>
             <br>
             <br>
             <div class="row">
                 <div class="col-5"></div>
                 <div class="col-3">
-                    <a href="familiasadd.php" class="btn btn-lg btn-primary"
+                    <a href="familiasupdate.php?idfamilia=<?=$pag?>" class="btn btn-lg btn-primary"
                         title="Ir la página anterior">Cancelar</a>
+
                 </div>
                 <div class="col-1"></div>
                 <div class="col-3">

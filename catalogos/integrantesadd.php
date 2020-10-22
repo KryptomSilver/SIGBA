@@ -2,7 +2,7 @@
 <html lang="en">
 <?php
 $idfamilia = $_GET['idfamilia'];
-
+$pag = $_GET['pag'];
 require('procesos/conexion.php');
 $sql = " SELECT  gefe_familia from integrantes WHERE fk_familia = '$idfamilia' ";
 $resultado = mysqli_query($conn, $sql);
@@ -37,6 +37,7 @@ while ($rows = mysqli_fetch_assoc($resultado)) {
     <div class="tabla-lg">
         <form id="integrantesadd" method="post">
             <input type="hidden" id="idfamilia" value="<?php echo $idfamilia;?>" name="">
+            <input type="hidden" id="pag" value="<?php echo $pag;?>" name="">
             <div class="row">
                 <div class="col-3">
                     <div class="form-group">
@@ -58,16 +59,13 @@ while ($rows = mysqli_fetch_assoc($resultado)) {
                             <?php
                             } else {
                             ?>
-
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="titular" id="titular" value="NO"
-                                    required>
-                                <label class="form-check-label" for="inlineRadio2">No</label>
+                                <input class="form-check-input" type="radio" name="titular" id="" value="SI" required>
+                                <label class="form-check-label" for="inlineRadio1">Si</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="titular" id="titular" value="SI"
-                                    required>
-                                <label class="form-check-label" for="inlineRadio1">Si</label>
+                                <input class="form-check-input" type="radio" name="titular" id="" value="NO" required>
+                                <label class="form-check-label" for="inlineRadio2">No</label>
                             </div>
                             <?php }?>
 
@@ -186,6 +184,7 @@ while ($rows = mysqli_fetch_assoc($resultado)) {
                         <label for="">Ingresos:</label>
                         <input type="text" id="ingresos" class="form-control" required>
                     </div>
+
                 </div>
 
                 <div class="col-6">
@@ -249,11 +248,51 @@ while ($rows = mysqli_fetch_assoc($resultado)) {
 
             </div>
             <br>
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input " type="checkbox" onchange="checkinput();" id="pension"
+                            value="option3">
+                        <label class="form-check-label " for="">Pensión</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="pensioni" class="form-control" disabled>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input " type="checkbox" id="adultos" onchange="checkinput();" value="">
+                        <label class="form-check-label" for="adultos">Adultos mayores</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="adultosi" class="form-control" disabled>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input " type="checkbox" id="becas" onchange="checkinput();"
+                            value="option3">
+                        <label class="form-check-label" for="becas">Becas</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="becasi" class="form-control" disabled>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input " type="checkbox" id="otros" onchange="checkinput();"
+                            value="option3">
+                        <label class="form-check-label" for="otros">Otros</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="otrosi" class="form-control" disabled>
+                    </div>
+                </div>
+            </div>
+            <br>
             <br>
             <div class="row">
                 <div class="col-5"></div>
                 <div class="col-3">
-                    <a href="familiasadd.php" class="btn btn-lg btn-primary" title="Ir la página anterior">Cancelar</a>
+
+                    <a href="<?php if ($pag == 1) {echo "familias.php";} else {echo "familiasupdate.php?idfamilia=$idfamilia";}?>"
+                        class="btn btn-lg btn-primary" title="Ir la página anterior">Cancelar</a>
                 </div>
                 <div class="col-1"></div>
                 <div class="col-3">

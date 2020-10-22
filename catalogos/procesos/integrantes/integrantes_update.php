@@ -18,8 +18,12 @@ $estado = $_POST['estado'];
 $ingresos = $_POST['ingresos'];
 $talla = $_POST['talla'];
 $peso = $_POST['peso'];
+$becas = $_POST['becas'];
+$otros = $_POST['otros'];
+$adultos = $_POST['adultos'];
+$pension = $_POST['pension'];
 require('../conexion.php');
-$sql = "CALL sp_EditarIntegrante('".$id."','".$titular."','".$nombre."','".$apellido1."','".$apellido2."', '".$sexo."', '".$fecha."', '".$entidad."', '".$curp."', '".$estado_civil."', '".$ocupacion."', '".$parentesco."', '".$nivel_estudios."', '".$grado."', '".$estado."','".$talla."','".$peso."','".$ingresos."');";
+$sql = "CALL sp_EditarIntegrante('".$id."','".$titular."','".$nombre."','".$apellido1."','".$apellido2."', '".$sexo."', '".$fecha."', '".$entidad."', '".$curp."', '".$estado_civil."', '".$ocupacion."', '".$parentesco."', '".$nivel_estudios."', '".$grado."', '".$estado."','".$talla."','".$peso."','".$ingresos."','".$becas."','".$pension."','".$adultos."','".$otros."');";
 
 
 $resultado = mysqli_query($conn,$sql);

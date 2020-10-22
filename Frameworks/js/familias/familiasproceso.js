@@ -221,7 +221,7 @@ $(document).ready(function () {
             gas: $('#gas').val(),
             agua: $('#agua').val(),
             atencionM: $('#atencionM').val(),
-            telefono: $('#telefono').val(),
+            telefono: $('#telefonoE').val(),
             transporte: $('#transporte').val(),
             otrosE: $('#otrosE').val(),
             celular: $('#celular').val(),
@@ -257,7 +257,7 @@ $(document).ready(function () {
                 gas: $('#gas').val(),
                 agua: $('#agua').val(),
                 atencionM: $('#atencionM').val(),
-                telefono: $('#telefono').val(),
+                telefono: $('#telefonoE').val(),
                 transporte: $('#transporte').val(),
                 otrosE: $('#otrosE').val(),
                 celular: $('#celular').val(),
@@ -358,7 +358,7 @@ $(document).ready(function () {
 
 });
 
-function verificar() {
+function verificar(pag) {
     var idf = $('#idv').val();
     const postData = {
         idf: $('#idv').val()
@@ -369,7 +369,7 @@ function verificar() {
     $.post(url, postData, (response) => {
         console.log(response);
         if (response == 0) {
-            window.location.href = 'integrantesadd.php?idfamilia=' + idf;
+            window.location.href = 'integrantesadd.php?idfamilia=' + idf+ '&&pag='+pag;
         } else {
             alert_info("No se puede registrar mas integrantes");
         }
