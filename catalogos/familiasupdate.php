@@ -124,30 +124,41 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-4">
                                 <div class="form-group">
                                     <label for="">Calle colindante 1:</label>
                                     <input type="text" id="callecol1" value="<?=$rows['calle_col1']?>"
                                         class="form-control" required>
                                 </div>
                             </div>
-                            <div class="col-6">
+                            <div class="col-4">
                                 <div class="form-group">
                                     <label for="">Calle colindante 2:</label>
                                     <input type="text" id="callecol2" value="<?=$rows['calle_col2']?>"
                                         class="form-control" required>
                                 </div>
                             </div>
-
-                        </div>
-                        <div class="row">
-                            <div class="col-8">
-                                <div class="form-group">
+                            <div class="col-4">
+                            <div class="form-group">
                                     <label for="">Teléfono:</label>
                                     <input type="text" id="telefono" value="<?=$rows['telefono']?>" class="form-control"
                                         required>
                                 </div>
+                            </div>
 
+                        </div>
+                        <div class="row">
+                        <div class="col-5">
+                                <div class="form-group">
+                                    <label for="fechainicio">Fecha inicio:</label>
+                                    <input id="fechainicio" class="form-control" type="date" value="<?=$rows['fecha_inicio']?>" name="" disabled required>
+                                </div>
+                            </div>
+                            <div class="col-5">
+                                <div class="form-group">
+                                    <label for="fechafin">Fecha fin:</label>
+                                    <input id="fechafin" class="form-control" type="date"  value="<?=$rows['fecha_fin']?>"name=""required>
+                                </div>
                             </div>
                             <div class="col">
                                 <div class="form-group">

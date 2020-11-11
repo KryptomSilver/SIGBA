@@ -165,7 +165,15 @@ $estado=$rows['estado_estudio'];
                 <div class="col-4">
                     <div class="form-group">
                         <label for="">Entidad de nacimiento:</label>
-                        <input type="text" id="entidad" value="<?=$rows['entidad']?>" class="form-control" required>
+                        <select name="" id="entidad" class="form-control">
+                        <?php 
+                        $query = "SELECT * FROM  estados";
+                        $rowsi = mysqli_query($conn,$query);
+                        while($rowi = mysqli_fetch_assoc($rowsi)){
+                        ?>
+                        <option value="<?=$rowi['id']?>"  <?php if ($rowi['id']== $rows['fk_estado']) {echo "selected";} ?>><?=$rowi['estado']?></option>
+                        <?php } ?>
+                        </select>
                     </div>
                 </div>
             </div>

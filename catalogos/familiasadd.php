@@ -1,4 +1,4 @@
-<?php error_reporting(0)   ?>
+<?php error_reporting(0)?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -124,32 +124,44 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-4">
                                 <div class="form-group">
                                     <label for="">Calle colindante 1:</label>
                                     <input type="text" id="callecol1" value="<?=$rows['calle_col1']?>"
                                         class="form-control" required>
                                 </div>
                             </div>
-                            <div class="col-6">
+                            <div class="col-4">
                                 <div class="form-group">
                                     <label for="">Calle colindante 2:</label>
                                     <input type="text" id="callecol2" value="<?=$rows['calle_col2']?>"
                                         class="form-control" required>
                                 </div>
                             </div>
-
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <div class="form-group">
+                                        <label for="">Teléfono:</label>
+                                        <input type="text" id="telefono" value="<?=$rows['telefono']?>"
+                                            class="form-control" required>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="row">
-                            <div class="col-8">
+                            <div class="col-5">
                                 <div class="form-group">
-                                    <label for="">Teléfono:</label>
-                                    <input type="text" id="telefono" value="<?=$rows['telefono']?>" class="form-control"
-                                        required>
+                                    <label for="fechainicio">Fecha inicio:</label>
+                                    <input id="fechainicio" class="form-control" type="date" value="<?php echo date("Y-m-d");?>" name="" disabled required>
                                 </div>
-
                             </div>
-                            <div class="col">
+                            <div class="col-5">
+                                <div class="form-group">
+                                    <label for="fechafin">Fecha fin:</label>
+                                    <input id="fechafin" class="form-control" type="date"  name=""required>
+                                </div>
+                            </div>
+                            <div class="col-2">
                                 <div class="form-group">
                                     <label for="">Nº integrantes:</label>
                                     <input type="number" min="1" max="10" id="integrantes"
@@ -406,7 +418,7 @@
                                 ?>
                                     <label for="">Padre:</label>
                                     <input type="text" placeholder="$" value="<?=$rowsi['ingresos']?>" id="padre"
-                                        class="form-control ingresos" disabled >
+                                        class="form-control ingresos" disabled>
                                 </div>
                             </div>
                             <div class="col-3">
@@ -419,7 +431,7 @@
                                 ?>
                                     <label for="">Madre:</label>
                                     <input type="text" id="madre" placeholder="$" value="<?=$rowsi['ingresos']?>"
-                                        class="form-control ingresos" disabled >
+                                        class="form-control ingresos" disabled>
                                 </div>
                             </div>
                             <div class="col-3">
@@ -432,12 +444,12 @@
                                 ?>
                                     <label for="">Hijos:</label>
                                     <input type="text" id="hijos" placeholder="$" value="<?=$rowsi['ingresos']?>"
-                                        class="form-control ingresos" disabled >
+                                        class="form-control ingresos" disabled>
                                 </div>
                             </div>
                             <div class="col-3">
                                 <div class="form-group">
-                                <?php
+                                    <?php
                                 include('procesos/conexion.php');
                                 $sql = "select sum(becas) as becas,sum(adultos) as adultos,sum(otros) as otros from integrantes WHERE fk_familia = $idfam";
                                 $resultado = mysqli_query($conn,$sql);
@@ -445,7 +457,7 @@
                                 ?>
                                     <label for="">Becas:</label>
                                     <input type="text" id="becas" placeholder="$" value="<?=$rowss['becas']?>"
-                                        class="form-control ingresos" disabled >
+                                        class="form-control ingresos" disabled>
                                 </div>
                             </div>
                         </div>
@@ -454,22 +466,21 @@
                                 <div class="form-group">
                                     <label for="">Otros:</label>
                                     <input type="text" id="otros" placeholder="$" value="<?=$rowss['otros']?>"
-                                        class="form-control ingresos" disabled >
+                                        class="form-control ingresos" disabled>
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="form-group">
                                     <label for="">Pensión:</label>
                                     <input type="text" id="pension" placeholder="$" value="<?=$rowss['pension']?>"
-                                        class="form-control ingresos" disabled >
+                                        class="form-control ingresos" disabled>
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="form-group">
                                     <label for="">Adultos mayores:</label>
-                                    <input type="text" id="adultos" placeholder="$"
-                                        value="<?=$rowss['adultos']?>" class="form-control ingresos" disabled
-                                        >
+                                    <input type="text" id="adultos" placeholder="$" value="<?=$rowss['adultos']?>"
+                                        class="form-control ingresos" disabled>
                                 </div>
                             </div>
                         </div>
@@ -478,14 +489,14 @@
                                 <div class="form-group">
                                     <label for="">Ingreso semanal:</label>
                                     <input type="text" id="ingresosem" placeholder="$"
-                                        value="<?=$rowsi['total_Semanal']?>" class="form-control" disabled >
+                                        value="<?=$rowsi['total_Semanal']?>" class="form-control" disabled>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="">Ingreso mensual:</label>
                                     <input type="text" id="ingresomen" placeholder="$"
-                                        value="<?=$rowsi['total_Mensual']?>" class="form-control" disabled >
+                                        value="<?=$rowsi['total_Mensual']?>" class="form-control" disabled>
                                 </div>
                             </div>
                         </div>

@@ -164,7 +164,15 @@ while ($rows = mysqli_fetch_assoc($resultado)) {
                 <div class="col-4">
                     <div class="form-group">
                         <label for="">Entidad de nacimiento:</label>
-                        <input type="text" id="entidad" class="form-control" required>
+                        <select name="" id="entidad" class="form-control">
+                        <?php 
+                        $query = "SELECT * FROM  estados";
+                        $rows = mysqli_query($conn,$query);
+                        while($row = mysqli_fetch_assoc($rows)){
+                        ?>
+                        <option value="<?=$row['id']?>"><?=$row['estado']?></option>
+                        <?php } ?>
+                        </select>
                     </div>
                 </div>
             </div>
